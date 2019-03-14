@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 
-package GreenhouseAPI;
+package org.grp2.gnode.GreenhouseAPI.GreenhouseAPI;
 
-import PLCCommunication.*;
+import org.grp2.gnode.GreenhouseAPI.PLCCommunication.PLCConnection;
+import org.grp2.gnode.GreenhouseAPI.PLCCommunication.UDPConnection;
+
 import java.util.BitSet;
 
 /**
@@ -22,7 +24,7 @@ public class TestGreenhouse
         //PLCConnection con = new SerialConnection("COM4");
         //SerialConnection.getPortList("COM1");
         
-        IGreenhouse api = new Greenhouse(con);
+        GreenhouseAPI.IGreenhouse api = new Greenhouse(con);
         //api.SetRedLight(50);
         //api.SetTemperature(273 + 25);
         //api.SetFanSpeed(1);
