@@ -15,7 +15,7 @@ import java.util.BitSet;
  * API to communicate to the PLC
  * @author Steffen Skov
  */
-public class Greenhouse implements GreenhouseAPI.IGreenhouse, ICommands
+public class Greenhouse implements IGreenhouse, ICommands
 {
     private PLCConnection conn;
     private Message mess;

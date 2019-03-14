@@ -1,4 +1,4 @@
-package GreenhouseAPI;
+package org.grp2.gnode.GreenhouseAPI.GreenhouseAPI;
 
 import java.util.BitSet;
 

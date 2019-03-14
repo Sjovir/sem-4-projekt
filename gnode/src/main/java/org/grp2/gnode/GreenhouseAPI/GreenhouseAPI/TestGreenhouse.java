@@ -6,6 +6,7 @@
 
 package org.grp2.gnode.GreenhouseAPI.GreenhouseAPI;
 
+import org.grp2.gnode.GreenhouseAPI.GreenhouseAPI.Greenhouse;
 import org.grp2.gnode.GreenhouseAPI.PLCCommunication.PLCConnection;
 import org.grp2.gnode.GreenhouseAPI.PLCCommunication.UDPConnection;
 
@@ -24,7 +25,7 @@ public class TestGreenhouse
         //PLCConnection con = new SerialConnection("COM4");
         //SerialConnection.getPortList("COM1");
         
-        GreenhouseAPI.IGreenhouse api = new Greenhouse(con);
+        IGreenhouse api = new Greenhouse(con);
         //api.SetRedLight(50);
         //api.SetTemperature(273 + 25);
         //api.SetFanSpeed(1);
