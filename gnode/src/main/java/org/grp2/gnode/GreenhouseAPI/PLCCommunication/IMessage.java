@@ -6,7 +6,7 @@
 
 package org.grp2.gnode.GreenhouseAPI.PLCCommunication;
 
-import static PLCCommunication.Message.serialNo;
+
 
 /**
  * Protocol structure
