@@ -1,6 +1,5 @@
-package org.grp2.gnode.GreenhouseAPI;
+package org.grp2.gnode.hardware.GreenhouseAPI;
 
-import java.util.BitSet;
 import java.util.EventListener;
 
 /*
@@ -10,12 +9,11 @@ import java.util.EventListener;
  */
 
 /**
- * Not used 
- * Preparation for asynchronous approuch
+ * Not used
+ * PLC callbacks
  * @author Steffen Skov
  */
-public interface AlarmListener extends EventListener
+public interface ICallbacks 
 {
-    void alarmRise(BitSet s);
-    
+    void addAlarmListener(EventListener e);    
 }

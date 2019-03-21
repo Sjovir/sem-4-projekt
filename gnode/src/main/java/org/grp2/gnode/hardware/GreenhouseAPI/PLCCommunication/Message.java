@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.grp2.gnode.GreenhouseAPI.PLCCommunication;
+package org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -145,8 +145,7 @@ public class Message implements IMessage
     {
         if (answer[DIRECTION] == FROMPLC)
             if (answer[COMMAND]== command+64)
-                if (answer[SERIAL_NO] == currentSNo)
-                    return true;
+                return answer[SERIAL_NO] == currentSNo;
         // Check answer 
         return false;
     }

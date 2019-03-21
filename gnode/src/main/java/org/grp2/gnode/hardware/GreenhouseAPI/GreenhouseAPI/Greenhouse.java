@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package org.grp2.gnode.GreenhouseAPI.GreenhouseAPI;
-import org.grp2.gnode.GreenhouseAPI.PLCCommunication.ICommands;
-import org.grp2.gnode.GreenhouseAPI.PLCCommunication.Message;
-import org.grp2.gnode.GreenhouseAPI.PLCCommunication.PLCConnection;
+package org.grp2.gnode.hardware.GreenhouseAPI.GreenhouseAPI;
+import org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication.ICommands;
+import org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication.Message;
+import org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication.PLCConnection;
 
 import java.util.BitSet;
 
@@ -54,8 +54,7 @@ public class Greenhouse implements IGreenhouse, ICommands
             System.out.println("Set temperatur setpoint to " + kelvin);
             mess.setData(kelvin - 273);
             conn.addMessage(mess);
-            if (conn.send())return true;
-            else return false;
+            return conn.send();
         }
         return false;
     }
@@ -73,8 +72,7 @@ public class Greenhouse implements IGreenhouse, ICommands
         {
             mess.setData(moist);
             conn.addMessage(mess);
-            if (conn.send())return true;
-            else return false;
+            return conn.send();
         }
         return false;
     }
@@ -93,8 +91,7 @@ public class Greenhouse implements IGreenhouse, ICommands
         {
             mess.setData(level);
             conn.addMessage(mess);
-            if (conn.send())return true;
-            else return false;
+            return conn.send();
         }
         return false;
     }
@@ -112,8 +109,7 @@ public class Greenhouse implements IGreenhouse, ICommands
         {
             mess.setData(level);
             conn.addMessage(mess);
-            if (conn.send())return true;
-            else return false;
+            return conn.send();
         }
         return false;
     }
@@ -132,8 +128,7 @@ public class Greenhouse implements IGreenhouse, ICommands
             mess = new Message(ADDWATER);        
             mess.setData(sec);
             conn.addMessage(mess);
-            if (conn.send())return true;
-            else return false;
+            return conn.send();
         }
         return false;
     }
@@ -316,8 +311,7 @@ public class Greenhouse implements IGreenhouse, ICommands
                     {
                         int ib = (al[i]>>b)&0x1;
                         Boolean bit;
-                        if (ib == 1) bit = true;
-                        else bit = false;
+                        bit = ib == 1;
                         alarms.set(i*8+b, bit);
                     }
         }
@@ -340,8 +334,7 @@ public class Greenhouse implements IGreenhouse, ICommands
             System.out.println("Reset alarm " + errorNum+1);
             mess.setData(errorNum);
             conn.addMessage(mess);
-            if (conn.send())return true;
-            else return false;
+            return conn.send();
         }
         return false;
     }  
@@ -382,8 +375,7 @@ public class Greenhouse implements IGreenhouse, ICommands
         {
             mess.setData(speed);
             conn.addMessage(mess);
-            if (conn.send())return true;
-            else return false;
+            return conn.send();
         }
         return false;
    

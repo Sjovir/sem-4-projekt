@@ -1,4 +1,4 @@
-package org.grp2.gnode.GreenhouseAPI.RS485Com;
+package org.grp2.gnode.hardware.GreenhouseAPI.RS485Com;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,10 +45,7 @@ class ApplicationServerListener implements Runnable, SerialPortEventListener {
 	}
 
 	public boolean initClient() {
-		if (!initSerialPort())
-			return false;
-		
-		return true;
+		return initSerialPort();
 	}
 	
 	@Override

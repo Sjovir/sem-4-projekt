@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.grp2.gnode.GreenhouseAPI.PLCCommunication;
+package org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

@@ -4,13 +4,10 @@
  * and open the template in the editor.
  */
 
-package org.grp2.gnode.GreenhouseAPI.GreenhouseAPI;
+package org.grp2.gnode.hardware.GreenhouseAPI.GreenhouseAPI;
 
-import org.grp2.gnode.GreenhouseAPI.GreenhouseAPI.Greenhouse;
-import org.grp2.gnode.GreenhouseAPI.PLCCommunication.PLCConnection;
-import org.grp2.gnode.GreenhouseAPI.PLCCommunication.UDPConnection;
-
-import java.util.BitSet;
+import org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication.PLCConnection;
+import org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication.UDPConnection;
 
 /**
  * API tester

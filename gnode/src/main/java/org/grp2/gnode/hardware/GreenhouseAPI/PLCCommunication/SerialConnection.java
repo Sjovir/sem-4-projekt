@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.grp2.gnode.GreenhouseAPI.PLCCommunication;
+package org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication;
 
 import gnu.io.*;
 
@@ -24,8 +24,8 @@ public class SerialConnection extends PLCConnection implements IMessage
     private boolean isInit = false;
     private Message mess = null; 
     private ApplicationServerListener respondListener;
-    public enum State {Idle, Created, Ready, Sending, Clear_Buffer, Receiving};
-    
+    public enum State {Idle, Created, Ready, Sending, Clear_Buffer, Receiving}
+
     static final boolean TEST = true; //Test without PLC
     
     private CommPortIdentifier portId;
@@ -138,9 +138,7 @@ public class SerialConnection extends PLCConnection implements IMessage
     
     private boolean initClient() 
     {
-            if (!initSerialPort())
-                    return false;
-            return true;
+        return initSerialPort();
     }
     
     /**

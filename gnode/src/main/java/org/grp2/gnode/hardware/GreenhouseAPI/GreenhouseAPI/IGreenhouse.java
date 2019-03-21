@@ -1,4 +1,4 @@
-package org.grp2.gnode.GreenhouseAPI.GreenhouseAPI;
+package org.grp2.gnode.hardware.GreenhouseAPI.GreenhouseAPI;
 
 import java.util.BitSet;
 
@@ -16,11 +16,11 @@ import java.util.BitSet;
  */
 public interface IGreenhouse 
 {
-    final byte ON = 1;
-    final byte OFF = 0;
+    byte ON = 1;
+    byte OFF = 0;
     
-    final byte LOW = 1;
-    final byte HIGH = 2;
+    byte LOW = 1;
+    byte HIGH = 2;
     
     /**
      * Setpoint for temperature inside Greenhouse
