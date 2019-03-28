@@ -10,14 +10,6 @@ public class APIHandler {
         this.gnode = gnode;
     }
 
-    public void readValue(Context context) {
-        int type = Integer.parseInt(context.pathParam("type"));
-        int value = gnode.readValue(type);
-
-        context.json(value);
-
-    }
-
     public void writeValue(Context context){
         int type = Integer.parseInt(context.pathParam("type"));
         double value = Double.parseDouble(context.pathParam("value"));

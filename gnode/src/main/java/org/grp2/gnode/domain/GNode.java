@@ -8,12 +8,6 @@ public class GNode {
     public GNode() {
     }
 
-    public int readValue(int id) {
-        //postman test
-        int temp = 99;
-        return temp;
-    }
-
     public void writeValue(int id, double value) {
         regulator.stop();
         //postman test

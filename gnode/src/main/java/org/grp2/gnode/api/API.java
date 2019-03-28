@@ -26,7 +26,6 @@ public class API extends AbstractAPI{
     private void setRoutes(Javalin app, APIHandler handler) {
         app.routes(() -> {
             path("/api", () -> {
-                get("/read-value/:type", handler::readValue);
                 post("/write-value/:type/:value", handler::writeValue);
                 post("/write-gms-collection/:url/:port/:green-house-id", handler::writeGMSCollection);
                 post("/write-humidity-setpoint/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeHumiditySetPoint);
