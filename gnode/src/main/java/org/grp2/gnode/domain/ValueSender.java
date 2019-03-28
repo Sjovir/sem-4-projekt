@@ -6,10 +6,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.grp2.gnode.hardware.Action;
 import org.grp2.gnode.hardware.GreenhouseController;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ValueSender implements Runnable {
@@ -23,14 +20,15 @@ public class ValueSender implements Runnable {
      * Creates a ValueSender with an initial interval to
      * @param interval in miliseconds
      */
-    public ValueSender(long interval,int nodeID, GreenhouseController greenhouseController){
+    public ValueSender(long interval, GreenhouseController greenhouseController){
         this.interval=interval;
-        this.nodeID=nodeID;
+
         this.greenhouseController=greenhouseController;
     }
 
-    public synchronized void setGMSConnection(int gmsPort,String gmsURL){
+    public synchronized void setGMSConnection(int gmsPort,String gmsURL,int nodeID){
         this.gmsURL=gmsURL;
+        this.nodeID=nodeID;
         this.gmsPort=gmsPort;
     }
 
