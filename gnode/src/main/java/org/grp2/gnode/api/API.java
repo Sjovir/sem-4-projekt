@@ -27,7 +27,7 @@ public class API extends AbstractAPI{
         app.routes(() -> {
             path("/api", () -> {
                 post("/write-value/:type/:value", handler::writeValue);
-                post("/write-gms-collection/:url/:port/:green-house-id", handler::writeGMSCollection);
+                post("/write-gms-connection/:url/:port/:green-house-id", handler::writeGMSConnection);
                 post("/write-humidity-setpoint/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeHumiditySetPoint);
                 post("/write-temperature-setpoint/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeTemperatureSetPoint);
                 post("/write-light-setpoint/:blue-value/:red-value/:time", handler::writeLightSetPoint);

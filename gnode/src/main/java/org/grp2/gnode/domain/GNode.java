@@ -14,7 +14,7 @@ public class GNode {
         System.out.println("value: " + value);
     }
 
-    public void setGMSCollection(String gmsURL, int gmsPORT, int greenHouseID) {
+    public void setGMSConnection(String gmsURL, int gmsPORT, int greenHouseID) {
         //postman test
         System.out.println("url: " + gmsURL);
         System.out.println("port: " + gmsPORT);

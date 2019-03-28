@@ -17,11 +17,11 @@ public class APIHandler {
         context.status(200);
     }
 
-    public void writeGMSCollection(Context context) {
+    public void writeGMSConnection(Context context) {
         String url = context.pathParam("url");
         int port = Integer.parseInt(context.pathParam("port"));
         int greenHouseID = Integer.parseInt(context.pathParam("green-house-id"));
-        gnode.setGMSCollection(url, port, greenHouseID);
+        gnode.setGMSConnection(url, port, greenHouseID);
         context.status(200);
     }
 
