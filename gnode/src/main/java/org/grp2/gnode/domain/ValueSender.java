@@ -43,17 +43,30 @@ public class ValueSender implements Runnable {
     /**
      * not finished implementing.
      */
-    private void sendValues() {
-        String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+    private synchronized void sendValues() {
+        String tempgmsURL;
+        int tempgmsPort;
+        int tempnodeID;
+        Double temperature;
+        Double humidity;
+        synchronized (this){
+            tempgmsURL=this.gmsURL;
+            tempgmsPort=this.gmsPort;
+            tempnodeID=this.nodeID;
+        }
 
-        Double temperature = greenhouseController.readValue(Action.READ_TEMPERATURE);
-        Double humidity = greenhouseController.readValue(Action.READ_HUMIDITY);
+        synchronized (greenhouseController) {
+            temperature = greenhouseController.readValue(Action.READ_TEMPERATURE);
+            humidity = greenhouseController.readValue(Action.READ_HUMIDITY);
+        }
+
+        String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
 
         try {
             HttpResponse<JsonNode> response =
-                    Unirest.post(gmsURL+":"+gmsPort+"/api/writeCollectedData")
+                    Unirest.post(tempgmsURL+":"+tempgmsPort+"/api/writeCollectedData")
                     .header("accept","application/json")
-                            .field("greeenhouseID",this.nodeID)
+                            .field("greeenhouseID",tempnodeID)
                             .field("timestamp", timestamp)
                             .field("temperature",temperature.toString())
                             .field("humidity",humidity.toString()).asJson();
