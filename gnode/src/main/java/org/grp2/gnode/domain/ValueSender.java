@@ -43,7 +43,7 @@ public class ValueSender implements Runnable {
     /**
      * not finished implementing.
      */
-    private synchronized void sendValues() {
+    private void sendValues() {
         String tempgmsURL;
         int tempgmsPort;
         int tempnodeID;
