@@ -14,13 +14,13 @@ public class Regulator {
     }
 
     public void start() {
-
+        automationActive = true;
         //postman test
         System.out.print("START WORKS");
     }
 
     public void stop() {
-
+        automationActive = false;
         //postman test
         System.out.println("STOP WORKS");
     }

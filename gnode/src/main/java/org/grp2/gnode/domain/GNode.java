@@ -3,9 +3,10 @@ package org.grp2.gnode.domain;
 import org.grp2.gnode.regulation.Regulator;
 
 public class GNode {
-    Regulator regulator = new Regulator();
+    Regulator regulator;
 
     public GNode() {
+        regulator = new Regulator();
     }
 
     public void writeValue(int id, double value) {
