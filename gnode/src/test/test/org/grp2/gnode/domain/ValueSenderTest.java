@@ -1,5 +1,10 @@
 package org.grp2.gnode.domain;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequestWithBody;
+import org.apache.http.HttpRequest;
 import org.junit.Test;
 
 
@@ -26,9 +31,10 @@ class ValueSenderTest {
 
     }
 
-    @Test
-    void testUnirest(){
-        valueSender = new ValueSender(1, new GreenhouseControllerStub(9000,"127.0.0.1"));
+    @org.junit.jupiter.api.Test
+    void testUnirest() throws InterruptedException, UnirestException {
+        valueSender = new ValueSender(1000, new GreenhouseControllerStub(7000,"localhost"));
+        valueSender.setGMSConnection(7001,"localhost",2);
         Thread t = new Thread(valueSender);
         t.start();
     }

@@ -50,8 +50,8 @@ public class ValueSender implements Runnable {
         int tempnodeID;
         Double temperature;
         Double humidity;
-        Double bluelight;
-        Double redlight;
+        int bluelight;
+        int redlight;
         synchronized (this){
             tempgmsURL=this.gmsURL;
             tempgmsPort=this.gmsPort;
@@ -61,22 +61,26 @@ public class ValueSender implements Runnable {
         synchronized (greenhouseController) {
             temperature = greenhouseController.readValue(Action.READ_TEMPERATURE);
             humidity = greenhouseController.readValue(Action.READ_HUMIDITY);
-            redlight =greenhouseController.readValue(Action.READ_RED_LIGHT);
-            bluelight=greenhouseController.readValue(Action.READ_BLUE_LIGHT);
+            redlight =greenhouseController.readValue(Action.READ_RED_LIGHT).intValue();
+            bluelight=greenhouseController.readValue(Action.READ_BLUE_LIGHT).intValue();
         }
 
-        String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+        StringBuilder request = new StringBuilder();
+        request.append("http://")
+                .append(tempgmsURL)
+                .append(":")
+                .append(tempgmsPort)
+                .append("/api/write-collected-data/")
+                .append(tempnodeID+"/")
+                .append(System.currentTimeMillis()+"/")
+                .append(temperature.toString()+"/")
+                .append(humidity.toString()+"/")
+                .append(redlight+"/")
+                .append(bluelight);
 
         try {
-            HttpResponse<JsonNode> response =
-                    Unirest.post("http://"+tempgmsURL+":"+tempgmsPort+"/api/write-collected-data")
-                    .header("accept","application/json")
-                            .field("greeenhouse-id",tempnodeID)
-                            .field("timestamp", timestamp)
-                            .field("temperature",temperature.toString())
-                            .field("humidity",humidity.toString())
-                            .field("red-light",redlight)
-                            .field("blue-light",bluelight).asJson();
+            Unirest.post(request.toString()).asString();
+
         } catch (UnirestException e) {
             e.printStackTrace();
         }
