@@ -1,18 +1,20 @@
 package org.grp2.gnode.domain;
 
-import org.junit.jupiter.api.BeforeEach;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequestWithBody;
+import org.apache.http.HttpRequest;
+import org.junit.Test;
 
 
 class ValueSenderTest {
     private ValueSender valueSender;
 
-    @BeforeEach
-    void setup(){
-        valueSender = new ValueSender(1, new GreenhouseControllerStub(9000,"127.0.0.1"));
-    }
-
     @org.junit.jupiter.api.Test
     void testDeadlocks() {
+        valueSender = new ValueSender(1, new GreenhouseControllerStub(9000,"127.0.0.1"));
+
         Thread t = new Thread(valueSender);
 
         valueSender.setGMSConnection(9584,"127.0.0.1",1);
@@ -28,5 +30,13 @@ class ValueSenderTest {
             e.printStackTrace();
         }
 
+    }
+
+    @org.junit.jupiter.api.Test
+    void testUnirest() throws InterruptedException, UnirestException {
+        valueSender = new ValueSender(1000, new GreenhouseControllerStub(7000,"localhost"));
+        valueSender.setGMSConnection(7001,"localhost",2);
+        Thread t = new Thread(valueSender);
+        t.start();
     }
 }
