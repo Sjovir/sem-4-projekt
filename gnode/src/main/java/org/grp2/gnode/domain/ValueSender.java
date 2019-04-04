@@ -7,7 +7,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.grp2.gnode.hardware.Action;
 import org.grp2.gnode.hardware.GreenhouseController;
 
+import java.io.IOException;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,10 +30,19 @@ public class ValueSender implements Runnable {
         this.greenhouseController=greenhouseController;
     }
 
-    public synchronized void setGMSConnection(int gmsPort,String gmsURL,int nodeID){
+    public synchronized boolean setGMSConnection(int gmsPort,String gmsURL,int nodeID){
         this.gmsURL=gmsURL;
         this.nodeID=nodeID;
         this.gmsPort=gmsPort;
+        try {
+            InetAddress inet = InetAddress.getByName(gmsURL);
+            if(inet.isReachable(gmsPort))
+                return true;
+            else
+                return false;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     /**

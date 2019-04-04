@@ -14,8 +14,12 @@ public class APIHandler {
         int type = Integer.parseInt(context.pathParam("type"));
         double value = Double.parseDouble(context.pathParam("value"));
 
-        gnode.writeValue(type, value);
-        context.status(200);
+        boolean success = gnode.writeValue(type, value);
+        if(success){
+            context.status(200);
+        }else{
+            context.status(408);
+        }
         context.json("Perform greenhouse action - Action id: " + type + ", Value written: " + value);
     }
 
@@ -24,8 +28,13 @@ public class APIHandler {
         String url = context.pathParam("url");
         int greenhouseID = Integer.parseInt(context.pathParam("green-house-id"));
 
-        gnode.setGMSConnection(port, url, greenhouseID);
-        context.status(200);
+        boolean success =gnode.setGMSConnection(port, url, greenhouseID);
+
+        if(success){
+            context.status(200);
+        }else{
+            context.status(404);
+        }
         context.json("GMS Connection - Port: " + port + ", URL: " + url + ", greenhouseID: " + greenhouseID);
     }
 
