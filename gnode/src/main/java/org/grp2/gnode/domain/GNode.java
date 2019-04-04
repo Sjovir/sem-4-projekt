@@ -11,11 +11,11 @@ public class GNode {
 
     public GNode() {
         greenhouseController = new GreenhouseController(5000, "192.168.0.40");
-        valueSender = new ValueSender(5, greenhouseController);
+        valueSender = new ValueSender(5000, greenhouseController);
         regulator = new Regulator(greenhouseController);
     }
 
-    public void writeValue(int id, double value) {
+    public boolean writeValue(int id, double value) {
         regulator.stop();
 
         Action writeAction = Action.getActionFromID(id);
@@ -24,15 +24,21 @@ public class GNode {
 
         //postman test
         System.out.println("value: " + value + " answer: " + answer);
+        return answer;
     }
 
-    public void setGMSConnection(int gmsPORT, String gmsURL, int greenHouseID) {
-        valueSender.setGMSConnection(gmsPORT, gmsURL, greenHouseID);
+    public boolean setGMSConnection(int gmsPORT, String gmsURL, int greenHouseID) {
+        boolean answer = valueSender.setGMSConnection(gmsPORT, gmsURL, greenHouseID);
 
         //postman test
+
         System.out.println("url: " + gmsURL);
         System.out.println("port: " + gmsPORT);
         System.out.println("ghid: " + greenHouseID);
+
+        Thread senderThread = new Thread(valueSender);
+        senderThread.start();
+        return answer;
     }
 
     public void setHumiditySetPoint(double minValue, double maxValue, double alarmMinValue, double alarmMaxValue) {
