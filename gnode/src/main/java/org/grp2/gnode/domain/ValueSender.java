@@ -50,6 +50,8 @@ public class ValueSender implements Runnable {
         int tempnodeID;
         Double temperature;
         Double humidity;
+        Double bluelight;
+        Double redlight;
         synchronized (this){
             tempgmsURL=this.gmsURL;
             tempgmsPort=this.gmsPort;
@@ -59,6 +61,8 @@ public class ValueSender implements Runnable {
         synchronized (greenhouseController) {
             temperature = greenhouseController.readValue(Action.READ_TEMPERATURE);
             humidity = greenhouseController.readValue(Action.READ_HUMIDITY);
+            redlight =greenhouseController.readValue(Action.READ_RED_LIGHT);
+            bluelight=greenhouseController.readValue(Action.READ_BLUE_LIGHT);
         }
 
         String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
@@ -70,7 +74,9 @@ public class ValueSender implements Runnable {
                             .field("greeenhouse-id",tempnodeID)
                             .field("timestamp", timestamp)
                             .field("temperature",temperature.toString())
-                            .field("humidity",humidity.toString()).asJson();
+                            .field("humidity",humidity.toString())
+                            .field("red-light",redlight)
+                            .field("blue-light",bluelight).asJson();
         } catch (UnirestException e) {
             return;
         }
