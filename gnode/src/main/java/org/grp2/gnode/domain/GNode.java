@@ -1,18 +1,27 @@
 package org.grp2.gnode.domain;
 
+import org.grp2.gnode.hardware.Action;
+import org.grp2.gnode.hardware.GreenhouseController;
 import org.grp2.gnode.regulation.Regulator;
 
 public class GNode {
+    GreenhouseController greenhouseController;
     Regulator regulator;
 
     public GNode() {
+        greenhouseController = new GreenhouseController(5000, "192.168.0.40");
         regulator = new Regulator();
     }
 
     public void writeValue(int id, double value) {
         regulator.stop();
+
+        Action writeAction = Action.getActionFromID(id);
+
+        boolean answer = greenhouseController.writeValue(writeAction, value);
+
         //postman test
-        System.out.println("value: " + value);
+        System.out.println("value: " + value + " answer: " + answer);
     }
 
     public void setGMSConnection(String gmsURL, int gmsPORT, int greenHouseID) {
