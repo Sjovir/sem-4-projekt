@@ -5,6 +5,8 @@ import org.grp2.gnode.hardware.GreenhouseAPI.GreenhouseAPI.IGreenhouse;
 import org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication.PLCConnection;
 import org.grp2.gnode.hardware.GreenhouseAPI.PLCCommunication.UDPConnection;
 
+import java.util.Arrays;
+
 public class GreenhouseController {
 
     private final int port;
@@ -29,6 +31,10 @@ public class GreenhouseController {
                 return greenhouse.ReadTemp1();
             case READ_HUMIDITY:
                 return greenhouse.ReadMoist();
+            case READ_BLUE_LIGHT:
+                System.out.println(greenhouse.GetStatus());
+            case READ_RED_LIGHT:
+                System.out.println(Arrays.toString(greenhouse.GetStatus()));
             default:
                 System.out.println("Not a valid read action");
                 return null;
