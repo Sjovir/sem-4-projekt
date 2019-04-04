@@ -1,9 +1,7 @@
 package org.grp2.gnode.domain;
 
-import org.grp2.gnode.hardware.GreenhouseController;
 import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class ValueSenderTest {
     private ValueSender valueSender;
@@ -22,10 +20,9 @@ class ValueSenderTest {
         t.start();
         long timestart =System.currentTimeMillis();
         try {
-            while((System.currentTimeMillis()-timestart)<1000000000){
+            while((System.currentTimeMillis()-timestart)<10000){
                 valueSender.setGMSConnection(9564,"127.0.0.1",2);
                 valueSender.setInterval(1);
-
             }
         }catch (Exception e){
             e.printStackTrace();
