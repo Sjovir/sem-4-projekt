@@ -1,5 +1,6 @@
 package org.grp2.gnode;
-import org.grp2.gnode.api.*;
+
+import org.grp2.gnode.api.API;
 
 
 public class GNodeServer {

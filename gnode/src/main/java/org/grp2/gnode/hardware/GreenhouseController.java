@@ -29,6 +29,10 @@ public class GreenhouseController {
                 return greenhouse.ReadTemp1();
             case READ_HUMIDITY:
                 return greenhouse.ReadMoist();
+            case READ_BLUE_LIGHT:
+                return (double) greenhouse.GetStatus()[5];
+            case READ_RED_LIGHT:
+                return (double) greenhouse.GetStatus()[4];
             default:
                 System.out.println("Not a valid read action");
                 return null;
