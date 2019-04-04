@@ -14,6 +14,7 @@ class ValueSenderTest {
     @org.junit.jupiter.api.Test
     void testDeadlocks() {
         valueSender = new ValueSender(1, new GreenhouseControllerStub(9000,"127.0.0.1"));
+
         Thread t = new Thread(valueSender);
 
         valueSender.setGMSConnection(9584,"127.0.0.1",1);
