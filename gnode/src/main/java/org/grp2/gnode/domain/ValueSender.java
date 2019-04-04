@@ -78,7 +78,7 @@ public class ValueSender implements Runnable {
                             .field("red-light",redlight)
                             .field("blue-light",bluelight).asJson();
         } catch (UnirestException e) {
-            return;
+            e.printStackTrace();
         }
     }
 

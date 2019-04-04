@@ -1,18 +1,14 @@
 package org.grp2.gnode.domain;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Test;
 
 
 class ValueSenderTest {
     private ValueSender valueSender;
 
-    @BeforeEach
-    void setup(){
-        valueSender = new ValueSender(1, new GreenhouseControllerStub(9000,"127.0.0.1"));
-    }
-
     @org.junit.jupiter.api.Test
     void testDeadlocks() {
+        valueSender = new ValueSender(1, new GreenhouseControllerStub(9000,"127.0.0.1"));
         Thread t = new Thread(valueSender);
 
         valueSender.setGMSConnection(9584,"127.0.0.1",1);
@@ -28,5 +24,12 @@ class ValueSenderTest {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    void testUnirest(){
+        valueSender = new ValueSender(1, new GreenhouseControllerStub(9000,"127.0.0.1"));
+        Thread t = new Thread(valueSender);
+        t.start();
     }
 }
