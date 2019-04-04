@@ -6,11 +6,13 @@ import org.grp2.gnode.regulation.Regulator;
 
 public class GNode {
     GreenhouseController greenhouseController;
+    ValueSender valueSender;
     Regulator regulator;
 
     public GNode() {
         greenhouseController = new GreenhouseController(5000, "192.168.0.40");
-        regulator = new Regulator();
+        valueSender = new ValueSender(5, greenhouseController);
+        regulator = new Regulator(greenhouseController);
     }
 
     public void writeValue(int id, double value) {
@@ -25,6 +27,8 @@ public class GNode {
     }
 
     public void setGMSConnection(int gmsPORT, String gmsURL, int greenHouseID) {
+        valueSender.setGMSConnection(gmsPORT, gmsURL, greenHouseID);
+
         //postman test
         System.out.println("url: " + gmsURL);
         System.out.println("port: " + gmsPORT);

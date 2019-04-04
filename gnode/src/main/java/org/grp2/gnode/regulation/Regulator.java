@@ -1,16 +1,20 @@
 package org.grp2.gnode.regulation;
 
+import org.grp2.gnode.hardware.GreenhouseController;
+
 import java.util.ArrayList;
 
 public class Regulator {
+
+    private GreenhouseController greenhouseController;
 
     private HumiditySetPoint humiditySetPoint;
     private TemperatureSetPoint temperatureSetPoint;
     private ArrayList<LightSetPoint> lightSetPointArray = new ArrayList<>();
     private boolean automationActive;
 
-    public Regulator() {
-
+    public Regulator(GreenhouseController greenhouseController) {
+        this.greenhouseController = greenhouseController;
     }
 
     public void start() {
