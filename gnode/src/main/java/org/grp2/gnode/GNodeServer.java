@@ -6,10 +6,9 @@ public class GNodeServer {
 
     public static void main(String[] args) {
 
-        String URL = "";
         int PORT = 7000;
 
-        API api = new API(URL, PORT);
+        API api = new API(PORT);
         api.start();
     }
 }
