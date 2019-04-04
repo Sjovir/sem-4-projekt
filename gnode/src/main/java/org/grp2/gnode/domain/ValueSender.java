@@ -22,7 +22,6 @@ public class ValueSender implements Runnable {
      */
     public ValueSender(long interval, GreenhouseController greenhouseController){
         this.interval=interval;
-
         this.greenhouseController=greenhouseController;
     }
 
@@ -71,7 +70,7 @@ public class ValueSender implements Runnable {
                             .field("temperature",temperature.toString())
                             .field("humidity",humidity.toString()).asJson();
         } catch (UnirestException e) {
-            e.printStackTrace();
+            System.out.println("Error in rest call.");
         }
     }
 
