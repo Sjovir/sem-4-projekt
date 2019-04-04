@@ -6,6 +6,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.grp2.gnode.hardware.Action;
 import org.grp2.gnode.hardware.GreenhouseController;
+
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -42,7 +44,7 @@ public class ValueSender implements Runnable {
     /**
      * not finished implementing.
      */
-    private void sendValues() {
+    private void sendValues(){
         String tempgmsURL;
         int tempgmsPort;
         int tempnodeID;
@@ -63,14 +65,14 @@ public class ValueSender implements Runnable {
 
         try {
             HttpResponse<JsonNode> response =
-                    Unirest.post(tempgmsURL+":"+tempgmsPort+"/api/writeCollectedData")
+                    Unirest.post("http://"+tempgmsURL+":"+tempgmsPort+"/api/write-collected-data")
                     .header("accept","application/json")
-                            .field("greeenhouseID",tempnodeID)
+                            .field("greeenhouse-id",tempnodeID)
                             .field("timestamp", timestamp)
                             .field("temperature",temperature.toString())
                             .field("humidity",humidity.toString()).asJson();
         } catch (UnirestException e) {
-            System.out.println("Error in rest call.");
+            return;
         }
     }
 
