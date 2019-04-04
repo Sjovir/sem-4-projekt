@@ -25,6 +25,8 @@ public class APIHandler {
         gms.writeCollectedData(collectedData);
 
         context.status(200);
+        context.json("GreenhouesID: " + id + ", Time Stamp: " + timeStamp + ", temperature " + temperature +
+                ", humidity " + humidity + ", Red Light " + redLight + ", Blue Light " + blueLight);
     }
 
     public void getGreenhouseData(Context context) {
