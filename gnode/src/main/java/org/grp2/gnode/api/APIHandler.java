@@ -13,6 +13,7 @@ public class APIHandler {
     public void writeValue(Context context){
         int type = Integer.parseInt(context.pathParam("type"));
         double value = Double.parseDouble(context.pathParam("value"));
+
         gnode.writeValue(type, value);
         context.status(200);
         context.json("Perform greenhouse action - Action id: " + type + ", Value written: " + value);
@@ -22,6 +23,7 @@ public class APIHandler {
         int port = Integer.parseInt(context.pathParam("port"));
         String url = context.pathParam("url");
         int greenhouseID = Integer.parseInt(context.pathParam("green-house-id"));
+
         gnode.setGMSConnection(port, url, greenhouseID);
         context.status(200);
         context.json("GMS Connection - Port: " + port + ", URL: " + url + ", greenhouseID: " + greenhouseID);
@@ -56,7 +58,7 @@ public class APIHandler {
 
         gnode.setLightSetPoint(blueValue, redValue, time);
         context.status(200);
-        context.json("Add light setpoint - blue: " + blueValue + ", red: " + redValue);
+        context.json("Add light setpoint - blue: " + blueValue + ", red: " + redValue + ", time: " + time);
     }
 
     public void startRegulator(Context context) {
