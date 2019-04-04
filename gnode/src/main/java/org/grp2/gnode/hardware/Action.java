@@ -10,12 +10,21 @@ public enum Action {
         this.value = value;
     }
 
-    public Action getActionFromId (int id) {
-        Action[] array = Action.class.getEnumConstants();
-        int actionId = id - 1;
-        if(0 <= actionId && actionId < array.length)
-            return array[actionId];
-        else
-            return null;
+//    public Action getActionFromId (int id) {
+//        Action[] array = Action.class.getEnumConstants();
+//        int actionId = id - 1;
+//        if(0 <= actionId && actionId < array.length)
+//            return array[actionId];
+//        else
+//            return null;
+//    }
+
+    public static Action getActionFromID (int id) {
+
+        for (Action currentAction : Action.values())
+            if (currentAction.value == id)
+                return currentAction;
+
+        return null;
     }
 }
