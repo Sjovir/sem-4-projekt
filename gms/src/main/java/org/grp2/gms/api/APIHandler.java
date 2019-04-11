@@ -1,9 +1,14 @@
 package org.grp2.gms.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Context;
 import org.grp2.gms.common.CollectedData;
 import org.grp2.gms.domain.GMS;
 import org.grp2.gms.domain.Greenhouse;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class APIHandler {
     private GMS gms;
@@ -13,7 +18,7 @@ public class APIHandler {
     }
 
 
-    public void writeCollectedData(Context context){
+    public void writeCollectedData(Context context) throws JsonProcessingException {
         int id = Integer.parseInt(context.pathParam("greenhouse-id"));
         String timeStamp = context.pathParam("timestamp");
         double temperature = Double.parseDouble(context.pathParam("temperature"));
@@ -24,9 +29,18 @@ public class APIHandler {
         CollectedData collectedData = new CollectedData(id, timeStamp, temperature, humidity, redLight, blueLight);
         gms.writeCollectedData(collectedData);
 
+        ObjectMapper mapper = new ObjectMapper();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("greenhouseid",id);
+        map.put("timestamp",timeStamp);
+        map.put("temperature",temperature);
+        map.put("humidity",humidity);
+        map.put("redlight",redLight);
+        map.put("bluelight",blueLight);
+
         context.status(200);
-        context.json("GreenhouesID: " + id + ", Time Stamp: " + timeStamp + ", temperature " + temperature +
-                ", humidity " + humidity + ", Red Light " + redLight + ", Blue Light " + blueLight);
+        context.json(mapper.writeValueAsString(map));
     }
 
     public void getGreenhouseData(Context context) {

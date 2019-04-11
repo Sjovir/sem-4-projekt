@@ -1,6 +1,11 @@
 package org.grp2.gnode.api;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Context;
 import org.grp2.gnode.domain.GNode;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class APIHandler {
@@ -10,7 +15,7 @@ public class APIHandler {
         this.gnode = gnode;
     }
 
-    public void writeValue(Context context){
+    public void writeValue(Context context) throws JsonProcessingException {
         int type = Integer.parseInt(context.pathParam("type"));
         double value = Double.parseDouble(context.pathParam("value"));
 
@@ -20,7 +25,6 @@ public class APIHandler {
         }else{
             context.status(408);
         }
-        context.json("Perform greenhouse action - Action id: " + type + ", Value written: " + value);
     }
 
     public void writeGMSConnection(Context context) {
@@ -35,7 +39,6 @@ public class APIHandler {
         }else{
             context.status(404);
         }
-        context.json("GMS Connection - Port: " + port + ", URL: " + url + ", greenhouseID: " + greenhouseID);
     }
 
     public void writeHumiditySetPoint(Context context) {
@@ -46,7 +49,6 @@ public class APIHandler {
 
         gnode.setHumiditySetPoint(minValue, maxValue, alarmMinValue, alarmMaxValue);
         context.status(200);
-        context.json("Set humidity setpoint - min: " + minValue + ", max: " + maxValue + ", alarm-min: " + alarmMinValue + ", alarm-max: " + alarmMaxValue);
     }
 
     public void writeTemperatureSetPoint(Context context) {
@@ -57,7 +59,6 @@ public class APIHandler {
 
         gnode.setTemperatureSetPoint(minValue, maxValue, alarmMinValue, alarmMaxValue);
         context.status(200);
-        context.json("Set temperature setpoint - min: " + minValue + ", max: " + maxValue + ", alarm-min: " + alarmMinValue + ", alarm-max: " + alarmMaxValue);
     }
 
     public void writeLightSetPoint(Context context) {
@@ -67,12 +68,10 @@ public class APIHandler {
 
         gnode.setLightSetPoint(blueValue, redValue, time);
         context.status(200);
-        context.json("Add light setpoint - blue: " + blueValue + ", red: " + redValue + ", time: " + time);
     }
 
     public void startRegulator(Context context) {
         gnode.startRegulator();
         context.status(200);
-        context.json("Start regulator");
     }
 }
