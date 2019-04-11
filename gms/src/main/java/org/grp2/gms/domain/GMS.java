@@ -1,6 +1,6 @@
 package org.grp2.gms.domain;
 
-import org.grp2.gms.common.CollectedData;
+import org.grp2.gms.common.*;
 import org.grp2.gms.dao.GMSDAO;
 
 import java.util.ArrayList;
@@ -20,9 +20,12 @@ public class GMS {
                 collectedData.getRedLight() + " " + collectedData.getBlueLight());
     }
 
-    public void getGreenhouseData() {
-        //gmsDao.readData();
-
+    public GreenhouseDTO getGreenhouseData(int id) {
+        GreenhouseDTO dto = new GreenhouseDTO("i badet",34823423,"localhost",4,"mitnavn",
+                new LightDTO(342234,45,55),
+                new HumidityDTO(3458345,23.2),
+                new TemperatureDTO(2342342,25.2));
+        return dto;
     }
 
     public void setupGreenhouse(Greenhouse greenhouse) {

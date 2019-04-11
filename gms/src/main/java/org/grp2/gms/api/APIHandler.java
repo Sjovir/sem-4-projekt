@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Context;
 import org.grp2.gms.common.CollectedData;
+import org.grp2.gms.common.GreenhouseDTO;
 import org.grp2.gms.domain.GMS;
 import org.grp2.gms.domain.Greenhouse;
 
@@ -18,7 +19,7 @@ public class APIHandler {
     }
 
 
-    public void writeCollectedData(Context context) throws JsonProcessingException {
+    public void writeCollectedData(Context context) {
         int id = Integer.parseInt(context.pathParam("greenhouse-id"));
         String timeStamp = context.pathParam("timestamp");
         double temperature = Double.parseDouble(context.pathParam("temperature"));
@@ -32,21 +33,35 @@ public class APIHandler {
         ObjectMapper mapper = new ObjectMapper();
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("greenhouseid",id);
-        map.put("timestamp",timeStamp);
-        map.put("temperature",temperature);
-        map.put("humidity",humidity);
-        map.put("redlight",redLight);
-        map.put("bluelight",blueLight);
 
-        context.status(200);
-        context.json(mapper.writeValueAsString(map));
+
+
+        try {
+            context.json(mapper.writeValueAsString(map));
+            context.status(200);
+        } catch (JsonProcessingException e) {
+            context.status(500);
+            e.printStackTrace();
+        }
     }
 
     public void getGreenhouseData(Context context) {
-        gms.getGreenhouseData();
+        int id = Integer.parseInt(context.pathParam("greenhouse-id"));
 
-        context.status(200);
+
+        GreenhouseDTO data = gms.getGreenhouseData(id);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            context.json(mapper.writeValueAsString(data));
+            context.status(200);
+        } catch (JsonProcessingException e) {
+            context.status(500);
+            e.printStackTrace();
+        }
+
     }
 
     public void setupGreenhouse(Context context) {
