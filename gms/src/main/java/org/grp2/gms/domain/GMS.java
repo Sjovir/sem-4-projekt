@@ -11,6 +11,7 @@ public class GMS {
 
     public GMS() {
         gmsDao = new GMSDAO();
+        greenhouseList = new ArrayList<>();
     }
 
     public void writeCollectedData(CollectedData collectedData) {
@@ -18,6 +19,45 @@ public class GMS {
         System.out.println(collectedData.getId() + " " + collectedData.getTimeStamp() + " " +
                 collectedData.getTemperature() + " " + collectedData.getHumidity() + " " +
                 collectedData.getRedLight() + " " + collectedData.getBlueLight());
+    }
+    private Greenhouse getGreenhouse(int id){
+        for (Greenhouse greenhouse: greenhouseList) {
+            if (greenhouse.getId()==id){
+                return greenhouse;
+            }
+
+        }
+        return null;
+    }
+
+    public boolean setHumiditySetPoint(int id, HumiditySetPoint humiditySetPoint){
+        Greenhouse greenhouse = getGreenhouse(id);
+
+        if (greenhouse != null) {
+            greenhouse.setHumiditySetPoint(humiditySetPoint);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean setTemperatureSetPoint(int id, TemperatureSetPoint temperatureSetPoint){
+        Greenhouse greenhouse = getGreenhouse(id);
+
+        if (greenhouse != null) {
+            greenhouse.setTemperatureSetPoint(temperatureSetPoint);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addLightSetPoint(int id, LightSetPoint lightSetPoint){
+        Greenhouse greenhouse = getGreenhouse(id);
+
+        if (greenhouse != null) {
+            greenhouse.addLightSetPoint(lightSetPoint);
+            return true;
+        }
+        return false;
     }
 
     public GreenhouseDTO getGreenhouseData(int id) {
@@ -28,10 +68,16 @@ public class GMS {
         return dto;
     }
 
-    public void setupGreenhouse(Greenhouse greenhouse) {
+    public boolean setupGreenhouse(Greenhouse greenhouse) {
         //gmsDao.setupGreenhouse();
-        System.out.println("GreenhouseID: " + greenhouse.getId() + " \n IP: " + greenhouse.getIpAddress() +
-                " \nname: " + greenhouse.getName() +  " \nlocation: " + greenhouse.getLocation());
+        greenhouseList.add(greenhouse);
+
+        if (greenhouseList.contains(greenhouse)) {
+            System.out.println("GreenhouseID: " + greenhouse.getId() + " \n IP: " + greenhouse.getIpAddress() +
+                    " \nname: " + greenhouse.getName() +  " \nlocation: " + greenhouse.getLocation());
+            return true;
+        }
+        return false;
     }
 
 }
