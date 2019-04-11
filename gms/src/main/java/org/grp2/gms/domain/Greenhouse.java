@@ -9,6 +9,9 @@ public class Greenhouse {
     private int port;
     private String name;
     private String location;
+    private HumiditySetPoint humiditySetPoint;
+    private TemperatureSetPoint temperatureSetPoint;
+    private LightSetPoint lightSetPoint;
 
 
     public Greenhouse(int id, String ipAddress, int port, String name, String location) {
@@ -60,18 +63,21 @@ public class Greenhouse {
     }
 
     public void setHumiditySetPoint(HumiditySetPoint humiditySetPoint){
+        this.humiditySetPoint = humiditySetPoint;
         String routeUrl = "write-humidity-setpoint/" + humiditySetPoint.getMinValue() + "/" + humiditySetPoint.getMaxValue() + "/"
                 + humiditySetPoint.getAlarmMinValue() + "/" + humiditySetPoint.getAlarmMaxValue();
         writeToGnode(routeUrl);
     }
 
     public void setTemperatureSetPoint(TemperatureSetPoint temperatureSetPoint){
+        this.temperatureSetPoint = temperatureSetPoint;
         String routeUrl = "write-temperature-setpoint/" + temperatureSetPoint.getMinValue() + "/" + temperatureSetPoint.getMaxValue() + "/"
                 + temperatureSetPoint.getAlarmMinValue() + "/" + temperatureSetPoint.getAlarmMaxValue();
         writeToGnode(routeUrl);
     }
 
     public void addLightSetPoint(LightSetPoint lightSetPoint){
+        this.lightSetPoint = lightSetPoint;
         String routeUrl = "write-light-setpoint/" + lightSetPoint.getBlueValue() + "/" + lightSetPoint.getRedValue() + "/"
                 + lightSetPoint.getTime();
         boolean temp = writeToGnode(routeUrl);
