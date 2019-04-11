@@ -28,14 +28,14 @@ public class API extends AbstractAPI {
                 //raspberry pi calls
                 post("/write-value/:type/:value", handler::writeValue);
                 post("/write-gms-connection/:port/:url/:green-house-id", handler::writeGMSConnection);
-                post("/write-humidity-setpoint/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeHumiditySetPoint);
-                post("/write-temperature-setpoint/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeTemperatureSetPoint);
-                post("/write-light-setpoint/:blue-value/:red-value/:time", handler::writeLightSetPoint);
+                post("/write-humidity-setpoint/:greenhouse-id/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeHumiditySetPoint);
+                post("/write-temperature-setpoint/:greenhouse-id/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeTemperatureSetPoint);
+                post("/write-light-setpoint/:greenhouse-id/:blue-value/:red-value/:time", handler::writeLightSetPoint);
                 post("/start-regulator/", handler::startRegulator);
 
                 //gms calls
                 post("/write-collected-data/:greenhouse-id/:timestamp/:temperature/:humidity/:red-light/:blue-light", handler::writeCollectedData);
-                post("setup-greenhouse/:greenhouse-id/:ip-address/:name/:location", handler::setupGreenhouse);
+                post("setup-greenhouse/:greenhouse-id/:ip-address/:port/:name/:location", handler::setupGreenhouse);
                 get("/get-greenhouse-data/:greenhouse-id", handler::getGreenhouseData);
             });
         });
