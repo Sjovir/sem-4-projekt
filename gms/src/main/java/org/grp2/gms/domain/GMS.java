@@ -1,16 +1,16 @@
 package org.grp2.gms.domain;
 
 import org.grp2.gms.common.CollectedData;
-import org.grp2.gms.dao.GMSDAO;
+import org.grp2.gms.dao.DAO;
 
 import java.util.ArrayList;
 
 public class GMS {
-    private GMSDAO gmsDao;
+    private DAO gmsDao;
     private ArrayList<Greenhouse> greenhouseList;
 
     public GMS() {
-        gmsDao = new GMSDAO();
+        gmsDao = new DAO();
     }
 
     public void writeCollectedData(CollectedData collectedData) {
