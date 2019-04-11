@@ -61,12 +61,14 @@ public class APIHandler {
     }
 
     public void writeLightSetPoint(Context context) {
+        System.out.println("it worked tho");
         double blueValue = Double.parseDouble(context.pathParam("blue-value"));
         double redValue = Double.parseDouble(context.pathParam("red-value"));
         String time = context.pathParam("time");
 
         gnode.setLightSetPoint(blueValue, redValue, time);
         context.status(200);
+
         context.json("Add light setpoint - blue: " + blueValue + ", red: " + redValue + ", time: " + time);
     }
 
