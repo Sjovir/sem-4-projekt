@@ -34,7 +34,12 @@ public class APIHandler {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
-
+        map.put("greenhouseid",id);
+        map.put("timestamp",timeStamp);
+        map.put("temperature",temperature);
+        map.put("humidity",humidity);
+        map.put("redlight",redLight);
+        map.put("bluelight",blueLight);
 
         try {
             context.json(mapper.writeValueAsString(map));
@@ -53,7 +58,6 @@ public class APIHandler {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        Map<String, Object> map = new HashMap<String, Object>();
         try {
             context.json(mapper.writeValueAsString(data));
             context.status(200);
