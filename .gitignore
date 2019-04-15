@@ -186,4 +186,4 @@ testem.log
 Thumbs.db
 
 # remove VS 
-.vs/* 
+.vs/
