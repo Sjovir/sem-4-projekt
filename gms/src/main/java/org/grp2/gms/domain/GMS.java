@@ -19,15 +19,6 @@ public class GMS {
         //write to gmsdao
         return false;
     }
-    private Greenhouse getGreenhouse(int id){
-        for (Greenhouse greenhouse: greenhouseList) {
-            if (greenhouse.getId()==id){
-                return greenhouse;
-            }
-
-        }
-        return null;
-    }
 
     public boolean setHumiditySetPoint(int id, HumiditySetPoint humiditySetPoint){
         Greenhouse greenhouse = getGreenhouse(id);
@@ -90,6 +81,15 @@ public class GMS {
 
     public boolean startRegulator(int id){
         return getGreenhouse(id).startRegulator();
+    }
+    private Greenhouse getGreenhouse(int id){
+        for (Greenhouse greenhouse: greenhouseList) {
+            if (greenhouse.getId()==id){
+                return greenhouse;
+            }
+
+        }
+        return null;
     }
 
 }
