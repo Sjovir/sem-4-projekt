@@ -31,7 +31,7 @@ public class API extends AbstractAPI{
                 post("/write-humidity-setpoint/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeHumiditySetPoint);
                 post("/write-temperature-setpoint/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeTemperatureSetPoint);
                 post("/write-light-setpoint/:blue-value/:red-value/:time", handler::writeLightSetPoint);
-                post("/start-regulator/", handler::startRegulator);
+                post("/start-regulator", handler::startRegulator);
             });
         });
     }
