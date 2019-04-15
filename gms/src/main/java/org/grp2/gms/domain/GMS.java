@@ -19,6 +19,7 @@ public class GMS {
         System.out.println(collectedData.getId() + " " + collectedData.getTimeStamp() + " " +
                 collectedData.getTemperature() + " " + collectedData.getHumidity() + " " +
                 collectedData.getRedLight() + " " + collectedData.getBlueLight());
+        //write to gmsdao
     }
     private Greenhouse getGreenhouse(int id){
         for (Greenhouse greenhouse: greenhouseList) {
@@ -74,10 +75,23 @@ public class GMS {
 
         if (greenhouseList.contains(greenhouse)) {
             System.out.println("GreenhouseID: " + greenhouse.getId() + " \n IP: " + greenhouse.getIpAddress() +
-                    " \nname: " + greenhouse.getName() +  " \nlocation: " + greenhouse.getLocation());
+                    " \nname: " + greenhouse.getName() + " \nlocation: " + greenhouse.getLocation());
             return true;
         }
         return false;
+    }
+
+    public boolean setGMSConnectionOnGreenhouse(int greenhouseid, int port, String ipAddress){
+        Greenhouse greenhouse=getGreenhouse(greenhouseid);
+        if(greenhouse==null){
+            System.err.println("Greenhouse "+greenhouseid+" does not exist");
+            return false;
+        }
+        return greenhouse.setCallbackConnection(port,ipAddress);
+    }
+
+    public boolean startRegulator(int id){
+        return getGreenhouse(id).startRegulator();
     }
 
 }

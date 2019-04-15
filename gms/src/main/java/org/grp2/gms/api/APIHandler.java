@@ -88,6 +88,15 @@ public class APIHandler {
     }
 
     public void writeGMSConnection(Context context) {
+        int id = Integer.parseInt(context.pathParam("green-house-id"));
+        String ipAddress = context.pathParam("ip-address");
+        int port = Integer.parseInt(context.pathParam("port"));
+
+        if(gms.setGMSConnectionOnGreenhouse(id,port,ipAddress)){
+            context.status(200);
+        }else{
+            context.status(500);
+        }
 
     }
 
@@ -139,6 +148,12 @@ public class APIHandler {
     }
 
     public void startRegulator(Context context) {
+        int id = Integer.parseInt(context.pathParam("greenhouse-id"));
+        if(gms.startRegulator(id)){
+            context.status(200);
+        }else{
+            context.status(500);
+        }
 
     }
 

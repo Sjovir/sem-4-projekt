@@ -31,7 +31,7 @@ public class API extends AbstractAPI {
                 post("/write-humidity-setpoint/:greenhouse-id/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeHumiditySetPoint);
                 post("/write-temperature-setpoint/:greenhouse-id/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeTemperatureSetPoint);
                 post("/write-light-setpoint/:greenhouse-id/:blue-value/:red-value/:time", handler::writeLightSetPoint);
-                post("/start-regulator/", handler::startRegulator);
+                post("/start-regulator/:greenhouse-id", handler::startRegulator);
 
                 //gms calls
                 post("/write-collected-data/:greenhouse-id/:timestamp/:temperature/:humidity/:red-light/:blue-light", handler::writeCollectedData);
