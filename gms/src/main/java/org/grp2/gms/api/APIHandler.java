@@ -3,9 +3,8 @@ package org.grp2.gms.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Context;
-import org.grp2.gms.common.CollectedData;
+import org.grp2.gms.common.*;
 import org.grp2.gms.domain.*;
-import org.grp2.gms.common.GreenhouseDTO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,32 +19,23 @@ public class APIHandler {
 
     public void writeCollectedData(Context context) {
         int id = Integer.parseInt(context.pathParam("greenhouse-id"));
-        String timeStamp = context.pathParam("timestamp");
+        long timeStamp = Long.parseLong(context.pathParam("timestamp"));
         double temperature = Double.parseDouble(context.pathParam("temperature"));
         double humidity = Double.parseDouble(context.pathParam("humidity"));
         int redLight = Integer.parseInt(context.pathParam("red-light"));
         int blueLight = Integer.parseInt(context.pathParam("blue-light"));
 
-        CollectedData collectedData = new CollectedData(id, timeStamp, temperature, humidity, redLight, blueLight);
-        gms.writeCollectedData(collectedData);
+        LightDTO lightDTO = new LightDTO(timeStamp,redLight,blueLight);
+        HumidityDTO humidityDTO = new HumidityDTO(timeStamp,humidity);
+        TemperatureDTO temperatureDTO = new TemperatureDTO(timeStamp,temperature);
 
-        ObjectMapper mapper = new ObjectMapper();
 
-        Map<String, Object> map = new HashMap<String, Object>();
 
-        map.put("greenhouseid",id);
-        map.put("timestamp",timeStamp);
-        map.put("temperature",temperature);
-        map.put("humidity",humidity);
-        map.put("redlight",redLight);
-        map.put("bluelight",blueLight);
 
-        try {
-            context.json(mapper.writeValueAsString(map));
+        if(gms.writeCollectedData(lightDTO,humidityDTO,temperatureDTO)) {
             context.status(200);
-        } catch (JsonProcessingException e) {
+        }else{
             context.status(500);
-            e.printStackTrace();
         }
     }
 

@@ -14,12 +14,10 @@ public class GMS {
         greenhouseList = new ArrayList<>();
     }
 
-    public void writeCollectedData(CollectedData collectedData) {
+    public boolean writeCollectedData(LightDTO light, HumidityDTO humid, TemperatureDTO temp) {
         //gmsDao.writeData();
-        System.out.println(collectedData.getId() + " " + collectedData.getTimeStamp() + " " +
-                collectedData.getTemperature() + " " + collectedData.getHumidity() + " " +
-                collectedData.getRedLight() + " " + collectedData.getBlueLight());
         //write to gmsdao
+        return false;
     }
     private Greenhouse getGreenhouse(int id){
         for (Greenhouse greenhouse: greenhouseList) {
