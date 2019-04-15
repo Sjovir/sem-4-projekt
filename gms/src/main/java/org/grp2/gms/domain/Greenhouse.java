@@ -1,5 +1,6 @@
 package org.grp2.gms.domain;
 
+import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.*;
 
@@ -62,36 +63,49 @@ public class Greenhouse {
         this.location = location;
     }
 
-    public void setHumiditySetPoint(HumiditySetPoint humiditySetPoint){
+    public boolean setHumiditySetPoint(HumiditySetPoint humiditySetPoint){
         this.humiditySetPoint = humiditySetPoint;
         String routeUrl = "write-humidity-setpoint/" + humiditySetPoint.getMinValue() + "/" + humiditySetPoint.getMaxValue() + "/"
                 + humiditySetPoint.getAlarmMinValue() + "/" + humiditySetPoint.getAlarmMaxValue();
-        writeToGnode(routeUrl);
+        return writeToGnode(routeUrl);
     }
 
-    public void setTemperatureSetPoint(TemperatureSetPoint temperatureSetPoint){
+    public boolean setTemperatureSetPoint(TemperatureSetPoint temperatureSetPoint){
         this.temperatureSetPoint = temperatureSetPoint;
         String routeUrl = "write-temperature-setpoint/" + temperatureSetPoint.getMinValue() + "/" + temperatureSetPoint.getMaxValue() + "/"
                 + temperatureSetPoint.getAlarmMinValue() + "/" + temperatureSetPoint.getAlarmMaxValue();
-        writeToGnode(routeUrl);
+        return writeToGnode(routeUrl);
     }
 
-    public void addLightSetPoint(LightSetPoint lightSetPoint){
+    public boolean addLightSetPoint(LightSetPoint lightSetPoint){
         this.lightSetPoint = lightSetPoint;
         String routeUrl = "write-light-setpoint/" + lightSetPoint.getBlueValue() + "/" + lightSetPoint.getRedValue() + "/"
                 + lightSetPoint.getTime();
-        boolean temp = writeToGnode(routeUrl);
+        return writeToGnode(routeUrl);
 
     }
 
-    public boolean writeToGnode(String routeUrl) {
+    public boolean setCallbackConnection(int port, String ipAddress){
+        String routeUrl = "write-gms-connection/"+port+"/"+ipAddress+"/"+this.id;
+        return writeToGnode(routeUrl);
+    }
+
+    public boolean startRegulator(){
+        return writeToGnode("start-regulator");
+    }
+
+    private boolean writeToGnode(String routeUrl) {
         String ipAddress = this.getIpAddress();
         int port = this.getPort();
         String url = "http://" + ipAddress + ":" + port + "/api/" + routeUrl;
 
         try {
-            Unirest.post(url).asString();
-            return true;
+            HttpResponse res = Unirest.post(url).asString();
+
+            if(res.getStatus()==200){
+                return true;
+            }
+            return false;
         } catch (UnirestException ex) {
             ex.getMessage();
             return false;

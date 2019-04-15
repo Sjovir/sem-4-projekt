@@ -14,20 +14,10 @@ public class GMS {
         greenhouseList = new ArrayList<>();
     }
 
-    public void writeCollectedData(CollectedData collectedData) {
+    public boolean writeCollectedData(LightDTO light, HumidityDTO humid, TemperatureDTO temp) {
         //gmsDao.writeData();
-        System.out.println(collectedData.getId() + " " + collectedData.getTimeStamp() + " " +
-                collectedData.getTemperature() + " " + collectedData.getHumidity() + " " +
-                collectedData.getRedLight() + " " + collectedData.getBlueLight());
-    }
-    private Greenhouse getGreenhouse(int id){
-        for (Greenhouse greenhouse: greenhouseList) {
-            if (greenhouse.getId()==id){
-                return greenhouse;
-            }
-
-        }
-        return null;
+        //write to gmsdao
+        return false;
     }
 
     public boolean setHumiditySetPoint(int id, HumiditySetPoint humiditySetPoint){
@@ -74,10 +64,32 @@ public class GMS {
 
         if (greenhouseList.contains(greenhouse)) {
             System.out.println("GreenhouseID: " + greenhouse.getId() + " \n IP: " + greenhouse.getIpAddress() +
-                    " \nname: " + greenhouse.getName() +  " \nlocation: " + greenhouse.getLocation());
+                    " \nname: " + greenhouse.getName() + " \nlocation: " + greenhouse.getLocation());
             return true;
         }
         return false;
+    }
+
+    public boolean setGMSConnectionOnGreenhouse(int greenhouseid, int port, String ipAddress){
+        Greenhouse greenhouse=getGreenhouse(greenhouseid);
+        if(greenhouse==null){
+            System.err.println("Greenhouse "+greenhouseid+" does not exist");
+            return false;
+        }
+        return greenhouse.setCallbackConnection(port,ipAddress);
+    }
+
+    public boolean startRegulator(int id){
+        return getGreenhouse(id).startRegulator();
+    }
+    private Greenhouse getGreenhouse(int id){
+        for (Greenhouse greenhouse: greenhouseList) {
+            if (greenhouse.getId()==id){
+                return greenhouse;
+            }
+
+        }
+        return null;
     }
 
 }
