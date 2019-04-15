@@ -1,7 +1,7 @@
 package org.grp2.gms.common;
 
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GreenhouseDTO {
@@ -10,23 +10,28 @@ public class GreenhouseDTO {
     private String ipAddress;
     private int id;
     private String name;
-    private LightDTO light;
-    private HumidityDTO humidity;
-    private TemperatureDTO temperature;
+    private List<LightDTO> lightData;
+    private List<HumidityDTO> humidityData;
+    private List<TemperatureDTO> temperatureData;
 
-    public GreenhouseDTO(String location, long dateCreated, String ipAddress, int id, String name, LightDTO light, HumidityDTO humidity, TemperatureDTO temperature){
+    public GreenhouseDTO(String location, long dateCreated, String ipAddress, int id, String name, List<LightDTO> lightData, List<HumidityDTO> humidityData, List<TemperatureDTO> temperatureData){
         this.location=location;
         this.dateCreated=dateCreated;
         this.ipAddress=ipAddress;
         this.id=id;
         this.name=name;
-        this.light=light;
-        this.humidity=humidity;
-        this.temperature=temperature;
+        this.lightData=lightData;
+        this.humidityData=humidityData;
+        this.temperatureData=temperatureData;
     }
 
-
-
+    public GreenhouseDTO(String ipAddress, String location, String name, Long dateCreated, int greenhouseID) {
+        this.ipAddress = ipAddress;
+        this.location = location;
+        this.name = name;
+        this.dateCreated = dateCreated;
+        this.id = greenhouseID;
+    }
 
     /**
      * Returns all the values as a HashMap
@@ -76,27 +81,27 @@ public class GreenhouseDTO {
         this.name = name;
     }
 
-    public LightDTO getLight() {
-        return light;
+    public List<LightDTO> getLight() {
+        return lightData;
     }
 
-    public void setLight(LightDTO light) {
-        this.light = light;
+    public void setLight(List<LightDTO> lightData) {
+        this.lightData = lightData;
     }
 
-    public HumidityDTO getHumidity() {
-        return humidity;
+    public List<HumidityDTO> getHumidity() {
+        return humidityData;
     }
 
-    public void setHumidity(HumidityDTO humidity) {
-        this.humidity = humidity;
+    public void setHumidity(List<HumidityDTO> humidityData) {
+        this.humidityData = humidityData;
     }
 
-    public TemperatureDTO getTemperature() {
-        return temperature;
+    public List<TemperatureDTO> getTemperature() {
+        return temperatureData;
     }
 
-    public void setTemperature(TemperatureDTO temperature) {
-        this.temperature = temperature;
+    public void setTemperature(List<TemperatureDTO> temperatureData) {
+        this.temperatureData = temperatureData;
     }
 }
