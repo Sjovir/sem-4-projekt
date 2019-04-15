@@ -1,19 +1,19 @@
 package org.grp2.gms.common;
 
 public class TemperatureDTO {
-    private long time_collected;
+    private long timeCollected;
     private double value;
-    public TemperatureDTO(long time_collected,double value){
-        this.time_collected=time_collected;
+    public TemperatureDTO(long timeCollected,double value){
+        this.timeCollected=timeCollected;
         this.value=value;
     }
 
-    public long getTime_collected() {
-        return time_collected;
+    public long getTimeCollected() {
+        return timeCollected;
     }
 
-    public void setTime_collected(long time_collected) {
-        this.time_collected = time_collected;
+    public void setTimeCollected(long timeCollected) {
+        this.timeCollected = timeCollected;
     }
 
     public double getValue() {
