@@ -29,10 +29,7 @@ public class APIHandler {
         HumidityDTO humidityDTO = new HumidityDTO(timeStamp,humidity);
         TemperatureDTO temperatureDTO = new TemperatureDTO(timeStamp,temperature);
 
-
-
-
-        if(gms.writeCollectedData(lightDTO,humidityDTO,temperatureDTO)) {
+        if(gms.writeCollectedData(id, lightDTO,humidityDTO,temperatureDTO)) {
             context.status(200);
         }else{
             context.status(500);
@@ -41,7 +38,6 @@ public class APIHandler {
 
     public void getGreenhouseData(Context context) {
         int id = Integer.parseInt(context.pathParam("greenhouse-id"));
-
 
         GreenhouseDTO data = gms.getGreenhouseData(id);
 
