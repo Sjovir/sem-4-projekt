@@ -1,14 +1,7 @@
 package org.grp2.gms.dao;
 
-import javafx.scene.effect.Light;
 import org.grp2.gms.common.*;
-import org.grp2.gms.domain.Greenhouse;
-import org.grp2.gms.domain.HumiditySetPoint;
-import org.grp2.gms.domain.LightSetPoint;
-import org.grp2.gms.domain.TemperatureSetPoint;
 
-import javax.swing.text.html.HTMLDocument;
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

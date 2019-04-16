@@ -2,7 +2,7 @@ package org.grp2.gms.domain;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.*;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.grp2.gms.common.HumiditySetpointDTO;
 import org.grp2.gms.common.LightSetpointDTO;
 import org.grp2.gms.common.TemperatureSetpointDTO;

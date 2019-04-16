@@ -1,8 +1,9 @@
 package org.grp2.gms.api;
 
 import io.javalin.Javalin;
-import static io.javalin.apibuilder.ApiBuilder.*;
 import org.grp2.gms.domain.GMS;
+
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class API extends AbstractAPI {
 

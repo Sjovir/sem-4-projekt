@@ -4,10 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Context;
 import org.grp2.gms.common.*;
-import org.grp2.gms.domain.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.grp2.gms.domain.GMS;
+import org.grp2.gms.domain.Greenhouse;
 
 public class APIHandler {
     private GMS gms;
