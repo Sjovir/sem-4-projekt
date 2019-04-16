@@ -13,10 +13,10 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <dependencies>
-        </dependency>
+        <dependency>
             <version>42.2.5</version>
             <artifactId>postgresql</artifactId>
             <groupId>org.postgresql</groupId>
-        <dependency>
+        </dependency>
     </dependencies>
 </project>

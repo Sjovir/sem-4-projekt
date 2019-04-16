@@ -14,10 +14,11 @@ public class GMS {
         greenhouseList = new ArrayList<>();
     }
 
-    public boolean writeCollectedData(LightDTO light, HumidityDTO humid, TemperatureDTO temp) {
-        //gmsDao.writeData();
-        //write to gmsdao
-        return false;
+    public boolean writeCollectedData(int greenhouseID, LightDTO lightData, HumidityDTO humidityData,
+                                      TemperatureDTO temperatureData) {
+        boolean result = gmsDao.writeCollectedData(greenhouseID, lightData, humidityData, temperatureData);
+
+        return result;
     }
 
     public boolean setHumiditySetPoint(int id, HumiditySetPoint humiditySetPoint){
@@ -51,11 +52,9 @@ public class GMS {
     }
 
     public GreenhouseDTO getGreenhouseData(int id) {
-        GreenhouseDTO dto = new GreenhouseDTO("i badet",34823423,"localhost",4,"mitnavn",
-                new LightDTO(342234,45,55),
-                new HumidityDTO(3458345,23.2),
-                new TemperatureDTO(2342342,25.2));
-        return dto;
+        GreenhouseDTO greenhouseDTO = gmsDao.getGreenhouseData(id);
+
+        return greenhouseDTO;
     }
 
     public boolean setupGreenhouse(Greenhouse greenhouse) {
