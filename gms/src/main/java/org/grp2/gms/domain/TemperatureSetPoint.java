@@ -2,14 +2,12 @@ package org.grp2.gms.domain;
 
 public class TemperatureSetPoint {
 
-    int id;
     double minValue;
     double maxValue;
     double alarmMinValue;
     double alarmMaxValue;
 
-    public TemperatureSetPoint(int id, double minValue, double maxValue, double alarmMinValue, double alarmMaxValue){
-        this.id = id;
+    public TemperatureSetPoint(double minValue, double maxValue, double alarmMinValue, double alarmMaxValue){
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.alarmMinValue = alarmMinValue;

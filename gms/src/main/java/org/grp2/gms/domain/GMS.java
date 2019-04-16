@@ -24,8 +24,9 @@ public class GMS {
     public boolean setHumiditySetPoint(int id, HumiditySetPoint humiditySetPoint){
         Greenhouse greenhouse = getGreenhouse(id);
 
-        if (greenhouse != null) {
+        if (greenhouse != null && gmsDao.writeHumiditySetpoint(id, humiditySetPoint)) {
             greenhouse.setHumiditySetPoint(humiditySetPoint);
+
             return true;
         }
         return false;
@@ -34,8 +35,9 @@ public class GMS {
     public boolean setTemperatureSetPoint(int id, TemperatureSetPoint temperatureSetPoint){
         Greenhouse greenhouse = getGreenhouse(id);
 
-        if (greenhouse != null) {
+        if (greenhouse != null && gmsDao.writeTemperatureSetpoint(id, temperatureSetPoint)) {
             greenhouse.setTemperatureSetPoint(temperatureSetPoint);
+
             return true;
         }
         return false;
@@ -44,8 +46,9 @@ public class GMS {
     public boolean addLightSetPoint(int id, LightSetPoint lightSetPoint){
         Greenhouse greenhouse = getGreenhouse(id);
 
-        if (greenhouse != null) {
+        if (greenhouse != null && gmsDao.writeLightSetpoint(id, lightSetPoint)) {
             greenhouse.addLightSetPoint(lightSetPoint);
+
             return true;
         }
         return false;
@@ -81,6 +84,7 @@ public class GMS {
     public boolean startRegulator(int id){
         return getGreenhouse(id).startRegulator();
     }
+
     private Greenhouse getGreenhouse(int id){
         for (Greenhouse greenhouse: greenhouseList) {
             if (greenhouse.getId()==id){
