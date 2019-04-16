@@ -96,7 +96,7 @@ public class APIHandler {
 
         HumiditySetpointDTO humiditySetPointDTO = new HumiditySetpointDTO(dateCreated, id, minValue, maxValue, alarmMinValue, alarmMaxValue);
         boolean success = gms.setHumiditySetPoint(id, humiditySetPointDTO);
-        System.out.println(success);
+
         if (success) {
             context.status(200);
         } else {
