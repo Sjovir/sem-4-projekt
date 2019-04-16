@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-regulator',
   templateUrl: './regulator.component.html',
-  styleUrls: ['./regulator.component.scss']
+  styleUrls: ['./regulator.component.css']
 })
 export class RegulatorComponent implements OnInit {
 
