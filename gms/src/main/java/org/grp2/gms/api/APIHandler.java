@@ -93,8 +93,9 @@ public class APIHandler {
         double alarmMinValue = Double.parseDouble(context.pathParam("alarm-min-value"));
         double alarmMaxValue = Double.parseDouble(context.pathParam("alarm-max-value"));
 
-        HumiditySetPoint humiditySetPoint = new HumiditySetPoint(id, minValue, maxValue, alarmMinValue, alarmMaxValue);
+        HumiditySetPoint humiditySetPoint = new HumiditySetPoint(minValue, maxValue, alarmMinValue, alarmMaxValue);
         boolean success = gms.setHumiditySetPoint(id, humiditySetPoint);
+        System.out.println(success);
         if (success) {
             context.status(200);
         } else {
@@ -109,7 +110,7 @@ public class APIHandler {
         double alarmMinValue = Double.parseDouble(context.pathParam("alarm-min-value"));
         double alarmMaxValue = Double.parseDouble(context.pathParam("alarm-max-value"));
 
-        TemperatureSetPoint temperatureSetPoint = new TemperatureSetPoint(id, minValue, maxValue, alarmMinValue, alarmMaxValue);
+        TemperatureSetPoint temperatureSetPoint = new TemperatureSetPoint(minValue, maxValue, alarmMinValue, alarmMaxValue);
         boolean success = gms.setTemperatureSetPoint(id, temperatureSetPoint);
         if (success) {
             context.status(200);
@@ -120,11 +121,11 @@ public class APIHandler {
 
     public void writeLightSetPoint(Context context) {
         int id = Integer.parseInt(context.pathParam("greenhouse-id"));
-        double blueValue = Double.parseDouble(context.pathParam("blue-value"));
-        double redValue = Double.parseDouble(context.pathParam("red-value"));
+        int blueValue = Integer.parseInt(context.pathParam("blue-value"));
+        int redValue = Integer.parseInt(context.pathParam("red-value"));
         String time = context.pathParam("time");
 
-        LightSetPoint lightSetPoint = new LightSetPoint(id, blueValue, redValue, time);
+        LightSetPoint lightSetPoint = new LightSetPoint(blueValue, redValue, time);
         boolean success = gms.addLightSetPoint(id, lightSetPoint);
         if (success) {
             context.status(200);

@@ -3,32 +3,30 @@ package org.grp2.gms.domain;
 
 public class LightSetPoint {
 
-    int id;
-    double blueValue;
-    double redValue;
+    int blueValue;
+    int redValue;
     String time;
 
-    public LightSetPoint(int id, double blueValue, double redValue, String time){
-        this.id = id;
+    public LightSetPoint(int blueValue, int redValue, String time){
         this.blueValue = blueValue;
         this.redValue = redValue;
         this.time = time;
     }
 
 
-    public double getBlueValue() {
+    public int getBlueValue() {
         return blueValue;
     }
 
-    public void setBlueValue(double blueValue) {
+    public void setBlueValue(int blueValue) {
         this.blueValue = blueValue;
     }
 
-    public double getRedValue() {
+    public int getRedValue() {
         return redValue;
     }
 
-    public void setRedValue(double redValue) {
+    public void setRedValue(int redValue) {
         this.redValue = redValue;
     }
 

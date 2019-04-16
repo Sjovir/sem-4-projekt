@@ -4,7 +4,12 @@ import org.grp2.gms.common.GreenhouseDTO;
 import org.grp2.gms.common.HumidityDTO;
 import org.grp2.gms.common.LightDTO;
 import org.grp2.gms.common.TemperatureDTO;
+import org.grp2.gms.domain.Greenhouse;
+import org.grp2.gms.domain.HumiditySetPoint;
+import org.grp2.gms.domain.LightSetPoint;
+import org.grp2.gms.domain.TemperatureSetPoint;
 
+import javax.swing.text.html.HTMLDocument;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +41,7 @@ public class DAO {
             greenhouseDTO.setHumidity(humidityData);
             greenhouseDTO.setTemperature(temperatureData);
         }
-        System.out.println("Tst2: " + greenhouseDTO.getIpAddress());
+
         return greenhouseDTO;
     }
 
@@ -46,6 +51,30 @@ public class DAO {
                 insertTemperatureData(greenhouseID, temperatureData))
             return true;
         else
+            return false;
+    }
+
+    public boolean writeHumiditySetpoint(int GreenhouseId, HumiditySetPoint humiditySetPoint) {
+
+        if(deleteHumiditySetpoint(GreenhouseId) && insertHumiditySetpoint(GreenhouseId, humiditySetPoint)) {
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean writeTemperatureSetpoint(int GreenhouseId, TemperatureSetPoint temperatureSetPoint) {
+
+        if(deleteTemperatureSetpoint(GreenhouseId) && insertTemperatureSetpoint(GreenhouseId, temperatureSetPoint)) {
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean writeLightSetpoint(int GreenhouseId, LightSetPoint lightSetPoint) {
+
+        if(deleteLightSetpoint(GreenhouseId) && insertLightSetpoint(GreenhouseId, lightSetPoint)) {
+            return true;
+        } else
             return false;
     }
 
@@ -200,6 +229,124 @@ public class DAO {
 
         return temperatureData;
     }
+
+    private boolean deleteHumiditySetpoint(int GreenhouseId) {
+        String sql = "DELETE FROM humidity_setpoint WHERE ? = greenhouse_id";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, GreenhouseId);
+
+            ps.execute();
+
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean deleteTemperatureSetpoint(int GreenhouseId) {
+        String sql = "DELETE FROM temperature_setpoint WHERE ? = greenhouse_id";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, GreenhouseId);
+
+            ps.execute();
+
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean deleteLightSetpoint(int GreenhouseId) {
+        String sql = "DELETE FROM light_setpoint WHERE ? = greenhouse_id";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, GreenhouseId);
+
+            ps.execute();
+
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean insertHumiditySetpoint(int GreenhouseId, HumiditySetPoint humiditySetPoint) {
+        String sql = "INSERT INTO humidity_setpoint (date_created, greenhouse_id, min, max, alarm_min, alarm_max)" +
+                "     VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setLong(1, System.currentTimeMillis());
+            ps.setInt(2, GreenhouseId);
+            ps.setDouble(3, humiditySetPoint.getMinValue());
+            ps.setDouble(4, humiditySetPoint.getMaxValue());
+            ps.setDouble(5, humiditySetPoint.getAlarmMinValue());
+            ps.setDouble(6, humiditySetPoint.getAlarmMaxValue());
+
+            ps.execute();
+
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean insertTemperatureSetpoint(int GreenhouseId, TemperatureSetPoint temperatureSetPoint) {
+        String sql = "INSERT INTO temperature_setpoint (date_created, greenhouse_id, min, max, alarm_min, alarm_max)" +
+                "     VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setLong(1, System.currentTimeMillis());
+            ps.setInt(2, GreenhouseId);
+            ps.setDouble(3, temperatureSetPoint.getMinValue());
+            ps.setDouble(4, temperatureSetPoint.getMaxValue());
+            ps.setDouble(5, temperatureSetPoint.getAlarmMinValue());
+            ps.setDouble(6, temperatureSetPoint.getAlarmMaxValue());
+
+            ps.execute();
+
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean insertLightSetpoint(int GreenhouseId, LightSetPoint lightSetPoint) {
+        String sql = "INSERT INTO temperature_setpoint (date_created, greenhouse_id, red, blue, start_time)" +
+                "     VALUES (?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setLong(1, System.currentTimeMillis());
+            ps.setInt(2, GreenhouseId);
+            ps.setInt(3, lightSetPoint.getRedValue());
+            ps.setInt(4, lightSetPoint.getBlueValue());
+            ps.setString(5, lightSetPoint.getTime());
+
+            ps.execute();
+
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:postgresql://tek-studsrv0e.stud-srv.sdu.dk:5432/greenhouse_data", "root", "root");

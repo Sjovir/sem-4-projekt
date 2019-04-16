@@ -4,6 +4,9 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Greenhouse {
     private int id;
     private String ipAddress;
@@ -12,7 +15,7 @@ public class Greenhouse {
     private String location;
     private HumiditySetPoint humiditySetPoint;
     private TemperatureSetPoint temperatureSetPoint;
-    private LightSetPoint lightSetPoint;
+    private List<LightSetPoint> lightSetPoints;
 
 
     public Greenhouse(int id, String ipAddress, int port, String name, String location) {
@@ -21,6 +24,7 @@ public class Greenhouse {
         this.port = port;
         this.name = name;
         this.location = location;
+        lightSetPoints = new ArrayList<>();
     }
 
     public int getId() {
@@ -63,6 +67,18 @@ public class Greenhouse {
         this.location = location;
     }
 
+    public HumiditySetPoint getHumiditySetPoint() {
+        return humiditySetPoint;
+    }
+
+    public TemperatureSetPoint getTemperatureSetPoint() {
+        return temperatureSetPoint;
+    }
+
+    public List<LightSetPoint> getLightSetPoints() {
+        return lightSetPoints;
+    }
+
     public boolean setHumiditySetPoint(HumiditySetPoint humiditySetPoint){
         this.humiditySetPoint = humiditySetPoint;
         String routeUrl = "write-humidity-setpoint/" + humiditySetPoint.getMinValue() + "/" + humiditySetPoint.getMaxValue() + "/"
@@ -78,7 +94,7 @@ public class Greenhouse {
     }
 
     public boolean addLightSetPoint(LightSetPoint lightSetPoint){
-        this.lightSetPoint = lightSetPoint;
+        lightSetPoints.add(lightSetPoint);
         String routeUrl = "write-light-setpoint/" + lightSetPoint.getBlueValue() + "/" + lightSetPoint.getRedValue() + "/"
                 + lightSetPoint.getTime();
         return writeToGnode(routeUrl);

@@ -2,14 +2,12 @@ package org.grp2.gms.domain;
 
 public class HumiditySetPoint {
 
-    int id;
     double minValue;
     double maxValue;
     double alarmMinValue;
     double alarmMaxValue;
 
-    public HumiditySetPoint(int id, double minValue, double maxValue, double alarmMinValue, double alarmMaxValue){
-        this.id = id;
+    public HumiditySetPoint(double minValue, double maxValue, double alarmMinValue, double alarmMaxValue){
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.alarmMinValue = alarmMinValue;
