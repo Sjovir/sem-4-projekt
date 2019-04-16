@@ -3,7 +3,13 @@ package org.grp2.gms.domain;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.*;
+import org.grp2.gms.common.HumiditySetpointDTO;
+import org.grp2.gms.common.LightSetpointDTO;
+import org.grp2.gms.common.TemperatureSetpointDTO;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,24 +85,24 @@ public class Greenhouse {
         return lightSetPoints;
     }
 
-    public boolean setHumiditySetPoint(HumiditySetPoint humiditySetPoint){
-        this.humiditySetPoint = humiditySetPoint;
+    public boolean setHumiditySetPoint(HumiditySetpointDTO humiditySetPointDTO){
+        this.humiditySetPoint = convertHumiditySetpoint(humiditySetPointDTO);
         String routeUrl = "write-humidity-setpoint/" + humiditySetPoint.getMinValue() + "/" + humiditySetPoint.getMaxValue() + "/"
                 + humiditySetPoint.getAlarmMinValue() + "/" + humiditySetPoint.getAlarmMaxValue();
         return writeToGnode(routeUrl);
     }
 
-    public boolean setTemperatureSetPoint(TemperatureSetPoint temperatureSetPoint){
-        this.temperatureSetPoint = temperatureSetPoint;
+    public boolean setTemperatureSetPoint(TemperatureSetpointDTO temperatureSetPointDTO){
+        this.temperatureSetPoint = convertTemperatureSetpoint(temperatureSetPointDTO);
         String routeUrl = "write-temperature-setpoint/" + temperatureSetPoint.getMinValue() + "/" + temperatureSetPoint.getMaxValue() + "/"
                 + temperatureSetPoint.getAlarmMinValue() + "/" + temperatureSetPoint.getAlarmMaxValue();
         return writeToGnode(routeUrl);
     }
 
-    public boolean addLightSetPoint(LightSetPoint lightSetPoint){
-        lightSetPoints.add(lightSetPoint);
-        String routeUrl = "write-light-setpoint/" + lightSetPoint.getBlueValue() + "/" + lightSetPoint.getRedValue() + "/"
-                + lightSetPoint.getTime();
+    public boolean addLightSetPoint(LightSetpointDTO lightSetPointDTO){
+        lightSetPoints.add(convertLightSetpoint(lightSetPointDTO));
+        String routeUrl = "write-light-setpoint/" + lightSetPointDTO.getBlue() + "/" + lightSetPointDTO.getRed() + "/"
+                + lightSetPointDTO.getStartTime();
         return writeToGnode(routeUrl);
 
     }
@@ -116,17 +122,56 @@ public class Greenhouse {
         String url = "http://" + ipAddress + ":" + port + "/api/" + routeUrl;
 
         try {
-            HttpResponse res = Unirest.post(url).asString();
+            InetAddress inet = InetAddress.getByName(ipAddress);
+            if(inet.isReachable(port)){
+                HttpResponse res = Unirest.post(url).asString();
 
-            if(res.getStatus()==200){
-                return true;
+                if(res.getStatus()==200){
+                    return true;
+                }
             }
             return false;
         } catch (UnirestException ex) {
             ex.getMessage();
             return false;
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return false;
+    }
 
+    private HumiditySetPoint convertHumiditySetpoint(HumiditySetpointDTO humiditySetpointDTO) {
+        double min = humiditySetpointDTO.getMin();
+        double max = humiditySetpointDTO.getMax();
+        double alarmMin = humiditySetpointDTO.getAlarmMin();
+        double alarmMax = humiditySetpointDTO.getAlarmMax();
+
+        HumiditySetPoint humiditySetPoint = new HumiditySetPoint(min, max, alarmMin, alarmMax);
+
+        return humiditySetPoint;
+    }
+
+    private TemperatureSetPoint convertTemperatureSetpoint(TemperatureSetpointDTO temperatureSetpointDTO) {
+        double min = temperatureSetpointDTO.getMin();
+        double max = temperatureSetpointDTO.getMax();
+        double alarmMin = temperatureSetpointDTO.getAlarmMin();
+        double alarmMax = temperatureSetpointDTO.getAlarmMax();
+
+        TemperatureSetPoint temperatureSetpoint = new TemperatureSetPoint(min, max, alarmMin, alarmMax);
+
+        return temperatureSetpoint;
+    }
+
+    private LightSetPoint convertLightSetpoint(LightSetpointDTO lightSetpointDTO) {
+        int blue = lightSetpointDTO.getBlue();
+        int red = lightSetpointDTO.getRed();
+        String time = lightSetpointDTO.getStartTime();
+
+        LightSetPoint lightSetPoint = new LightSetPoint(blue, red, time);
+
+        return lightSetPoint;
     }
 
 }
