@@ -1,4 +1,13 @@
 .gr-table{
     background-color: white;
     text-align: center;
+    margin:0 auto;
+}
+
+.gr-table-container{
+    margin-left:2%;
+    margin-right:2%;
+    width:28%;
+    float: left;
+    text-align: center;
 }
