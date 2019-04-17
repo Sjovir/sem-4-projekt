@@ -9,8 +9,6 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class SetupGreenhouseComponent implements OnInit {
 
   setupForm: FormGroup;
-  submitted = false;
-  success = false;
 
   constructor(private formBuilder: FormBuilder) {
     this.setupForm = this.formBuilder.group({
@@ -67,7 +65,7 @@ export class SetupGreenhouseComponent implements OnInit {
   }
 
   doRestCall() {
-    console.log("THIS IS A REST CALL");
-    return;
+    console.log("REST CALL");
+    return true;
   }
 }
