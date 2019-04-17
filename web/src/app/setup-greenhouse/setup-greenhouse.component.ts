@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class SetupGreenhouseComponent implements OnInit {
 
   setupForm: FormGroup;
+  responseMessage: string;
 
   constructor(private formBuilder: FormBuilder) {
     this.setupForm = this.formBuilder.group({
@@ -37,30 +38,30 @@ export class SetupGreenhouseComponent implements OnInit {
 
     if(!(validFormIPAddress)) {
       console.log(formIPAddress);
-      this.htmlErrorDiv = "Please enter a valid IP address.";
+      this.responseMessage = "Please enter a valid IP address.";
       return false;
     }
 
     if(!(validFormPort && formPort.length == 4)) {
       console.log(formPort);
-      this.htmlErrorDiv = "Your port must be 4 digits long.";
+      this.responseMessage = "Your port must be 4 digits long.";
       return false;
     }
 
     if(!(validFormLocation)) {
       console.log(formLocation);
-      this.htmlErrorDiv = "Please enter a valid geolocation.";
+      this.responseMessage = "Please enter a valid geolocation.";
       return false;
     }
 
     if(!(validFormName && (formName.length >= 3 && formName.length <= 30))) {
       console.log(formName);
-      this.htmlErrorDiv = "Your greenhouse name must be between 3 and 30 characters and/or numbers.";
+      this.responseMessage = "Your greenhouse name must be between 3 and 30 characters and/or numbers.";
       return false;
     }
 
     this.doRestCall();
-    this.htmlErrorDiv = "You created an greenhouse.";
+    this.responseMessage = "You created an greenhouse.";
     return true;
   }
 

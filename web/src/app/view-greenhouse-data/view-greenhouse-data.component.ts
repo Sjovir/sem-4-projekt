@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Greenhouse } from 'src/greenhouse';
 import { GreenhouseService } from '../greenhouse.service';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-view-greenhouse-data',
