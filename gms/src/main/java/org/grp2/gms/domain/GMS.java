@@ -134,4 +134,71 @@ public class GMS {
         return greenhouse;
     }
 
+    public HumiditySetpointDTO getHumiditySetpoint(int greenhouseID) {
+        Greenhouse greenhouse = getGreenhouse(greenhouseID);
+
+        if(greenhouse != null) {
+            HumiditySetPoint humiditySetpoint = greenhouse.getHumiditySetPoint();
+
+            return convertHumditySetpoint(humiditySetpoint);
+        }
+        return null;
+    }
+
+    public TemperatureSetpointDTO getTemperatureSetpoint(int greenhouseID) {
+        Greenhouse greenhouse = getGreenhouse(greenhouseID);
+
+        if(greenhouse != null) {
+            TemperatureSetPoint temperatureSetpointDTO = greenhouse.getTemperatureSetPoint();
+            return convertTemperatureSetpoint(temperatureSetpointDTO);
+        }
+        return null;
+    }
+
+    public List<LightSetpointDTO> getLightSetpoints(int greenhouseID) {
+        Greenhouse greenhouse = getGreenhouse(greenhouseID);
+
+        if(greenhouse != null) {
+            List<LightSetpointDTO> lightSetPoints = new ArrayList<>();
+
+            for(LightSetPoint lightSetPoint : greenhouse.getLightSetPoints()) {
+                lightSetPoints.add(convertLightsetpoints(lightSetPoint));
+            }
+            return lightSetPoints;
+        }
+        return null;
+    }
+
+    private HumiditySetpointDTO convertHumditySetpoint(HumiditySetPoint humiditySetPoint) {
+        double min = humiditySetPoint.getMinValue();
+        double max = humiditySetPoint.getMaxValue();
+        double alarmMin = humiditySetPoint.getAlarmMinValue();
+        double alarmMax = humiditySetPoint.getAlarmMaxValue();
+
+        HumiditySetpointDTO humiditySetpointDTO = new HumiditySetpointDTO(min, max, alarmMin, alarmMax);
+
+        return humiditySetpointDTO;
+    }
+
+    private TemperatureSetpointDTO convertTemperatureSetpoint(TemperatureSetPoint temperatureSetPoint) {
+        double min = temperatureSetPoint.getMinValue();
+        double max = temperatureSetPoint.getMaxValue();
+        double alarmMin = temperatureSetPoint.getAlarmMinValue();
+        double alarmMax = temperatureSetPoint.getAlarmMaxValue();
+
+        TemperatureSetpointDTO temperatureSetPointDTO = new TemperatureSetpointDTO(min, max, alarmMin, alarmMax);
+
+        return temperatureSetPointDTO;
+    }
+
+    private LightSetpointDTO convertLightsetpoints(LightSetPoint lightSetPoint) {
+        int redValue = lightSetPoint.getRedValue();
+        int blueValue = lightSetPoint.getBlueValue();
+        String startTime = lightSetPoint.getTime();
+
+        LightSetpointDTO lightSetpointDTO = new LightSetpointDTO(redValue, blueValue, startTime);
+
+        return lightSetpointDTO;
+
+    }
 }

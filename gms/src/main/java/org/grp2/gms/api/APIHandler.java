@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Context;
 import org.grp2.gms.common.*;
 import org.grp2.gms.domain.GMS;
-import org.grp2.gms.domain.Greenhouse;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class APIHandler {
     private GMS gms;
@@ -145,4 +148,35 @@ public class APIHandler {
 
     }
 
+    public void getGreenhouseSetpoints(Context context) {
+        int id = Integer.parseInt(context.pathParam("greenhouse-id"));
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        HumiditySetpointDTO humiditySetpointDTO = gms.getHumiditySetpoint(id);
+        TemperatureSetpointDTO temperatureSetpointDTO = gms.getTemperatureSetpoint(id);
+        List<LightSetpointDTO> lightSetpointDTO = gms.getLightSetpoints(id);
+
+        Map<String, Object> setpoints = new HashMap<>();
+
+        setpoints.put("humiditySetpoint", humiditySetpointDTO);
+        setpoints.put("temperatureSetpoint", temperatureSetpointDTO);
+        setpoints.put("lightSetpoints", lightSetpointDTO);
+
+
+        if(humiditySetpointDTO != null && temperatureSetpointDTO != null && lightSetpointDTO != null) {
+
+            try {
+                context.json(mapper.writeValueAsString(setpoints));
+
+                context.status(200);
+
+            }catch (JsonProcessingException e) {
+                e.printStackTrace();
+                context.status(500);
+            }
+        } else {
+            context.status(500);
+        }
+    }
 }
