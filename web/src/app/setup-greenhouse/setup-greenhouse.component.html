@@ -19,7 +19,8 @@
         <input type="text" class="form-control" formControlName="name" id="formGroupName" placeholder="E.g.: Ballerup5000" ng-keyup="checkFields()">
       </div>
       <button type="submit" class="btn btn-primary mb-2 formButton">Create Greenhouse</button>
-      <div [innerHtml]="htmlErrorDiv">
+      <div>
+        <p class="responseMessageP">{{responseMessage}}</p>
       </div>
     </form>
   </div>
