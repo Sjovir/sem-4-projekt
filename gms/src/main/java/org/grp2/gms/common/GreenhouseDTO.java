@@ -36,6 +36,14 @@ public class GreenhouseDTO {
         this.id = greenhouseID;
     }
 
+    public GreenhouseDTO(String ipAddress, int port, String location, String name, Long dateCreated) {
+        this.ipAddress = ipAddress;
+        this.port = port;
+        this.location = location;
+        this.name = name;
+        this.dateCreated = dateCreated;
+    }
+
     /**
      * Returns all the values as a HashMap
      * @return

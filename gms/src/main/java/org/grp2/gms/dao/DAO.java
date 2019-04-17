@@ -1,6 +1,7 @@
 package org.grp2.gms.dao;
 
 import org.grp2.gms.common.*;
+import org.grp2.gms.domain.Greenhouse;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -92,6 +93,11 @@ public class DAO {
             return true;
         } else
             return false;
+    }
+
+    public int writeGreenhouse(GreenhouseDTO greenhouseDTO) {
+
+        return insertGreenhouse(greenhouseDTO);
     }
 
     private boolean insertLightData (int greenhouseID, LightDTO lightData) {
@@ -474,7 +480,31 @@ public class DAO {
         return lightSetpointDTOList;
     }
 
+    private int insertGreenhouse(GreenhouseDTO greenhouseDTO) {
+        String sql = "INSERT INTO greenhouse (ip_address, port, location, name, date_created) VALUES (?, ?, ?, ?, ?) RETURNING id";
 
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setString(1, greenhouseDTO.getIpAddress());
+            ps.setInt(2, greenhouseDTO.getPort());
+            ps.setString(3, greenhouseDTO.getLocation());
+            ps.setString(4, greenhouseDTO.getName());
+            ps.setLong(5, greenhouseDTO.getDateCreated());
+
+            ps.execute();
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if(rs.next()) {
+                int id = rs.getInt(1);
+                return id;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+
+    }
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:postgresql://tek-studsrv0e.stud-srv.sdu.dk:5432/greenhouse_data", "root", "root");
