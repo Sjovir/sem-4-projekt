@@ -1,0 +1,24 @@
+
+.headerJohn{
+    width: 100%;
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.grData{
+    width: 55%;
+    margin-left: 5%;
+    margin-right: 2.5%;
+    text-align: center;
+    float: left;
+}
+
+
+.grList{
+    width: 27.5%;
+    margin-left: 2.5%;
+    margin-right: 5%;
+    text-align: center;
+    float: left;
+}
