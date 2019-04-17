@@ -62,13 +62,13 @@ public class GMS {
         return greenhouseDTO;
     }
 
-    public boolean setupGreenhouse(Greenhouse greenhouse) {
-        //gmsDao.setupGreenhouse();
-        greenhouseList.add(greenhouse);
+    public boolean setupGreenhouse(GreenhouseDTO greenhouseDTO) {
+        int greenhouseID = gmsDao.writeGreenhouse(greenhouseDTO);
+        if(greenhouseID >= 0) {
 
-        if (greenhouseList.contains(greenhouse)) {
-            System.out.println("GreenhouseID: " + greenhouse.getId() + " \n IP: " + greenhouse.getIpAddress() +
-                    " \nname: " + greenhouse.getName() + " \nlocation: " + greenhouse.getLocation());
+            greenhouseDTO.setId(greenhouseID);
+            Greenhouse greenhouse = convertGreenhouseDTO(greenhouseDTO);
+            greenhouseList.add(greenhouse);
             return true;
         }
         return false;

@@ -52,13 +52,13 @@ public class APIHandler {
     }
 
     public void setupGreenhouse(Context context) {
-        int id = Integer.parseInt(context.pathParam("greenhouse-id"));
         String ipAddress = context.pathParam("ip-address");
         int port = Integer.parseInt(context.pathParam("port"));
         String name = context.pathParam("name");
         String location = context.pathParam("location");
-        Greenhouse temp =  new Greenhouse(id, ipAddress, port, name, location);
-        boolean success = gms.setupGreenhouse(temp);
+        Long dateCreated = System.currentTimeMillis();
+        GreenhouseDTO greenhouseDTO =  new GreenhouseDTO(ipAddress, port, location, name, dateCreated);
+        boolean success = gms.setupGreenhouse(greenhouseDTO);
         if (success) {
             context.status(200);
         } else {

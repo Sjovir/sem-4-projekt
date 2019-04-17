@@ -36,7 +36,7 @@ public class API extends AbstractAPI {
 
                 //gms calls
                 post("/write-collected-data/:greenhouse-id/:timestamp/:temperature/:humidity/:red-light/:blue-light", handler::writeCollectedData);
-                post("setup-greenhouse/:greenhouse-id/:ip-address/:port/:name/:location", handler::setupGreenhouse);
+                post("setup-greenhouse/:ip-address/:port/:location/:name", handler::setupGreenhouse);
                 get("/get-greenhouse-data/:greenhouse-id", handler::getGreenhouseData);
             });
         });
