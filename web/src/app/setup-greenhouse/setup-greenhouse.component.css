@@ -1,0 +1,21 @@
+/* .setupGreenhouse {
+  color: black;
+  text-align: center;
+  float: left;
+  margin-left: 1%;
+  height: 500px;
+  width: 31.33%;
+}
+
+.setupGreenhouse h1 {
+  font-size: 30px;
+} */
+
+.formDiv {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.formButton {
+  background-color: green;
+}
