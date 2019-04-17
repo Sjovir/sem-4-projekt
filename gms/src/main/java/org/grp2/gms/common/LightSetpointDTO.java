@@ -7,6 +7,12 @@ public class LightSetpointDTO {
     private int blue;
     private String startTime;
 
+    public LightSetpointDTO(int red, int blue, String startTime) {
+        this.red = red;
+        this.blue = blue;
+        this.startTime = startTime;
+    }
+
     public LightSetpointDTO(long dateCreated, int greenhouseID, int red, int blue, String startTime) {
         this.dateCreated = dateCreated;
         this.greenhouseID = greenhouseID;

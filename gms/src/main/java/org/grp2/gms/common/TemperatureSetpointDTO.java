@@ -8,6 +8,13 @@ public class TemperatureSetpointDTO {
     private double alarmMin;
     private double alarmMax;
 
+    public TemperatureSetpointDTO(double min, double max, double alarmMin, double alarmMax) {
+        this.min = min;
+        this.max = max;
+        this.alarmMin = alarmMin;
+        this.alarmMax = alarmMax;
+    }
+
     public TemperatureSetpointDTO(Long dateCreated, int greenhouseID, double min, double max, double alarmMin, double alarmMax) {
         this.dateCreated = dateCreated;
         this.greenhouseID = greenhouseID;

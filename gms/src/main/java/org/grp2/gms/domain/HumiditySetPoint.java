@@ -7,6 +7,7 @@ public class HumiditySetPoint {
     double alarmMinValue;
     double alarmMaxValue;
 
+
     public HumiditySetPoint(double minValue, double maxValue, double alarmMinValue, double alarmMaxValue){
         this.minValue = minValue;
         this.maxValue = maxValue;
