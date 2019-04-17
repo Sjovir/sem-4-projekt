@@ -4,10 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Context;
 import org.grp2.gms.common.*;
-import org.grp2.gms.domain.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.grp2.gms.domain.GMS;
+import org.grp2.gms.domain.Greenhouse;
 
 public class APIHandler {
     private GMS gms;
@@ -87,15 +85,16 @@ public class APIHandler {
     }
 
     public void writeHumiditySetPoint(Context context) {
+        long dateCreated = System.currentTimeMillis();
         int id = Integer.parseInt(context.pathParam("greenhouse-id"));
         double minValue = Double.parseDouble(context.pathParam("min-value"));
         double maxValue = Double.parseDouble(context.pathParam("max-value"));
         double alarmMinValue = Double.parseDouble(context.pathParam("alarm-min-value"));
         double alarmMaxValue = Double.parseDouble(context.pathParam("alarm-max-value"));
 
-        HumiditySetPoint humiditySetPoint = new HumiditySetPoint(minValue, maxValue, alarmMinValue, alarmMaxValue);
-        boolean success = gms.setHumiditySetPoint(id, humiditySetPoint);
-        System.out.println(success);
+        HumiditySetpointDTO humiditySetPointDTO = new HumiditySetpointDTO(dateCreated, id, minValue, maxValue, alarmMinValue, alarmMaxValue);
+        boolean success = gms.setHumiditySetPoint(id, humiditySetPointDTO);
+
         if (success) {
             context.status(200);
         } else {
@@ -104,14 +103,15 @@ public class APIHandler {
     }
 
     public void writeTemperatureSetPoint(Context context) {
+        long dateCreated = System.currentTimeMillis();
         int id = Integer.parseInt(context.pathParam("greenhouse-id"));
         double minValue = Double.parseDouble(context.pathParam("min-value"));
         double maxValue = Double.parseDouble(context.pathParam("max-value"));
         double alarmMinValue = Double.parseDouble(context.pathParam("alarm-min-value"));
         double alarmMaxValue = Double.parseDouble(context.pathParam("alarm-max-value"));
 
-        TemperatureSetPoint temperatureSetPoint = new TemperatureSetPoint(minValue, maxValue, alarmMinValue, alarmMaxValue);
-        boolean success = gms.setTemperatureSetPoint(id, temperatureSetPoint);
+        TemperatureSetpointDTO temperatureSetPointDTO = new TemperatureSetpointDTO(dateCreated, id, minValue, maxValue, alarmMinValue, alarmMaxValue);
+        boolean success = gms.setTemperatureSetPoint(id, temperatureSetPointDTO);
         if (success) {
             context.status(200);
         } else {
@@ -120,13 +120,14 @@ public class APIHandler {
     }
 
     public void writeLightSetPoint(Context context) {
+        long dateCreated = System.currentTimeMillis();
         int id = Integer.parseInt(context.pathParam("greenhouse-id"));
         int blueValue = Integer.parseInt(context.pathParam("blue-value"));
         int redValue = Integer.parseInt(context.pathParam("red-value"));
         String time = context.pathParam("time");
 
-        LightSetPoint lightSetPoint = new LightSetPoint(blueValue, redValue, time);
-        boolean success = gms.addLightSetPoint(id, lightSetPoint);
+        LightSetpointDTO lightSetPointDTO = new LightSetpointDTO(dateCreated, id, blueValue, redValue, time);
+        boolean success = gms.addLightSetPoint(id, lightSetPointDTO);
         if (success) {
             context.status(200);
         } else {

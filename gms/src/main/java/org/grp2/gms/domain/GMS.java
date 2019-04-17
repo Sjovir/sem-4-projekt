@@ -4,6 +4,7 @@ import org.grp2.gms.common.*;
 import org.grp2.gms.dao.DAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GMS {
     private DAO gmsDao;
@@ -12,6 +13,7 @@ public class GMS {
     public GMS() {
         gmsDao = new DAO();
         greenhouseList = new ArrayList<>();
+        loadGreenhouses();
     }
 
     public boolean writeCollectedData(int greenhouseID, LightDTO lightData, HumidityDTO humidityData,
@@ -21,33 +23,33 @@ public class GMS {
         return result;
     }
 
-    public boolean setHumiditySetPoint(int id, HumiditySetPoint humiditySetPoint){
+    public boolean setHumiditySetPoint(int id, HumiditySetpointDTO humiditySetPointDTO){
         Greenhouse greenhouse = getGreenhouse(id);
 
-        if (greenhouse != null && gmsDao.writeHumiditySetpoint(id, humiditySetPoint)) {
-            greenhouse.setHumiditySetPoint(humiditySetPoint);
+        if (greenhouse != null && gmsDao.writeHumiditySetpoint(id, humiditySetPointDTO)) {
+            greenhouse.setHumiditySetPoint(humiditySetPointDTO);
 
             return true;
         }
         return false;
     }
 
-    public boolean setTemperatureSetPoint(int id, TemperatureSetPoint temperatureSetPoint){
+    public boolean setTemperatureSetPoint(int id, TemperatureSetpointDTO temperatureSetPointDTO){
         Greenhouse greenhouse = getGreenhouse(id);
 
-        if (greenhouse != null && gmsDao.writeTemperatureSetpoint(id, temperatureSetPoint)) {
-            greenhouse.setTemperatureSetPoint(temperatureSetPoint);
+        if (greenhouse != null && gmsDao.writeTemperatureSetpoint(id, temperatureSetPointDTO)) {
+            greenhouse.setTemperatureSetPoint(temperatureSetPointDTO);
 
             return true;
         }
         return false;
     }
 
-    public boolean addLightSetPoint(int id, LightSetPoint lightSetPoint){
+    public boolean addLightSetPoint(int id, LightSetpointDTO lightSetPointDTO){
         Greenhouse greenhouse = getGreenhouse(id);
 
-        if (greenhouse != null && gmsDao.writeLightSetpoint(id, lightSetPoint)) {
-            greenhouse.addLightSetPoint(lightSetPoint);
+        if (greenhouse != null && gmsDao.writeLightSetpoint(id, lightSetPointDTO)) {
+            greenhouse.addLightSetPoint(lightSetPointDTO);
 
             return true;
         }
@@ -93,6 +95,43 @@ public class GMS {
 
         }
         return null;
+    }
+
+    private void loadGreenhouses() {
+        for(GreenhouseDTO gh : gmsDao.getGreenhouseObjects()) {
+            Greenhouse greenhouse = convertGreenhouseDTO(gh);
+
+            HumiditySetpointDTO humiditySetpointDTO = gmsDao.getHumiditySetpointObject(greenhouse.getId());
+            TemperatureSetpointDTO temperatureSetpointDTO = gmsDao.getTemperatureSetpointObject(greenhouse.getId());
+            List<LightSetpointDTO> lightSetpointDTOList = gmsDao.getLightSetpointObjects(greenhouse.getId());
+
+            if(humiditySetpointDTO != null) {
+                greenhouse.setHumiditySetPoint(humiditySetpointDTO);
+            }
+            if(temperatureSetpointDTO != null) {
+                greenhouse.setTemperatureSetPoint(temperatureSetpointDTO);
+            }
+            if(lightSetpointDTOList!= null && lightSetpointDTOList.size() > 0) {
+                for(LightSetpointDTO lightSetpointDTO : lightSetpointDTOList) {
+                    greenhouse.addLightSetPoint(lightSetpointDTO);
+                }
+            }
+
+            greenhouseList.add(greenhouse);
+
+        }
+    }
+
+    private Greenhouse convertGreenhouseDTO(GreenhouseDTO greenhouseDTO) {
+        String ip = greenhouseDTO.getIpAddress();
+        int port = greenhouseDTO.getPort();
+        String location = greenhouseDTO.getLocation();
+        String name = greenhouseDTO.getName();
+        int id = greenhouseDTO.getId();
+
+        Greenhouse greenhouse = new Greenhouse(id, ip, port, name, location);
+
+        return greenhouse;
     }
 
 }

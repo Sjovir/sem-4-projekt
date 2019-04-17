@@ -1,15 +1,7 @@
 package org.grp2.gms.dao;
 
-import org.grp2.gms.common.GreenhouseDTO;
-import org.grp2.gms.common.HumidityDTO;
-import org.grp2.gms.common.LightDTO;
-import org.grp2.gms.common.TemperatureDTO;
-import org.grp2.gms.domain.Greenhouse;
-import org.grp2.gms.domain.HumiditySetPoint;
-import org.grp2.gms.domain.LightSetPoint;
-import org.grp2.gms.domain.TemperatureSetPoint;
+import org.grp2.gms.common.*;
 
-import javax.swing.text.html.HTMLDocument;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +37,30 @@ public class DAO {
         return greenhouseDTO;
     }
 
+    public List<GreenhouseDTO> getGreenhouseObjects() {
+        List<GreenhouseDTO> greenhouses = getGreenhouses();
+
+        return greenhouses;
+    }
+
+    public HumiditySetpointDTO getHumiditySetpointObject(int greenhouseID) {
+        HumiditySetpointDTO humiditySetpointDTO = getHumiditySetpoint(greenhouseID);
+
+        return humiditySetpointDTO;
+    }
+
+    public TemperatureSetpointDTO getTemperatureSetpointObject(int greenhouseID) {
+        TemperatureSetpointDTO temperatureSetpointDTO = getTemperatureSetpoint(greenhouseID);
+
+        return temperatureSetpointDTO;
+    }
+
+    public List<LightSetpointDTO> getLightSetpointObjects(int greenhouseID) {
+        List<LightSetpointDTO> lightSetpointDTOList = getLightSetpoint(greenhouseID);
+
+        return lightSetpointDTOList;
+    }
+
     public boolean writeCollectedData (int greenhouseID, LightDTO lightData, HumidityDTO humidityData,
                                        TemperatureDTO temperatureData) {
         if (insertLightData(greenhouseID, lightData) && insertHumidityData(greenhouseID, humidityData) &&
@@ -54,25 +70,25 @@ public class DAO {
             return false;
     }
 
-    public boolean writeHumiditySetpoint(int GreenhouseId, HumiditySetPoint humiditySetPoint) {
+    public boolean writeHumiditySetpoint(int GreenhouseId, HumiditySetpointDTO humiditySetPointDTO) {
 
-        if(deleteHumiditySetpoint(GreenhouseId) && insertHumiditySetpoint(GreenhouseId, humiditySetPoint)) {
+        if(deleteHumiditySetpoint(GreenhouseId) && insertHumiditySetpoint(GreenhouseId, humiditySetPointDTO)) {
+            return true;
+        } else
+           return false;
+    }
+
+    public boolean writeTemperatureSetpoint(int GreenhouseId, TemperatureSetpointDTO temperatureSetPointDTO) {
+
+        if(deleteTemperatureSetpoint(GreenhouseId) && insertTemperatureSetpoint(GreenhouseId, temperatureSetPointDTO)) {
             return true;
         } else
             return false;
     }
 
-    public boolean writeTemperatureSetpoint(int GreenhouseId, TemperatureSetPoint temperatureSetPoint) {
+    public boolean writeLightSetpoint(int GreenhouseId, LightSetpointDTO lightSetPointDTO) {
 
-        if(deleteTemperatureSetpoint(GreenhouseId) && insertTemperatureSetpoint(GreenhouseId, temperatureSetPoint)) {
-            return true;
-        } else
-            return false;
-    }
-
-    public boolean writeLightSetpoint(int GreenhouseId, LightSetPoint lightSetPoint) {
-
-        if(deleteLightSetpoint(GreenhouseId) && insertLightSetpoint(GreenhouseId, lightSetPoint)) {
+        if(deleteLightSetpoint(GreenhouseId) && insertLightSetpoint(GreenhouseId, lightSetPointDTO)) {
             return true;
         } else
             return false;
@@ -146,11 +162,12 @@ public class DAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String ipAddress = rs.getString("ip_address");
+                int port = rs.getInt("port");
                 String location = rs.getString("location");
                 String name = rs.getString("name");
                 Long dateCreated = rs.getLong("date_created");
 
-                greenhouseDTO = new GreenhouseDTO(ipAddress, location, name, dateCreated, greenhouseID);
+                greenhouseDTO = new GreenhouseDTO(ipAddress, port, location, name, dateCreated, greenhouseID);
             }
 
         } catch (SQLException e) {
@@ -278,7 +295,7 @@ public class DAO {
         return false;
     }
 
-    private boolean insertHumiditySetpoint(int GreenhouseId, HumiditySetPoint humiditySetPoint) {
+    private boolean insertHumiditySetpoint(int GreenhouseId, HumiditySetpointDTO humiditySetPointDTO) {
         String sql = "INSERT INTO humidity_setpoint (date_created, greenhouse_id, min, max, alarm_min, alarm_max)" +
                 "     VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -287,10 +304,10 @@ public class DAO {
 
             ps.setLong(1, System.currentTimeMillis());
             ps.setInt(2, GreenhouseId);
-            ps.setDouble(3, humiditySetPoint.getMinValue());
-            ps.setDouble(4, humiditySetPoint.getMaxValue());
-            ps.setDouble(5, humiditySetPoint.getAlarmMinValue());
-            ps.setDouble(6, humiditySetPoint.getAlarmMaxValue());
+            ps.setDouble(3, humiditySetPointDTO.getMin());
+            ps.setDouble(4, humiditySetPointDTO.getMax());
+            ps.setDouble(5, humiditySetPointDTO.getAlarmMin());
+            ps.setDouble(6, humiditySetPointDTO.getAlarmMax());
 
             ps.execute();
 
@@ -301,7 +318,7 @@ public class DAO {
         return false;
     }
 
-    private boolean insertTemperatureSetpoint(int GreenhouseId, TemperatureSetPoint temperatureSetPoint) {
+    private boolean insertTemperatureSetpoint(int GreenhouseId, TemperatureSetpointDTO temperatureSetPointDTO) {
         String sql = "INSERT INTO temperature_setpoint (date_created, greenhouse_id, min, max, alarm_min, alarm_max)" +
                 "     VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -310,10 +327,10 @@ public class DAO {
 
             ps.setLong(1, System.currentTimeMillis());
             ps.setInt(2, GreenhouseId);
-            ps.setDouble(3, temperatureSetPoint.getMinValue());
-            ps.setDouble(4, temperatureSetPoint.getMaxValue());
-            ps.setDouble(5, temperatureSetPoint.getAlarmMinValue());
-            ps.setDouble(6, temperatureSetPoint.getAlarmMaxValue());
+            ps.setDouble(3, temperatureSetPointDTO.getMin());
+            ps.setDouble(4, temperatureSetPointDTO.getMax());
+            ps.setDouble(5, temperatureSetPointDTO.getAlarmMin());
+            ps.setDouble(6, temperatureSetPointDTO.getAlarmMax());
 
             ps.execute();
 
@@ -324,7 +341,7 @@ public class DAO {
         return false;
     }
 
-    private boolean insertLightSetpoint(int GreenhouseId, LightSetPoint lightSetPoint) {
+    private boolean insertLightSetpoint(int GreenhouseId, LightSetpointDTO lightSetPointDTO) {
         String sql = "INSERT INTO temperature_setpoint (date_created, greenhouse_id, red, blue, start_time)" +
                 "     VALUES (?, ?, ?, ?, ?)";
 
@@ -333,9 +350,9 @@ public class DAO {
 
             ps.setLong(1, System.currentTimeMillis());
             ps.setInt(2, GreenhouseId);
-            ps.setInt(3, lightSetPoint.getRedValue());
-            ps.setInt(4, lightSetPoint.getBlueValue());
-            ps.setString(5, lightSetPoint.getTime());
+            ps.setInt(3, lightSetPointDTO.getRed());
+            ps.setInt(4, lightSetPointDTO.getBlue());
+            ps.setLong(5, lightSetPointDTO.getDateCreated());
 
             ps.execute();
 
@@ -344,6 +361,117 @@ public class DAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private List<GreenhouseDTO> getGreenhouses() {
+        List<GreenhouseDTO> greenhouseList = new ArrayList<>();
+        String sql = "SELECT * FROM greenhouse";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                int id = rs.getInt("id");
+                String ip = rs.getString("ip_address");
+                int port = rs.getInt("port");
+                String location = rs.getString("location");
+                String name = rs.getString("name");
+                Long dateCreated = rs.getLong("date_created");
+
+                GreenhouseDTO greenhouse = new GreenhouseDTO(ip, port, location, name, dateCreated, id);
+                greenhouseList.add(greenhouse);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return greenhouseList;
+    }
+
+    private HumiditySetpointDTO getHumiditySetpoint(int greenhouseID) {
+        HumiditySetpointDTO humiditySetpointDTO = null;
+        String sql = "SELECT * FROM humidity_setpoint WHERE greenhouse_id = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, greenhouseID);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                long dateCreated = rs.getLong("date_created");
+                int id = rs.getInt("greenhouse_id");
+                double min = rs.getDouble("min");
+                double max = rs.getDouble("max");
+                double alarmMin = rs.getDouble("alarm_min");
+                double alarmMax = rs.getDouble("alarm_max");
+
+                humiditySetpointDTO = new HumiditySetpointDTO(dateCreated, id, min, max, alarmMin, alarmMax);
+
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return  humiditySetpointDTO;
+    }
+
+    private TemperatureSetpointDTO getTemperatureSetpoint(int greenhouseID) {
+        TemperatureSetpointDTO temperatureSetpointDTO = null;
+        String sql = "SELECT * FROM temperature_setpoint WHERE ? = greenhouse_id";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, greenhouseID);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                long dateCreated = rs.getLong("date_created");
+                int id = rs.getInt("greenhouse_id");
+                double min = rs.getDouble("min");
+                double max = rs.getDouble("max");
+                double alarmMin = rs.getDouble("alarm_min");
+                double alarmMax = rs.getDouble("alarm_max");
+
+                temperatureSetpointDTO = new TemperatureSetpointDTO(dateCreated, id, min, max, alarmMin, alarmMax);
+
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return  temperatureSetpointDTO;
+    }
+
+    private List<LightSetpointDTO> getLightSetpoint(int greenhouseID) {
+        List<LightSetpointDTO> lightSetpointDTOList = new ArrayList<>();
+        String sql = "SELECT * FROM light_setpoint WHERE ? = greenhouse_id";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, greenhouseID);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                long dateCreated = rs.getLong("date_created");
+                int id = rs.getInt("greenhouse_id");
+                int red = rs.getInt("red");
+                int blue = rs.getInt("blue");
+                String startTime = rs.getString("start_time");
+
+                LightSetpointDTO lightSetpointDTO = new LightSetpointDTO(dateCreated, id, red, blue, startTime);
+
+                lightSetpointDTOList.add(lightSetpointDTO);
+
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lightSetpointDTOList;
     }
 
 

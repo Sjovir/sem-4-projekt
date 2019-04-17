@@ -8,25 +8,28 @@ public class GreenhouseDTO {
     private String location;
     private long dateCreated;
     private String ipAddress;
+    private int port;
     private int id;
     private String name;
     private List<LightDTO> lightData;
     private List<HumidityDTO> humidityData;
     private List<TemperatureDTO> temperatureData;
 
-    public GreenhouseDTO(String location, long dateCreated, String ipAddress, int id, String name, List<LightDTO> lightData, List<HumidityDTO> humidityData, List<TemperatureDTO> temperatureData){
-        this.location=location;
-        this.dateCreated=dateCreated;
-        this.ipAddress=ipAddress;
-        this.id=id;
-        this.name=name;
-        this.lightData=lightData;
-        this.humidityData=humidityData;
-        this.temperatureData=temperatureData;
+    public GreenhouseDTO(String location, long dateCreated, String ipAddress, int port, int id, String name, List<LightDTO> lightData, List<HumidityDTO> humidityData, List<TemperatureDTO> temperatureData){
+        this.location = location;
+        this.dateCreated = dateCreated;
+        this.ipAddress = ipAddress;
+        this.port = port;
+        this.id = id;
+        this.name = name;
+        this.lightData = lightData;
+        this.humidityData = humidityData;
+        this.temperatureData = temperatureData;
     }
 
-    public GreenhouseDTO(String ipAddress, String location, String name, Long dateCreated, int greenhouseID) {
+    public GreenhouseDTO(String ipAddress, int port, String location, String name, Long dateCreated, int greenhouseID) {
         this.ipAddress = ipAddress;
+        this.port = port;
         this.location = location;
         this.name = name;
         this.dateCreated = dateCreated;
@@ -64,6 +67,8 @@ public class GreenhouseDTO {
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
+
+    public int getPort() { return port; }
 
     public int getId() {
         return id;
