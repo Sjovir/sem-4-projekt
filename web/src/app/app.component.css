@@ -5,3 +5,7 @@
 .navButton a {
   color: white;
 }
+
+.navButtons {
+  float: right;
+}
