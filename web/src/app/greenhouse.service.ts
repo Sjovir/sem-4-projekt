@@ -65,12 +65,40 @@ export class GreenhouseService {
         {value:20.5,timeCollected:"imorgen"}
       ]
     },
+    {id:3,
+      name:"Test",
+      ipAddress:"localhost",
+      port:5053,
+      location:"Lige nu",
+      dateCreated:"the day",
+      lightData:[
+        {timeCollected:"en eller anden dag",redValue:65,blueValue:15},
+        {timeCollected:"en eller anden dag",redValue:10,blueValue:84},
+        {timeCollected:"en eller anden dag",redValue:52,blueValue:28},
+        {timeCollected:"en eller anden dag",redValue:27,blueValue:44}
+      ],
+      temperatureData:[
+        {value:34.5,timeCollected:"en eller anden dag"},
+        {value:32.5,timeCollected:"en eller anden dag"},
+        {value:36.5,timeCollected:"en eller anden dag"},
+        {value:14.5,timeCollected:"en eller anden dag"}
+      ],
+      humidityData:[
+        {value:32.5,timeCollected:"en eller anden dag"},
+        {value:35.5,timeCollected:"en eller anden dag"},
+        {value:31.5,timeCollected:"en eller anden dag"},
+        {value:20.5,timeCollected:"en eller anden dag"}
+      ]
+    }
   ];
  
   constructor(){}
 
   getGreenhouse(id: number):Observable<Greenhouse>{
     return of(this.greenhouses.find(greenhouse=>greenhouse.id==id));
+  }
+  getGreenhouses():Observable<Greenhouse[]>{
+    return of(this.greenhouses)
   }
 
 }

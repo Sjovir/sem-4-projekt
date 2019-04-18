@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Greenhouse } from 'src/greenhouse';
+import { GreenhouseService } from '../greenhouse.service';
 
 @Component({
   selector: 'app-greenhouse-list',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GreenhouseListComponent implements OnInit {
 
-  constructor() { }
+  greenhouses:Greenhouse[];
+  @Output() selectedEvent=new EventEmitter<number>();
 
-  ngOnInit() {
+  constructor(private greenhouseService:GreenhouseService) { }
+
+  ngOnInit() {    
+    this.greenhouseService.getGreenhouses().subscribe(greenhouses=>this.greenhouses=greenhouses)
+  }
+
+  // selectGreenhouse(id:number){
+  //   alert("Greenhouse"+id+"selected!")
+  // }
+
+  selectGreenhouse(id:number){
+    this.selectedEvent.emit(id);
   }
 
 }

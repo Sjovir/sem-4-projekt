@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Greenhouse } from 'src/greenhouse';
 import { GreenhouseService } from '../greenhouse.service';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -11,15 +11,16 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class ViewGreenhouseDataComponent implements OnInit {
 
   public selectedGreenhouse:Greenhouse;
+  @Input() selectedID: number;
 
   constructor(private greenhouseService: GreenhouseService) { }
 
   ngOnInit() {
-
   }
 
   onSelect(greenhouseid:number){
     this.greenhouseService.getGreenhouse(greenhouseid).subscribe(greenhouse=>this.selectedGreenhouse=greenhouse);
   }
 
+  
 }
