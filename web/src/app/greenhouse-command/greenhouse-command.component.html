@@ -1,39 +1,5 @@
 <div class="jumbotron greenhouseManagement">
   <h1 class="header">Greenhouse command</h1>
-  <!-- <div class="formDiv">
-    <form [formGroup]="commandForm" (ngSubmit)="checkFields()">
-      <div class="form-group myFormDiv">
-        <label for="formGroupWriteTemp">Temperature</label>
-        <input type="text" class="form-control input-sm" formControlName="temp" id="formGroupIPaddress" placeholder="Temperature in &#8451;" ng-keyup="checkFields()">
-      </div>
-      <div class="form-group">
-        <label for="formGroupWriteFanSpeed">Fan speed</label>
-        <input type="text" class="form-control input-sm" formControlName="fanSpeed" id="formGroupWriteFanSpeed" placeholder="E.g.: 8888" ng-keyup="checkFields()">
-      </div>
-      <div class="form-group">
-        <label for="formGroupWriteBlueLight">Blue light</label>
-        <input type="text" class="form-control input-sm" formControlName="blueLight" id="formGroupWriteBlueLight" placeholder="E.g.: 55.1,20.20" ng-keyup="checkFields()">
-      </div>
-      <div class="form-group">
-        <label for="formGroupWriteRedLight">Red light</label>
-        <input type="text" class="form-control input-sm" formControlName="redLight" id="formGroupWriteRedLight" placeholder="E.g.: Ballerup5000" ng-keyup="checkFields()">
-      </div>
-      <div class="form-group">
-        <label for="formGroupWriteMoist">Moisture</label>
-        <input type="text" class="form-control input-sm" formControlName="moist" id="formGroupWriteMoist" placeholder="E.g.: Ballerup5000" ng-keyup="checkFields()">
-      </div>
-      <button type="submit" class="btn btn-primary mb-2 formButton">Send command</button>
-      <div>
-        <p class="responseMessageP">{{responseMessage}}</p>
-      </div>
-    </form>
-    <div class="startRegDiv">
-      <button type="button" class="btn btn-primary mb-2 regButton">Start automative regulation</button>
-
-    </div>
-  </div> -->
-
-
   <div class="form-group">
     <form [formGroup]="commandForm" (ngSubmit)="checkFields()">
       <div class="form-group myFormDiv">
