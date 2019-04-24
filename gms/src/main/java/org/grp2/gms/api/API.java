@@ -35,6 +35,7 @@ public class API extends AbstractAPI {
                 post("/start-regulator/:greenhouse-id", handler::startRegulator);
 
                 get("/get-greenhouse-setpoints/:greenhouse-id", handler::getGreenhouseSetpoints);
+                get("get-greenhouses/", handler::getGreenhouses);
 
                 //gms calls
                 post("/write-collected-data/:greenhouse-id/:timestamp/:temperature/:humidity/:red-light/:blue-light", handler::writeCollectedData);
