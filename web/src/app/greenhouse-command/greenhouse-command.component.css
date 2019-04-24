@@ -10,3 +10,31 @@
 .greenhouseCommand h1 {
   font-size: 30px;
 } */
+
+
+
+.formDiv {
+  margin: 0 auto;
+  width: 80%;
+
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+.formButton {
+  background-color: green;
+}
+
+.regButton {
+  background-color: red;
+}
+
+.responseMessageP {
+  font-size: 14px;
+}
+
+.startRegDiv {
+    margin: 0 auto;
+}
