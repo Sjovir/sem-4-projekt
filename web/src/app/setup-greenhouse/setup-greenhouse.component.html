@@ -1,3 +1,27 @@
-<p>
-  setup-greenhouse works!
-</p>
+<div class="jumbotron greenhouseManagement">
+  <h1 class="header">Setup Greenhouse</h1>
+  <div class="formDiv">
+    <form [formGroup]="setupForm" (ngSubmit)="checkFields()">
+      <div class="form-group">
+        <label for="formGroupIPaddress">IP address</label>
+        <input type="text" class="form-control" formControlName="ipAddress" id="formGroupIPaddress" placeholder="E.g.: 255.255.255.255" ng-keyup="checkFields()">
+      </div>
+      <div class="form-group">
+        <label for="formGroupPort">Port</label>
+        <input type="text" class="form-control" formControlName="port" id="formGroupPort" placeholder="E.g.: 8888" ng-keyup="checkFields()">
+      </div>
+      <div class="form-group">
+        <label for="formGroupLocation">Location</label>
+        <input type="text" class="form-control" formControlName="location" id="formGroupLocation" placeholder="E.g.: 55.1,20.20" ng-keyup="checkFields()">
+      </div>
+      <div class="form-group">
+        <label for="formGroupName">Name</label>
+        <input type="text" class="form-control" formControlName="name" id="formGroupName" placeholder="E.g.: Ballerup5000" ng-keyup="checkFields()">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2 formButton">Create Greenhouse</button>
+      <div>
+        <p class="responseMessageP">{{responseMessage}}</p>
+      </div>
+    </form>
+  </div>
+</div>

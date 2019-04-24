@@ -27,16 +27,19 @@ public class API extends AbstractAPI {
         app.routes(() -> {
             path("/api", () -> {
                 //raspberry pi calls
-                post("/write-value/:type/:value", handler::writeValue);
-                post("/write-gms-connection/:port/:url/:green-house-id", handler::writeGMSConnection);
+                post("/write-value/:greenhouse-id/:type/:value", handler::writeValue);
+                post("/write-gms-connection/:greenhouse-id/:ip-address/:port", handler::writeGMSConnection);
                 post("/write-humidity-setpoint/:greenhouse-id/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeHumiditySetPoint);
                 post("/write-temperature-setpoint/:greenhouse-id/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeTemperatureSetPoint);
                 post("/write-light-setpoint/:greenhouse-id/:blue-value/:red-value/:time", handler::writeLightSetPoint);
                 post("/start-regulator/:greenhouse-id", handler::startRegulator);
 
+                get("/get-greenhouse-setpoints/:greenhouse-id", handler::getGreenhouseSetpoints);
+                get("get-greenhouses/", handler::getGreenhouses);
+
                 //gms calls
                 post("/write-collected-data/:greenhouse-id/:timestamp/:temperature/:humidity/:red-light/:blue-light", handler::writeCollectedData);
-                post("setup-greenhouse/:greenhouse-id/:ip-address/:port/:name/:location", handler::setupGreenhouse);
+                post("setup-greenhouse/:ip-address/:port/:location/:name", handler::setupGreenhouse);
                 get("/get-greenhouse-data/:greenhouse-id", handler::getGreenhouseData);
             });
         });

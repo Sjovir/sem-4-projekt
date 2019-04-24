@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+/* GreenhouseManagement components, including the greenhouse list:*/
+.greenhouseManagement {
+  color: black;
+  text-align: center;
+  float: left;
+  margin-left: 1.5%;
+  height: 600px;
+  width: 31.33%;
+}
+
+.greenhouseManagement h1 {
+  font-size: 30px;
+}

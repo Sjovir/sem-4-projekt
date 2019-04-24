@@ -1,21 +1,22 @@
 package org.grp2.gms.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class GreenhouseDTO {
-    private String location;
-    private long dateCreated;
+    private int id;
     private String ipAddress;
     private int port;
-    private int id;
+    private String location;
     private String name;
+    private long dateCreated;
     private List<LightDTO> lightData;
     private List<HumidityDTO> humidityData;
     private List<TemperatureDTO> temperatureData;
 
-    public GreenhouseDTO(String location, long dateCreated, String ipAddress, int port, int id, String name, List<LightDTO> lightData, List<HumidityDTO> humidityData, List<TemperatureDTO> temperatureData){
+    public GreenhouseDTO(int id, String ipAddress, int port, String location, String name, long dateCreated, List<LightDTO> lightData, List<HumidityDTO> humidityData, List<TemperatureDTO> temperatureData){
         this.location = location;
         this.dateCreated = dateCreated;
         this.ipAddress = ipAddress;
@@ -28,12 +29,11 @@ public class GreenhouseDTO {
     }
 
     public GreenhouseDTO(String ipAddress, int port, String location, String name, Long dateCreated, int greenhouseID) {
-        this.ipAddress = ipAddress;
-        this.port = port;
-        this.location = location;
-        this.name = name;
-        this.dateCreated = dateCreated;
-        this.id = greenhouseID;
+        this(greenhouseID, ipAddress, port, location, name, dateCreated, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    }
+
+    public GreenhouseDTO(String ipAddress, int port, String location, String name, Long dateCreated) {
+        this(ipAddress, port, location, name, dateCreated, -1);
     }
 
     /**

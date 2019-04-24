@@ -1,6 +1,7 @@
 package org.grp2.gms.dao;
 
 import org.grp2.gms.common.*;
+import org.grp2.gms.domain.Greenhouse;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,8 +19,6 @@ public class DAO {
         }
 
         System.out.println("Dao connected");
-
-//        System.out.println("Light Data: " + getLightData());
     }
 
     public GreenhouseDTO getGreenhouseData (int greenhouseID) {
@@ -92,6 +91,11 @@ public class DAO {
             return true;
         } else
             return false;
+    }
+
+    public int writeGreenhouse(GreenhouseDTO greenhouseDTO) {
+
+        return insertGreenhouse(greenhouseDTO);
     }
 
     private boolean insertLightData (int greenhouseID, LightDTO lightData) {
@@ -302,7 +306,7 @@ public class DAO {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setLong(1, System.currentTimeMillis());
+            ps.setLong(1, humiditySetPointDTO.getDateCreated());
             ps.setInt(2, GreenhouseId);
             ps.setDouble(3, humiditySetPointDTO.getMin());
             ps.setDouble(4, humiditySetPointDTO.getMax());
@@ -325,7 +329,7 @@ public class DAO {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setLong(1, System.currentTimeMillis());
+            ps.setLong(1, temperatureSetPointDTO.getDateCreated());
             ps.setInt(2, GreenhouseId);
             ps.setDouble(3, temperatureSetPointDTO.getMin());
             ps.setDouble(4, temperatureSetPointDTO.getMax());
@@ -342,17 +346,17 @@ public class DAO {
     }
 
     private boolean insertLightSetpoint(int GreenhouseId, LightSetpointDTO lightSetPointDTO) {
-        String sql = "INSERT INTO temperature_setpoint (date_created, greenhouse_id, red, blue, start_time)" +
+        String sql = "INSERT INTO light_setpoint (date_created, greenhouse_id, red, blue, start_time)" +
                 "     VALUES (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setLong(1, System.currentTimeMillis());
+            ps.setLong(1, lightSetPointDTO.getDateCreated());
             ps.setInt(2, GreenhouseId);
             ps.setInt(3, lightSetPointDTO.getRed());
             ps.setInt(4, lightSetPointDTO.getBlue());
-            ps.setLong(5, lightSetPointDTO.getDateCreated());
+            ps.setString(5, lightSetPointDTO.getStartTime());
 
             ps.execute();
 
@@ -474,7 +478,31 @@ public class DAO {
         return lightSetpointDTOList;
     }
 
+    private int insertGreenhouse(GreenhouseDTO greenhouseDTO) {
+        String sql = "INSERT INTO greenhouse (ip_address, port, location, name, date_created) VALUES (?, ?, ?, ?, ?) RETURNING id";
 
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setString(1, greenhouseDTO.getIpAddress());
+            ps.setInt(2, greenhouseDTO.getPort());
+            ps.setString(3, greenhouseDTO.getLocation());
+            ps.setString(4, greenhouseDTO.getName());
+            ps.setLong(5, greenhouseDTO.getDateCreated());
+
+            ps.execute();
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if(rs.next()) {
+                int id = rs.getInt(1);
+                return id;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+
+    }
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:postgresql://tek-studsrv0e.stud-srv.sdu.dk:5432/greenhouse_data", "root", "root");
