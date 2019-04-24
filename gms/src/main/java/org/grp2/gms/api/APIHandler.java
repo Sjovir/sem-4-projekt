@@ -70,16 +70,25 @@ public class APIHandler {
     }
 
     public void writeValue(Context context) {
-        //String url = "http://localhost:7000/api/write-value/:type/:value";
+        int id = Integer.parseInt(context.pathParam("greenhouse-id"));
+        int type = Integer.parseInt(context.pathParam("type"));
+        double value = Double.parseDouble(context.pathParam("value"));
 
+        boolean success = gms.writeValue(id, type, value);
+        if(success){
+            context.status(200);
+        }else{
+            context.status(408);
+        }
     }
 
     public void writeGMSConnection(Context context) {
-        int id = Integer.parseInt(context.pathParam("green-house-id"));
+        int id = Integer.parseInt(context.pathParam("greenhouse-id"));
         String ipAddress = context.pathParam("ip-address");
         int port = Integer.parseInt(context.pathParam("port"));
 
-        if(gms.setGMSConnectionOnGreenhouse(id,port,ipAddress)){
+        boolean success = gms.setGMSConnectionOnGreenhouse(id,port,ipAddress);
+        if(success){
             context.status(200);
         }else{
             context.status(500);

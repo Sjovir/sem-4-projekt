@@ -85,6 +85,11 @@ public class Greenhouse {
         return lightSetPoints;
     }
 
+    public boolean writeValue(int type, double value) {
+        String routeUrl = "write-value/" + type + "/" + value;
+        return writeToGnode(routeUrl);
+    }
+
     public boolean setHumiditySetPoint(HumiditySetpointDTO humiditySetPointDTO){
         this.humiditySetPoint = convertHumiditySetpoint(humiditySetPointDTO);
         String routeUrl = "write-humidity-setpoint/" + humiditySetPoint.getMinValue() + "/" + humiditySetPoint.getMaxValue() + "/"
@@ -173,5 +178,4 @@ public class Greenhouse {
 
         return lightSetPoint;
     }
-
 }
