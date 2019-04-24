@@ -177,13 +177,14 @@ public class GMS {
     }
 
     private Greenhouse convertGreenhouseDTO(GreenhouseDTO greenhouseDTO) {
+        int id = greenhouseDTO.getId();
         String ip = greenhouseDTO.getIpAddress();
         int port = greenhouseDTO.getPort();
         String location = greenhouseDTO.getLocation();
         String name = greenhouseDTO.getName();
-        int id = greenhouseDTO.getId();
+        long dateCreated = greenhouseDTO.getDateCreated();
 
-        Greenhouse greenhouse = new Greenhouse(id, ip, port, name, location);
+        Greenhouse greenhouse = new Greenhouse(id, ip, port, location, name, dateCreated);
 
         return greenhouse;
     }
@@ -193,9 +194,10 @@ public class GMS {
         int port = greenhouse.getPort();
         String location = greenhouse.getLocation();
         String name = greenhouse.getName();
+        long dateCreated = greenhouse.getDateCreated();
         int id = greenhouse.getId();
 
-        GreenhouseDTO greenhouseDTO = new GreenhouseDTO(ip, port, location, name, (long) 0, id);
+        GreenhouseDTO greenhouseDTO = new GreenhouseDTO(ip, port, location, name, dateCreated, id);
 
         return greenhouseDTO;
     }

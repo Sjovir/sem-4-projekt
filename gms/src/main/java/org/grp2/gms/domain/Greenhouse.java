@@ -17,20 +17,22 @@ public class Greenhouse {
     private int id;
     private String ipAddress;
     private int port;
-    private String name;
     private String location;
+    private String name;
+    private long dateCreated;
     private HumiditySetPoint humiditySetPoint;
     private TemperatureSetPoint temperatureSetPoint;
     private List<LightSetPoint> lightSetPoints;
 
 
-    public Greenhouse(int id, String ipAddress, int port, String name, String location) {
+    public Greenhouse(int id, String ipAddress, int port, String location, String name, long dateCreated) {
         this.id = id;
         this.ipAddress = ipAddress;
         this.port = port;
         this.name = name;
         this.location = location;
-        lightSetPoints = new ArrayList<>();
+        this.dateCreated = dateCreated;
+        this.lightSetPoints = new ArrayList<>();
     }
 
     public int getId() {
@@ -71,6 +73,14 @@ public class Greenhouse {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public long getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(long dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public HumiditySetPoint getHumiditySetPoint() {
