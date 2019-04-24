@@ -188,4 +188,21 @@ public class APIHandler {
             context.status(500);
         }
     }
+
+    public void getGreenhouses(Context context) {
+        List<GreenhouseDTO> greenhouses = gms.getGreenhouses();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        if (greenhouses != null) {
+            try {
+                context.json(mapper.writeValueAsString(greenhouses));
+                context.status(200);
+            } catch (JsonProcessingException e) {
+                context.status(500);
+                e.printStackTrace();
+            }
+        } else
+            context.status(500);
+    }
 }

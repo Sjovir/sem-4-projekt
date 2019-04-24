@@ -130,18 +130,6 @@ public class GMS {
         }
     }
 
-    private Greenhouse convertGreenhouseDTO(GreenhouseDTO greenhouseDTO) {
-        String ip = greenhouseDTO.getIpAddress();
-        int port = greenhouseDTO.getPort();
-        String location = greenhouseDTO.getLocation();
-        String name = greenhouseDTO.getName();
-        int id = greenhouseDTO.getId();
-
-        Greenhouse greenhouse = new Greenhouse(id, ip, port, name, location);
-
-        return greenhouse;
-    }
-
     public HumiditySetpointDTO getHumiditySetpoint(int greenhouseID) {
         Greenhouse greenhouse = getGreenhouse(greenhouseID);
 
@@ -175,6 +163,41 @@ public class GMS {
             return lightSetPoints;
         }
         return null;
+    }
+
+    public List<GreenhouseDTO> getGreenhouses() {
+        List<GreenhouseDTO> greenhouseDTOs = new ArrayList<>();
+        
+        for (Greenhouse greenhouse : greenhouseList) {
+            GreenhouseDTO greenhouseDTO = convertGreenhouse(greenhouse);
+            greenhouseDTOs.add(greenhouseDTO);
+        }
+
+        return greenhouseDTOs;
+    }
+
+    private Greenhouse convertGreenhouseDTO(GreenhouseDTO greenhouseDTO) {
+        String ip = greenhouseDTO.getIpAddress();
+        int port = greenhouseDTO.getPort();
+        String location = greenhouseDTO.getLocation();
+        String name = greenhouseDTO.getName();
+        int id = greenhouseDTO.getId();
+
+        Greenhouse greenhouse = new Greenhouse(id, ip, port, name, location);
+
+        return greenhouse;
+    }
+
+    private GreenhouseDTO convertGreenhouse(Greenhouse greenhouse) {
+        String ip = greenhouse.getIpAddress();
+        int port = greenhouse.getPort();
+        String location = greenhouse.getLocation();
+        String name = greenhouse.getName();
+        int id = greenhouse.getId();
+
+        GreenhouseDTO greenhouseDTO = new GreenhouseDTO(ip, port, location, name, (long) 0, id);
+
+        return greenhouseDTO;
     }
 
     private HumiditySetpointDTO convertHumditySetpoint(HumiditySetPoint humiditySetPoint) {
