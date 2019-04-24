@@ -1,3 +1,27 @@
 <div class="jumbotron greenhouseManagement">
   <h1 class="header">Greenhouse command</h1>
+  <div class="form-group">
+    <form [formGroup]="commandForm" (ngSubmit)="checkFields()">
+      <div class="form-group myFormDiv">
+        <label for="formGroupGreenhouseID">Greenhouse ID</label>
+        <input type="text" class="form-control input-sm" formControlName="greenHouseID" id="formGroupGreenhouseID">
+      </div>
+      <label for="sel1">Select command:</label>
+      <select class="form-control" id="commandType">
+        <option>Temperature</option>
+        <option>Fan speed</option>
+        <option>Blue light</option>
+        <option>Red light</option>
+        <option>Moisture</option>
+      </select>
+      <div class="form-group myFormDiv">
+        <label for="formGroupValue">Value for command</label>
+        <input type="text" class="form-control input-sm" formControlName="commandValue" id="formGroupValue">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2 formButton">Send command</button>
+      <div>
+        <p class="responseMessageP">{{responseMessage}}</p>
+      </div>
+    </form>
+  </div>
 </div>
