@@ -15,6 +15,7 @@ import { GreenhouseCommandComponent } from './greenhouse-command/greenhouse-comm
 import { GreenhouseListComponent } from './greenhouse-list/greenhouse-list.component';
 import { SetupGreenhouseComponent } from './setup-greenhouse/setup-greenhouse.component';
 import { GreenhouseManagementComponent } from './greenhouse-management/greenhouse-management.component';
+import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { GreenhouseManagementComponent } from './greenhouse-management/greenhous
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+
+
+
 @Component({
   selector: 'app-setpoints',
   templateUrl: './setpoints.component.html',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SetpointsComponent implements OnInit {
 
+
+
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }
