@@ -1,77 +1,78 @@
-<div class="form id-input">
-  Enter Greenhouse ID to see data:
-  <input #id type="number">
-  <button type="button" (click)="onSelect(id.value)">GetTheData!</button>
-</div>
+<div class="jumbotron grData">
+  <!-- <div class="id-input">
+    Enter Greenhouse ID to see data:
+    <input #id type="number">
+    <button type="button" (click)="onSelect(id.value)">GetTheData!</button>
+    <h1>{{selectedID}}</h1>
+  </div> -->
 
-
-
-<div class="table-responsive jumbotron gr-table-container">
-  <table class="table table-striped table-bordered gr-table">
-    <thead>
-        <tr>
-          <td colspan="2">
-            <h2>Temperature</h2>
-          </td>
+  <div class="table-responsive gr-table-container">
+    <table class="table table-striped table-bordered gr-table">
+      <thead>
+          <tr>
+            <td colspan="2">
+              <h2>Temperature</h2>
+            </td>
+          </tr>
+          <tr>
+            <th>Timestamp</th>
+            <th>Value</th>
+          </tr>
+      </thead>
+      <tbody *ngIf="selectedGreenhouse">
+        <tr *ngFor="let temp of selectedGreenhouse.temperatureData">
+          <td>{{temp.timeCollected}}</td>
+          <td>{{temp.value}}</td>
         </tr>
-        <tr>
-          <th>Time Collected</th>
-          <th>Value</th>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="table-responsive gr-table-container">
+    <table class="table table-striped table-bordered gr-table">
+      <thead>
+          <tr>
+            <td colspan="2">
+              <h2>Humidity</h2>
+            </td>
+          </tr>
+          <tr>
+            <th>Timestamp</th>
+            <th>Value</th>
+          </tr>
+      </thead>
+      <tbody *ngIf="selectedGreenhouse">
+        <tr *ngFor="let humidity of selectedGreenhouse.humidityData">
+          <td>{{humidity.timeCollected}}</td>
+          <td>{{humidity.value}}</td>
         </tr>
-    </thead>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="table-responsive gr-light-table">
+    <table class="table table-striped table-bordered gr-table">
+      <thead>
+          <tr>
+            <td colspan="3">
+              <h2>Light</h2>
+            </td>
+          </tr>
+          <tr>
+            <th>Timestamp</th>
+            <th>Red</th>
+            <th>Blue</th>
+          </tr>
+      </thead>
     <tbody *ngIf="selectedGreenhouse">
-      <tr *ngFor="let temp of selectedGreenhouse.temperatureData">
-        <td>{{temp.timeCollected}}</td>
-        <td>{{temp.value}}</td>
-      </tr>
-    </tbody>
-  </table>
-
-</div>
-
-<div class="table-responsive jumbotron gr-table-container">
-  <table class="table table-striped table-bordered gr-table">
-    <thead>
-        <tr>
-          <td colspan="2">
-            <h2>Humidity</h2>
-          </td>
+        <tr *ngFor="let light of selectedGreenhouse.lightData">
+          <td>{{light.timeCollected}}</td>
+          <td>{{light.redValue}}</td>
+          <td>{{light.blueValue}}</td>
         </tr>
-        <tr>
-          <th>Time Collected</th>
-          <th>Value</th>
-        </tr>
-    </thead>
-    <tbody *ngIf="selectedGreenhouse">
-      <tr *ngFor="let humidity of selectedGreenhouse.humidityData">
-        <td>{{humidity.timeCollected}}</td>
-        <td>{{humidity.value}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-<div class="table-responsive jumbotron gr-table-container">
-  <table class="table table-striped table-bordered gr-table">
-    <thead>
-        <tr>
-          <td colspan="3">
-            <h2>Light</h2>
-          </td>
-        </tr>
-        <tr>
-          <th>Time Collected</th>
-          <th>Red light</th>
-          <th>Blue light</th>
-        </tr>
-    </thead>
-  <tbody *ngIf="selectedGreenhouse">
-      <tr *ngFor="let light of selectedGreenhouse.lightData">
-        <td>{{light.timeCollected}}</td>
-        <td>{{light.redValue}}</td>
-        <td>{{light.blueValue}}</td>
-      </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
