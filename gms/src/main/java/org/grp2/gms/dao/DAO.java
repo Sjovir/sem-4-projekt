@@ -19,8 +19,6 @@ public class DAO {
         }
 
         System.out.println("Dao connected");
-
-//        System.out.println("Light Data: " + getLightData());
     }
 
     public GreenhouseDTO getGreenhouseData (int greenhouseID) {
@@ -308,7 +306,7 @@ public class DAO {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setLong(1, System.currentTimeMillis());
+            ps.setLong(1, humiditySetPointDTO.getDateCreated());
             ps.setInt(2, GreenhouseId);
             ps.setDouble(3, humiditySetPointDTO.getMin());
             ps.setDouble(4, humiditySetPointDTO.getMax());
@@ -331,7 +329,7 @@ public class DAO {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setLong(1, System.currentTimeMillis());
+            ps.setLong(1, temperatureSetPointDTO.getDateCreated());
             ps.setInt(2, GreenhouseId);
             ps.setDouble(3, temperatureSetPointDTO.getMin());
             ps.setDouble(4, temperatureSetPointDTO.getMax());
@@ -348,17 +346,17 @@ public class DAO {
     }
 
     private boolean insertLightSetpoint(int GreenhouseId, LightSetpointDTO lightSetPointDTO) {
-        String sql = "INSERT INTO temperature_setpoint (date_created, greenhouse_id, red, blue, start_time)" +
+        String sql = "INSERT INTO light_setpoint (date_created, greenhouse_id, red, blue, start_time)" +
                 "     VALUES (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setLong(1, System.currentTimeMillis());
+            ps.setLong(1, lightSetPointDTO.getDateCreated());
             ps.setInt(2, GreenhouseId);
             ps.setInt(3, lightSetPointDTO.getRed());
             ps.setInt(4, lightSetPointDTO.getBlue());
-            ps.setLong(5, lightSetPointDTO.getDateCreated());
+            ps.setString(5, lightSetPointDTO.getStartTime());
 
             ps.execute();
 

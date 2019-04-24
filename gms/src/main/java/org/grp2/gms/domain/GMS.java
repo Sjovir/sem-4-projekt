@@ -39,6 +39,7 @@ public class GMS {
 
             return true;
         }
+
         return false;
     }
 
@@ -50,6 +51,7 @@ public class GMS {
 
             return true;
         }
+
         return false;
     }
 
@@ -61,6 +63,7 @@ public class GMS {
 
             return true;
         }
+
         return false;
     }
 
@@ -72,22 +75,27 @@ public class GMS {
 
     public boolean setupGreenhouse(GreenhouseDTO greenhouseDTO) {
         int greenhouseID = gmsDao.writeGreenhouse(greenhouseDTO);
-        if(greenhouseID >= 0) {
 
+        if (greenhouseID >= 0) {
             greenhouseDTO.setId(greenhouseID);
             Greenhouse greenhouse = convertGreenhouseDTO(greenhouseDTO);
             greenhouseList.add(greenhouse);
+
             return true;
         }
+
         return false;
     }
 
     public boolean setGMSConnectionOnGreenhouse(int greenhouseID, int port, String ipAddress) {
         Greenhouse greenhouse = getGreenhouse(greenhouseID);
-        if(greenhouse == null){
+
+        if (greenhouse == null) {
             System.err.println("Greenhouse " + greenhouseID + " does not exist");
+
             return false;
         }
+
         return greenhouse.setCallbackConnection(port,ipAddress);
     }
 
@@ -96,12 +104,10 @@ public class GMS {
     }
 
     private Greenhouse getGreenhouse(int greenhouseID) {
-        for (Greenhouse greenhouse: greenhouseList) {
-            if (greenhouse.getId() == greenhouseID){
+        for (Greenhouse greenhouse: greenhouseList)
+            if (greenhouse.getId() == greenhouseID)
                 return greenhouse;
-            }
 
-        }
         return null;
     }
 
@@ -113,20 +119,17 @@ public class GMS {
             TemperatureSetpointDTO temperatureSetpointDTO = gmsDao.getTemperatureSetpointObject(greenhouse.getId());
             List<LightSetpointDTO> lightSetpointDTOList = gmsDao.getLightSetpointObjects(greenhouse.getId());
 
-            if(humiditySetpointDTO != null) {
+            if(humiditySetpointDTO != null)
                 greenhouse.setHumiditySetPoint(humiditySetpointDTO);
-            }
-            if(temperatureSetpointDTO != null) {
+
+            if(temperatureSetpointDTO != null)
                 greenhouse.setTemperatureSetPoint(temperatureSetpointDTO);
-            }
-            if(lightSetpointDTOList!= null && lightSetpointDTOList.size() > 0) {
-                for(LightSetpointDTO lightSetpointDTO : lightSetpointDTOList) {
+
+            if(lightSetpointDTOList!= null && lightSetpointDTOList.size() > 0)
+                for(LightSetpointDTO lightSetpointDTO : lightSetpointDTOList)
                     greenhouse.addLightSetPoint(lightSetpointDTO);
-                }
-            }
 
             greenhouseList.add(greenhouse);
-
         }
     }
 
@@ -136,8 +139,10 @@ public class GMS {
         if(greenhouse != null) {
             HumiditySetPoint humiditySetpoint = greenhouse.getHumiditySetPoint();
 
-            return convertHumditySetpoint(humiditySetpoint);
+            if (humiditySetpoint != null)
+                return convertHumditySetpoint(humiditySetpoint);
         }
+
         return null;
     }
 
@@ -145,9 +150,12 @@ public class GMS {
         Greenhouse greenhouse = getGreenhouse(greenhouseID);
 
         if(greenhouse != null) {
-            TemperatureSetPoint temperatureSetpointDTO = greenhouse.getTemperatureSetPoint();
-            return convertTemperatureSetpoint(temperatureSetpointDTO);
+            TemperatureSetPoint temperatureSetpoint = greenhouse.getTemperatureSetPoint();
+
+            if (temperatureSetpoint != null)
+                return convertTemperatureSetpoint(temperatureSetpoint);
         }
+
         return null;
     }
 
@@ -157,11 +165,12 @@ public class GMS {
         if(greenhouse != null) {
             List<LightSetpointDTO> lightSetPoints = new ArrayList<>();
 
-            for(LightSetPoint lightSetPoint : greenhouse.getLightSetPoints()) {
+            for(LightSetPoint lightSetPoint : greenhouse.getLightSetPoints())
                 lightSetPoints.add(convertLightsetpoints(lightSetPoint));
-            }
+
             return lightSetPoints;
         }
+
         return null;
     }
 
@@ -232,6 +241,5 @@ public class GMS {
         LightSetpointDTO lightSetpointDTO = new LightSetpointDTO(redValue, blueValue, startTime);
 
         return lightSetpointDTO;
-
     }
 }
