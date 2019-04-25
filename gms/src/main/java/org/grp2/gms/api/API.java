@@ -26,7 +26,7 @@ public class API extends AbstractAPI {
     private void setRoutes(Javalin app, APIHandler handler) {
         app.routes(() -> {
             path("/api", () -> {
-                //raspberry pi calls
+                // raspberry pi calls
                 post("/write-value/:greenhouse-id/:type/:value", handler::writeValue);
                 post("/write-gms-connection/:greenhouse-id/:ip-address/:port", handler::writeGMSConnection);
                 post("/write-humidity-setpoint/:greenhouse-id/:min-value/:max-value/:alarm-min-value/:alarm-max-value", handler::writeHumiditySetPoint);
@@ -34,13 +34,14 @@ public class API extends AbstractAPI {
                 post("/write-light-setpoint/:greenhouse-id/:blue-value/:red-value/:time", handler::writeLightSetPoint);
                 post("/start-regulator/:greenhouse-id", handler::startRegulator);
 
-                get("/get-greenhouse-setpoints/:greenhouse-id", handler::getGreenhouseSetpoints);
+                // get information from gms system
                 get("get-greenhouses/", handler::getGreenhouses);
+                get("/get-greenhouse-setpoints/:greenhouse-id", handler::getGreenhouseSetpoints);
+                get("/get-greenhouse-data/:greenhouse-id", handler::getGreenhouseData);
 
-                //gms calls
+                // gms calls
                 post("/write-collected-data/:greenhouse-id/:timestamp/:temperature/:humidity/:red-light/:blue-light", handler::writeCollectedData);
                 post("setup-greenhouse/:ip-address/:port/:location/:name", handler::setupGreenhouse);
-                get("/get-greenhouse-data/:greenhouse-id", handler::getGreenhouseData);
             });
         });
 

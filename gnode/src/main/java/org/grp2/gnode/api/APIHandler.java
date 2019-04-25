@@ -16,6 +16,8 @@ public class APIHandler {
     }
 
     public void writeValue(Context context) throws JsonProcessingException {
+        System.out.println("Route called: write-value");
+
         int type = Integer.parseInt(context.pathParam("type"));
         double value = Double.parseDouble(context.pathParam("value"));
 
@@ -28,6 +30,8 @@ public class APIHandler {
     }
 
     public void writeGMSConnection(Context context) {
+        System.out.println("Route called: write-gms-connection");
+
         int port = Integer.parseInt(context.pathParam("port"));
         String url = context.pathParam("url");
         int greenhouseID = Integer.parseInt(context.pathParam("green-house-id"));
@@ -42,6 +46,8 @@ public class APIHandler {
     }
 
     public void writeHumiditySetPoint(Context context) {
+        System.out.println("Route called: write-humidity-setpoint");
+
         double minValue = Double.parseDouble(context.pathParam("min-value"));
         double maxValue = Double.parseDouble(context.pathParam("max-value"));
         double alarmMinValue = Double.parseDouble(context.pathParam("alarm-min-value"));
@@ -52,6 +58,8 @@ public class APIHandler {
     }
 
     public void writeTemperatureSetPoint(Context context) {
+        System.out.println("Route called: write-temperature-setpoint");
+
         double minValue = Double.parseDouble(context.pathParam("min-value"));
         double maxValue = Double.parseDouble(context.pathParam("max-value"));
         double alarmMinValue = Double.parseDouble(context.pathParam("alarm-min-value"));
@@ -62,6 +70,8 @@ public class APIHandler {
     }
 
     public void writeLightSetPoint(Context context) {
+        System.out.println("Route called: write-light-setpoint");
+
         double blueValue = Double.parseDouble(context.pathParam("blue-value"));
         double redValue = Double.parseDouble(context.pathParam("red-value"));
         String time = context.pathParam("time");
@@ -71,6 +81,8 @@ public class APIHandler {
     }
 
     public void startRegulator(Context context) {
+        System.out.println("Route called: start-regulator");
+
         gnode.startRegulator();
         context.status(200);
     }
