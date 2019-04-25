@@ -20,9 +20,9 @@ public class Greenhouse {
     private String location;
     private String name;
     private long dateCreated;
-    private HumiditySetPoint humiditySetPoint;
-    private TemperatureSetPoint temperatureSetPoint;
-    private List<LightSetPoint> lightSetPoints;
+    private HumiditySetPoint humiditySetpoint;
+    private TemperatureSetPoint temperatureSetpoint;
+    private List<LightSetPoint> lightSetpointList;
 
 
     public Greenhouse(int id, String ipAddress, int port, String location, String name, long dateCreated) {
@@ -32,7 +32,7 @@ public class Greenhouse {
         this.name = name;
         this.location = location;
         this.dateCreated = dateCreated;
-        this.lightSetPoints = new ArrayList<>();
+        this.lightSetpointList = new ArrayList<>();
     }
 
     public int getId() {
@@ -84,15 +84,15 @@ public class Greenhouse {
     }
 
     public HumiditySetPoint getHumiditySetPoint() {
-        return humiditySetPoint;
+        return humiditySetpoint;
     }
 
     public TemperatureSetPoint getTemperatureSetPoint() {
-        return temperatureSetPoint;
+        return temperatureSetpoint;
     }
 
     public List<LightSetPoint> getLightSetPoints() {
-        return lightSetPoints;
+        return lightSetpointList;
     }
 
     public boolean writeValue(int type, double value) {
@@ -101,25 +101,35 @@ public class Greenhouse {
     }
 
     public boolean setHumiditySetPoint(HumiditySetpointDTO humiditySetPointDTO){
-        this.humiditySetPoint = convertHumiditySetpoint(humiditySetPointDTO);
-        String routeUrl = "write-humidity-setpoint/" + humiditySetPoint.getMinValue() + "/" + humiditySetPoint.getMaxValue() + "/"
-                + humiditySetPoint.getAlarmMinValue() + "/" + humiditySetPoint.getAlarmMaxValue();
+        this.humiditySetpoint = convertHumiditySetpoint(humiditySetPointDTO);
+        String routeUrl = "write-humidity-setpoint/" + humiditySetpoint.getMinValue() + "/" + humiditySetpoint.getMaxValue() + "/"
+                + humiditySetpoint.getAlarmMinValue() + "/" + humiditySetpoint.getAlarmMaxValue();
         return writeToGnode(routeUrl);
     }
 
     public boolean setTemperatureSetPoint(TemperatureSetpointDTO temperatureSetPointDTO){
-        this.temperatureSetPoint = convertTemperatureSetpoint(temperatureSetPointDTO);
-        String routeUrl = "write-temperature-setpoint/" + temperatureSetPoint.getMinValue() + "/" + temperatureSetPoint.getMaxValue() + "/"
-                + temperatureSetPoint.getAlarmMinValue() + "/" + temperatureSetPoint.getAlarmMaxValue();
+        this.temperatureSetpoint = convertTemperatureSetpoint(temperatureSetPointDTO);
+        String routeUrl = "write-temperature-setpoint/" + temperatureSetpoint.getMinValue() + "/" + temperatureSetpoint.getMaxValue() + "/"
+                + temperatureSetpoint.getAlarmMinValue() + "/" + temperatureSetpoint.getAlarmMaxValue();
         return writeToGnode(routeUrl);
     }
 
     public boolean addLightSetPoint(LightSetpointDTO lightSetPointDTO){
-        lightSetPoints.add(convertLightSetpoint(lightSetPointDTO));
+        LightSetPoint newLightSetpoint = convertLightSetpoint(lightSetPointDTO);
+
+        for (LightSetPoint lightSetpoint : lightSetpointList) {
+            if (lightSetpoint.getTime().equals(newLightSetpoint.getTime())) {
+                lightSetpointList.remove(lightSetpoint);
+                break;
+            }
+        }
+        
+        lightSetpointList.add(newLightSetpoint);
+        System.out.println(lightSetpointList.size());
+        
         String routeUrl = "write-light-setpoint/" + lightSetPointDTO.getBlue() + "/" + lightSetPointDTO.getRed() + "/"
                 + lightSetPointDTO.getStartTime();
         return writeToGnode(routeUrl);
-
     }
 
     public boolean setCallbackConnection(int port, String ipAddress){
@@ -168,9 +178,9 @@ public class Greenhouse {
         double alarmMin = humiditySetpointDTO.getAlarmMin();
         double alarmMax = humiditySetpointDTO.getAlarmMax();
 
-        HumiditySetPoint humiditySetPoint = new HumiditySetPoint(min, max, alarmMin, alarmMax);
+        HumiditySetPoint humiditySetpoint = new HumiditySetPoint(min, max, alarmMin, alarmMax);
 
-        return humiditySetPoint;
+        return humiditySetpoint;
     }
 
     private TemperatureSetPoint convertTemperatureSetpoint(TemperatureSetpointDTO temperatureSetpointDTO) {

@@ -1,7 +1,6 @@
 package org.grp2.gms.dao;
 
 import org.grp2.gms.common.*;
-import org.grp2.gms.domain.Greenhouse;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -87,7 +86,7 @@ public class DAO {
 
     public boolean writeLightSetpoint(int GreenhouseId, LightSetpointDTO lightSetPointDTO) {
 
-        if(deleteLightSetpoint(GreenhouseId) && insertLightSetpoint(GreenhouseId, lightSetPointDTO)) {
+        if(deleteLightSetpoint(GreenhouseId, lightSetPointDTO.getStartTime()) && insertLightSetpoint(GreenhouseId, lightSetPointDTO)) {
             return true;
         } else
             return false;
@@ -283,12 +282,13 @@ public class DAO {
         return false;
     }
 
-    private boolean deleteLightSetpoint(int GreenhouseId) {
-        String sql = "DELETE FROM light_setpoint WHERE ? = greenhouse_id";
+    private boolean deleteLightSetpoint(int GreenhouseId, String startTime) {
+        String sql = "DELETE FROM light_setpoint WHERE ? = greenhouse_id AND ? = start_time";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, GreenhouseId);
+            ps.setString(2, startTime);
 
             ps.execute();
 
