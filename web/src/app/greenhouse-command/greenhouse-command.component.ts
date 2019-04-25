@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Greenhouse } from 'src/greenhouse';
+import { GreenhouseService } from '../greenhouse.service';
 
 @Component({
   selector: 'app-greenhouse-command',
@@ -9,27 +11,41 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class GreenhouseCommandComponent implements OnInit {
 
   commandForm: FormGroup;
+  regulatorForm: FormGroup;
   responseMessage: string;
+  responseMessageReg: string;
   selectedTypeNumber: number;
 
-  constructor(private formBuilder: FormBuilder) {
+  public selectedGreenhouse:Greenhouse;
+
+  constructor(private formBuilder: FormBuilder, private formBuilder2: FormBuilder, private greenhouseService: GreenhouseService) {
     this.commandForm = this.formBuilder.group({
       greenHouseID: ['', Validators.required],
       commandValue: ['', Validators.required]
+    })
+    this.regulatorForm = this.formBuilder2.group({
+      greenHouseID2: ['', Validators.required]
     })
   }
 
   ngOnInit() {
   }
 
+  onSelect(greenhouseid:number){
+    this.greenhouseService.getGreenhouse(greenhouseid).subscribe(greenhouse=>this.selectedGreenhouse=greenhouse);
+  }
+
   checkFields() {
-    var formGreenhouseID = this.commandForm.controls.greenHouseID.value;
+    var tempGID = (<HTMLInputElement>document.getElementById("formGroupGreenhouseID")).value;
+    var greenHouseIDValue = +tempGID;
     var selectedType = (<HTMLInputElement>document.getElementById("commandType")).value;
     var formValue = this.commandForm.controls.commandValue.value;
 
-    if((formGreenhouseID == "" || (formGreenhouseID < 0))) {
-      console.log(formGreenhouseID);
-      this.responseMessage = "Please enter a valid greenhouseID";
+    this.responseMessageReg = "";
+
+    if((tempGID == "" || (greenHouseIDValue < 0))) {
+      console.log(tempGID);
+      this.responseMessage = "Please pick an greenhouse or write a valid id.";
       return false;
     }
 
@@ -84,9 +100,26 @@ export class GreenhouseCommandComponent implements OnInit {
     }
 
     this.doRestCall();
-    console.log("GreenhouseID: " + formGreenhouseID + ", Selected type: " + selectedType + ", Selected type number: "
+    console.log("GreenhouseID: " + greenHouseIDValue + ", Selected type: " + selectedType + ", Selected type number: "
                 + this.selectedTypeNumber + ", Form value: " + formValue);
     this.responseMessage = "You send an command to the greenhouse.";
+    return true;
+  }
+
+  startRegulator() {
+    var tempGID = (<HTMLInputElement>document.getElementById("formGroupGreenhouseID2")).value;
+    var greenhouseID2Value = + tempGID;
+
+    this.responseMessage = "";
+
+    if (tempGID == "" || (greenhouseID2Value < 0)) {
+      this.responseMessageReg = "Please pick an greenhouse or write a valid id.";
+      return false;
+    }
+
+    this.doRestCall();
+    console.log(tempGID);
+    this.responseMessageReg = "You started the regulator.";
     return true;
   }
 
