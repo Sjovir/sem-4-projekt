@@ -42,7 +42,7 @@ public class Regulator {
         LightSetPoint newLightSetpoint = new LightSetPoint(blueValue, redValue, time);
         
         for (LightSetPoint lightSetpoint : lightSetPointList) {
-            if (lightSetpoint.time == time) {
+            if (lightSetpoint.getTime().equals(time)) {
                 lightSetPointList.remove(lightSetpoint);
                 break;
             }
