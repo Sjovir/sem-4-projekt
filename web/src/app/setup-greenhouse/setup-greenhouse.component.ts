@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-setup-greenhouse',
@@ -11,7 +12,7 @@ export class SetupGreenhouseComponent implements OnInit {
   setupForm: FormGroup;
   responseMessage: string;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private dataService: DataService) {
     this.setupForm = this.formBuilder.group({
       ipAddress: ['', Validators.required],
       port: ['', Validators.required],
@@ -60,12 +61,13 @@ export class SetupGreenhouseComponent implements OnInit {
       return false;
     }
 
-    this.doRestCall();
+    this.doRestCall(formIPAddress, formPort, formLocation, formName);
     this.responseMessage = "You created an greenhouse.";
     return true;
   }
 
-  doRestCall() {
+  async doRestCall(ipAddress: string, port: number, location: string, name: string) {
+    const res = await this.dataService.setupGreenhouse(ipAddress, port, location, name).toPromise();
     console.log("REST CALL");
     return true;
   }

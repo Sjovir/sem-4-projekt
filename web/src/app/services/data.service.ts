@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const gmsEndpoint = 'http://localhost:7001/api/';
+const gmsEndpoint = 'http://10.123.3.53:7001/api/';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,9 +20,9 @@ export class DataService {
 
  /**
   * Raspberry pi calls
-  * @param greenhouseID 
-  * @param type 
-  * @param value 
+  * @param greenhouseID
+  * @param type
+  * @param value
   */
  public writeValue(greenhouseID:number, type: number, value: number): Observable<any> {
   return this.http.post(gmsEndpoint + 'write-value/' + greenhouseID + '/' + type + '/' + value , null, httpOptions);
@@ -30,9 +30,9 @@ export class DataService {
 
  /**
   * Callback connection from gnode to gms
-  * @param greenhouseID 
-  * @param ipAddress 
-  * @param port 
+  * @param greenhouseID
+  * @param ipAddress
+  * @param port
   */
  public writeGmsConnection(greenhouseID: number, ipAddress: string, port: number): Observable<any> {
   return this.http.post(gmsEndpoint + 'write-gms-connection/' + greenhouseID + '/' + ipAddress + '/' + port, null, httpOptions);
@@ -40,11 +40,11 @@ export class DataService {
 
  /**
   * Send setpoint for humidity value
-  * @param greenhouseID 
-  * @param minValue 
-  * @param maxValue 
-  * @param alarmMinValue 
-  * @param alarmMaxValue 
+  * @param greenhouseID
+  * @param minValue
+  * @param maxValue
+  * @param alarmMinValue
+  * @param alarmMaxValue
   */
  public writeHumiditySetpoint(greenhouseID: number, minValue: number, maxValue: number, alarmMinValue: number, alarmMaxValue: number): Observable<any> {
   return this.http.post(gmsEndpoint + 'write-humidity-setpoint/' + greenhouseID + '/' + minValue + '/' + maxValue + '/' + alarmMinValue + '/' + alarmMaxValue, null, httpOptions );
@@ -52,11 +52,11 @@ export class DataService {
 
  /**
   *  send setpoint for temperature value
-  * @param greenhouseID 
-  * @param minValue 
-  * @param maxValue 
-  * @param alarmMinValue 
-  * @param alarmMaxValue 
+  * @param greenhouseID
+  * @param minValue
+  * @param maxValue
+  * @param alarmMinValue
+  * @param alarmMaxValue
   */
  public writeTemperatureSetpoint(greenhouseID: number, minValue: number, maxValue: number, alarmMinValue: number, alarmMaxValue: number): Observable<any> {
   return this.http.post(gmsEndpoint + 'write-temperature-setpoint/' + greenhouseID + '/' + minValue + '/' + maxValue + '/' + alarmMinValue + '/' + alarmMaxValue, null, httpOptions );
@@ -64,10 +64,10 @@ export class DataService {
 
  /**
   * send setpoint for light value
-  * @param greenhouseID 
-  * @param blueLight 
-  * @param redLight 
-  * @param time 
+  * @param greenhouseID
+  * @param blueLight
+  * @param redLight
+  * @param time
   */
  public writeLightSetpoint(greenhouseID: number, blueLight: number, redLight: number, time: string): Observable<any> {
   return this.http.post(gmsEndpoint + 'write-light-setpoint/' + greenhouseID + '/' + blueLight + '/' + redLight + '/' + time, null, httpOptions);
@@ -75,7 +75,7 @@ export class DataService {
 
  /**
   * send command for starting regulator
-  * @param greenhouseID 
+  * @param greenhouseID
   */
  public startRegulator(greenhouseID: number): Observable<any> {
   return this.http.post(gmsEndpoint + 'start-regulator/' + greenhouseID, null , httpOptions);
@@ -106,12 +106,8 @@ export class DataService {
    }
 
    public setupGreenhouse(ipAddress: string, port: number, location: string, name: string): Observable<any> {
+     console.log('called');
      return this.http.post(gmsEndpoint + 'setup-greenhouse/' + ipAddress + '/' + port + '/' + location + '/' + name, null, httpOptions);
    }
 
- 
- 
-
 }
-
-
