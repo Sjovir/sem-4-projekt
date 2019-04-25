@@ -1,5 +1,7 @@
 <div class="greenhouseManagementDiv container">
   <app-setup-greenhouse></app-setup-greenhouse>
   <app-greenhouse-command></app-greenhouse-command>
-  <app-greenhouse-list></app-greenhouse-list>
+  <div class="list-compatibility">
+    <app-greenhouse-list (selectedEvent)="receiveGreenhouseID($event)"></app-greenhouse-list>
+  </div>
 </div>
