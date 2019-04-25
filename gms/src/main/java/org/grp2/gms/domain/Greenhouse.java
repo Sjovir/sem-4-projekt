@@ -138,14 +138,18 @@ public class Greenhouse {
 
         try {
             InetAddress inet = InetAddress.getByName(ipAddress);
+
             if(inet.isReachable(port)){
                 HttpResponse res = Unirest.post(url).asString();
 
-                if(res.getStatus()==200){
+                if (res.getStatus() == 200) {
                     return true;
                 }
+
             }
+            System.out.println("GNode did not respond on url: " + url);
             return false;
+
         } catch (UnirestException ex) {
             ex.getMessage();
             return false;
@@ -154,6 +158,7 @@ public class Greenhouse {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
