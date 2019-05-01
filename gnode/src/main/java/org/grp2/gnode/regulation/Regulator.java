@@ -15,16 +15,25 @@ public class Regulator implements Runnable {
     private List<LightSetPoint> lightSetPointList = new ArrayList<>();
     private boolean automationActive;
 
-    private int humidityInterval = 10;
-    private int temperatureInterval = 5;
+    private int HUMIDITY_INTERVAL = 10;
+    private int TEMPERATURE_INTERVAL = 5;
     private int intervalTime;
 
-    private int lastHumidity
+    private double lastHumiditySetpoint;
+    private double lastHumidityValue;
     private LightSetPoint currentLightSetpoint;
+    
+    private double HUMIDITY_TOLERANCE = 0.5;
+    private double TEMPERATURE_TOLERANCE = 0.5;
+
+    private double PROPORTIONAL_VALUE = 0.7;
+    private double DERIVATIVE_VALUE = 0.1;
 
     public Regulator(GreenhouseController greenhouseController) {
         this.greenhouseController = greenhouseController;
-
+        
+        lastHumidityValue = greenhouseController.readValue(Action.READ_HUMIDITY);
+        
         this.addLightSetPoint(50, 50, "07:50");
         this.addLightSetPoint(50, 50, "08:50");
         this.addLightSetPoint(50, 50, "00:50");
@@ -89,6 +98,7 @@ public class Regulator implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             if (automationActive)
                 regulate();
         }
@@ -96,21 +106,52 @@ public class Regulator implements Runnable {
     
     private void regulate () {
 
-        if (intervalTime % humidityInterval  == 0) {
-            regulateHumdity();
-        }
+        if (intervalTime % HUMIDITY_INTERVAL  == 0)
+            regulateHumidity();
 
-        if (intervalTime % temperatureInterval == 0) {
+        if (intervalTime % TEMPERATURE_INTERVAL == 0)
             regulateTemperature();
-        }
 
         regulateLight();
 
         intervalTime++;
     }
 
-    private void regulateHumdity() {
+    private void regulateHumidity() {
+        double humidity = greenhouseController.readValue(Action.READ_HUMIDITY);
 
+        double middle = (humiditySetpoint.maxValue - humiditySetpoint.minValue) / 2 + humiditySetpoint.minValue;
+
+        double diff = lastHumidityValue - humidity;
+        double offset = Math.abs(lastHumiditySetpoint - humidity);
+
+        if (offset > HUMIDITY_TOLERANCE) {
+            double newHumiditySetpoint = middle;
+
+            double proportional = Math.abs(middle - humidity) * PROPORTIONAL_VALUE;
+            if (humidity > middle) {                    // Above
+                newHumiditySetpoint -= proportional;
+            } else {                                    // Below
+                newHumiditySetpoint += proportional;
+            }
+            
+            double derivative = diff * DERIVATIVE_VALUE;
+            if (diff > 0) {                              // Going up
+                newHumiditySetpoint -= derivative;
+            } else if (diff < 0) {                      // Going down
+                newHumiditySetpoint += derivative;
+            }
+
+            setHumidity(newHumiditySetpoint);
+        }
+
+
+        lastHumidityValue = humidity;
+    }
+
+    private void setHumidity(double value) {
+        greenhouseController.writeValue(Action.WRITE_MOISTURE, value);
+        lastHumiditySetpoint = value;
     }
 
     private void regulateTemperature() {
