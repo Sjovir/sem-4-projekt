@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
+import { DataService } from '../services/data.service';
 import { Greenhouse } from 'src/greenhouse';
-import { GreenhouseService } from '../greenhouse.service';
 
 @Component({
   selector: 'app-view-greenhouse-data',
@@ -10,15 +10,14 @@ import { GreenhouseService } from '../greenhouse.service';
 export class ViewGreenhouseDataComponent implements OnInit {
 
   public selectedGreenhouse:Greenhouse;
-
-  constructor(private greenhouseService: GreenhouseService) { }
+  constructor(private greenhouseService: DataService) { }
 
   ngOnInit() {
   }
 
   onSelect(greenhouseid:number){
-    this.greenhouseService.getGreenhouse(greenhouseid).subscribe(greenhouse=>this.selectedGreenhouse=greenhouse);
+    this.greenhouseService.getGreenhouseData(greenhouseid).subscribe(greenhouse=>{
+      this.selectedGreenhouse=JSON.parse(greenhouse);
+    });
   }
-
-  
 }

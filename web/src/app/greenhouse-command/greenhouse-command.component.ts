@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Greenhouse } from 'src/greenhouse';
-import { GreenhouseService } from '../greenhouse.service';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -19,7 +18,7 @@ export class GreenhouseCommandComponent implements OnInit {
 
   public selectedGreenhouse:Greenhouse;
 
-  constructor(private formBuilder: FormBuilder, private formBuilder2: FormBuilder, private greenhouseService: GreenhouseService, private dataService: DataService) {
+  constructor(private formBuilder: FormBuilder, private formBuilder2: FormBuilder, private dataService: DataService) {
     this.commandForm = this.formBuilder.group({
       greenHouseID: ['', Validators.required],
       commandValue: ['', Validators.required]
@@ -33,7 +32,7 @@ export class GreenhouseCommandComponent implements OnInit {
   }
 
   onSelect(greenhouseid:number){
-    this.greenhouseService.getGreenhouse(greenhouseid).subscribe(greenhouse=>this.selectedGreenhouse=greenhouse);
+    this.dataService.getGreenhouseData(greenhouseid).subscribe(greenhouse=>this.selectedGreenhouse=JSON.parse(greenhouse));
   }
 
   checkFields() {
