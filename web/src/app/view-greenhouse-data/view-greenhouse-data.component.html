@@ -44,7 +44,7 @@
       </thead>
       <tbody *ngIf="selectedGreenhouse">
         <tr *ngFor="let humidity of selectedGreenhouse.humidity">
-          <td>{{humidity.timeCollected}}</td>
+          <td>{{dateFormatter.epochToReadable(humidity.timeCollected)}}</td>
           <td>{{humidity.value}}</td>
         </tr>
       </tbody>
@@ -68,7 +68,7 @@
       </thead>
     <tbody *ngIf="selectedGreenhouse">
         <tr *ngFor="let light of selectedGreenhouse.light">
-          <td>{{light.timeCollected}}</td>
+          <td>{{dateFormatter.epochToReadable(light.timeCollected)}}</td>
           <td>{{light.redValue}}</td>
           <td>{{light.blueValue}}</td>
         </tr>

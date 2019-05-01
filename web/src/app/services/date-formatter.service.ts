@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +11,16 @@ export class DateFormatterService {
   public epochToReadable(epoch:number):string{
     var date = new Date(epoch);
     var res:string="";
-    res+=date.getUTCDate().toString()+"/"+date.getUTCMonth().toString()+"-"+date.getUTCFullYear().toString();
+    res+=this.addZero(date.getUTCDate())+"/"+this.addZero(date.getUTCMonth())+"-"+date.getUTCFullYear();
     res+=" ";
-    res+=date.getUTCHours().toString()+":"+date.getUTCMinutes().toString()+":"+date.getUTCSeconds().toString();
+    res+=this.addZero(date.getUTCHours())+":"+this.addZero(date.getUTCMinutes())+":"+this.addZero(date.getUTCSeconds()).toString();
 
     return res;
   }
-  public addZero(i:number) :string {
+  public addZero(i){
     if (i < 10) {
       i = "0" + i;
     }
-    return i.toString();
+    return i;
   }
 }
