@@ -15,6 +15,7 @@ import { GreenhouseCommandComponent } from './greenhouse-command/greenhouse-comm
 import { GreenhouseListComponent } from './greenhouse-list/greenhouse-list.component';
 import { SetupGreenhouseComponent } from './setup-greenhouse/setup-greenhouse.component';
 import { GreenhouseManagementComponent } from './greenhouse-management/greenhouse-management.component';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { GreenhouseManagementComponent } from './greenhouse-management/greenhous
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
