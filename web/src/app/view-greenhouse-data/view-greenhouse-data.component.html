@@ -21,7 +21,7 @@
       </thead>
       <tbody *ngIf="selectedGreenhouse">
         <tr *ngFor="let temp of selectedGreenhouse.temperature">
-          <td>{{temp.timeCollected}}</td>
+          <td>{{dateFormatter.epochToReadable(temp.timeCollected)}}</td>
           <td>{{temp.value}}</td>
         </tr>
       </tbody>
