@@ -18,7 +18,7 @@ export class GreenhouseCommandComponent implements OnInit {
 
   public selectedGreenhouse:Greenhouse;
 
-  constructor(private formBuilder: FormBuilder, private formBuilder2: FormBuilder, private greenhouseService: DataService) {
+  constructor(private formBuilder: FormBuilder, private formBuilder2: FormBuilder, private dataService: DataService) {
     this.commandForm = this.formBuilder.group({
       greenHouseID: ['', Validators.required],
       commandValue: ['', Validators.required]
@@ -32,7 +32,7 @@ export class GreenhouseCommandComponent implements OnInit {
   }
 
   onSelect(greenhouseid:number){
-    this.greenhouseService.getGreenhouseData(greenhouseid).subscribe(greenhouse=>this.selectedGreenhouse=JSON.parse(greenhouse));
+    this.dataService.getGreenhouseData(greenhouseid).subscribe(greenhouse=>this.selectedGreenhouse=JSON.parse(greenhouse));
   }
 
   checkFields() {
@@ -99,7 +99,7 @@ export class GreenhouseCommandComponent implements OnInit {
         this.responseMessage = "Please pick a type";
     }
 
-    this.doRestCall();
+    this.doRestCallCommand(greenHouseIDValue, this.selectedTypeNumber, formValue);
     console.log("GreenhouseID: " + greenHouseIDValue + ", Selected type: " + selectedType + ", Selected type number: "
                 + this.selectedTypeNumber + ", Form value: " + formValue);
     this.responseMessage = "You send an command to the greenhouse.";
@@ -117,14 +117,32 @@ export class GreenhouseCommandComponent implements OnInit {
       return false;
     }
 
-    this.doRestCall();
+  
+    this.doRestCallRegulator(greenhouseID2Value);
     console.log(tempGID);
     this.responseMessageReg = "You started the regulator.";
     return true;
   }
 
-  doRestCall() {
-    console.log("REST CALL");
+  /**
+   * 
+   * @param greenhouseID 
+   * @param command 
+   * @param value 
+   */
+  async doRestCallCommand(greenhouseID:number, command: number, value: number) {
+    const res = await this.dataService.writeValue(greenhouseID, command, value).toPromise();
+    console.log("SEND COMMAND CALL");
+    return true;
+  }
+
+  /**
+   * 
+   * @param greenhouseID 
+   */
+  async doRestCallRegulator(greenhouseID: number) {
+    const res = await this.dataService.startRegulator(greenhouseID).toPromise();
+    console.log("START REGULATION COMMAND");
     return true;
   }
 }
