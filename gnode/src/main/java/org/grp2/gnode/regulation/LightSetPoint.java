@@ -1,9 +1,9 @@
 package org.grp2.gnode.regulation;
 
 public class LightSetPoint {
-    double blueValue;
-    double redValue;
-    String time;
+    private double blueValue;
+    private double redValue;
+    private String time;
 
     public LightSetPoint(double blueValue, double redValue, String time) {
         this.blueValue = blueValue;

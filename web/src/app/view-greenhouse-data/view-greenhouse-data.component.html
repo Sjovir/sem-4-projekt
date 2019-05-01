@@ -20,7 +20,7 @@
           </tr>
       </thead>
       <tbody *ngIf="selectedGreenhouse">
-        <tr *ngFor="let temp of selectedGreenhouse.temperatureData">
+        <tr *ngFor="let temp of selectedGreenhouse.temperature">
           <td>{{temp.timeCollected}}</td>
           <td>{{temp.value}}</td>
         </tr>
@@ -43,7 +43,7 @@
           </tr>
       </thead>
       <tbody *ngIf="selectedGreenhouse">
-        <tr *ngFor="let humidity of selectedGreenhouse.humidityData">
+        <tr *ngFor="let humidity of selectedGreenhouse.humidity">
           <td>{{humidity.timeCollected}}</td>
           <td>{{humidity.value}}</td>
         </tr>
@@ -67,7 +67,7 @@
           </tr>
       </thead>
     <tbody *ngIf="selectedGreenhouse">
-        <tr *ngFor="let light of selectedGreenhouse.lightData">
+        <tr *ngFor="let light of selectedGreenhouse.light">
           <td>{{light.timeCollected}}</td>
           <td>{{light.redValue}}</td>
           <td>{{light.blueValue}}</td>

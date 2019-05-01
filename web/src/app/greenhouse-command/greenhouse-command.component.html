@@ -4,7 +4,7 @@
     <form [formGroup]="commandForm" (ngSubmit)="checkFields()">
       <div class="form-group myFormDiv">
         <label for="formGroupGreenhouseID">Greenhouse ID</label>
-        <input type="text" class="form-control input-sm" formControlName="greenHouseID" id="formGroupGreenhouseID">
+        <input type="text" class="form-control input-sm" formControlName="greenHouseID" id="formGroupGreenhouseID" [value]="selectedGreenhouse ? selectedGreenhouse.id : ''">
       </div>
       <label for="sel1">Select command:</label>
       <select class="form-control" id="commandType">
@@ -21,6 +21,17 @@
       <button type="submit" class="btn btn-primary mb-2 formButton">Send command</button>
       <div>
         <p class="responseMessageP">{{responseMessage}}</p>
+      </div>
+    </form>
+    <h1 class="header">Automative regulation</h1>
+    <form [formGroup]="regulatorForm" (ngSubmit)="startRegulator()">
+      <div class="form-group myFormDiv">
+        <label for="formGroupGreenhouseID2">Greenhouse ID</label>
+        <input type="text" class="form-control input-sm" formControlName="greenHouseID2" id="formGroupGreenhouseID2" [value]="selectedGreenhouse ? selectedGreenhouse.id : ''">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2 formButton">Start Regulator</button>
+      <div>
+        <p class="responseMessageP" id="regReponseMessageID">{{responseMessageReg}}</p>
       </div>
     </form>
   </div>

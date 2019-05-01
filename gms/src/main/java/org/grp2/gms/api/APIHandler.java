@@ -17,78 +17,9 @@ public class APIHandler {
         this.gms = gms;
     }
 
-
-    public void writeCollectedData(Context context) {
-        try {
-            int id = Integer.parseInt(context.pathParam("greenhouse-id"));
-            long timeStamp = Long.parseLong(context.pathParam("timestamp"));
-            double temperature = Double.parseDouble(context.pathParam("temperature"));
-            double humidity = Double.parseDouble(context.pathParam("humidity"));
-            int redLight = Integer.parseInt(context.pathParam("red-light"));
-            int blueLight = Integer.parseInt(context.pathParam("blue-light"));
-
-            LightDTO lightDTO = new LightDTO(timeStamp, redLight, blueLight);
-            HumidityDTO humidityDTO = new HumidityDTO(timeStamp, humidity);
-            TemperatureDTO temperatureDTO = new TemperatureDTO(timeStamp, temperature);
-
-            boolean success = gms.writeCollectedData(id, lightDTO,humidityDTO,temperatureDTO);
-            if (success)
-                context.status(200);
-            else
-                context.status(500);
-
-
-        } catch (NumberFormatException e) {
-            context.status(400);
-            e.printStackTrace();
-        }
-    }
-
-    public void getGreenhouseData(Context context) {
-        try {
-            int id = Integer.parseInt(context.pathParam("greenhouse-id"));
-
-            GreenhouseDTO data = gms.getGreenhouseData(id);
-
-            ObjectMapper mapper = new ObjectMapper();
-
-            try {
-                context.json(mapper.writeValueAsString(data));
-                context.status(200);
-            } catch (JsonProcessingException e) {
-                context.status(500);
-                e.printStackTrace();
-            }
-
-        } catch (NumberFormatException e) {
-            context.status(400);
-            e.printStackTrace();
-        }
-    }
-
-    public void setupGreenhouse(Context context) {
-        try {
-            String ipAddress = context.pathParam("ip-address");
-            int port = Integer.parseInt(context.pathParam("port"));
-            String name = context.pathParam("name");
-            String location = context.pathParam("location");
-            Long dateCreated = System.currentTimeMillis();
-
-            GreenhouseDTO greenhouseDTO =  new GreenhouseDTO(ipAddress, port, location, name, dateCreated);
-
-            boolean success = gms.setupGreenhouse(greenhouseDTO);
-            if (success)
-                context.status(200);
-            else
-                context.status(500);
-
-        } catch (NumberFormatException e) {
-            context.status(400);
-            e.printStackTrace();
-        }
-    }
-
     public void writeValue(Context context) {
+        System.out.println("Route called: write-value");
+
         try {
             int id = Integer.parseInt(context.pathParam("greenhouse-id"));
             int type = Integer.parseInt(context.pathParam("type"));
@@ -107,6 +38,8 @@ public class APIHandler {
     }
 
     public void writeGMSConnection(Context context) {
+        System.out.println("Route called: write-gms-connection");
+
         try {
             int id = Integer.parseInt(context.pathParam("greenhouse-id"));
             String ipAddress = context.pathParam("ip-address");
@@ -125,6 +58,8 @@ public class APIHandler {
     }
 
     public void writeHumiditySetPoint(Context context) {
+        System.out.println("Route called: write-humidity-setpoint");
+
         try {
             long dateCreated = System.currentTimeMillis();
             int id = Integer.parseInt(context.pathParam("greenhouse-id"));
@@ -148,6 +83,8 @@ public class APIHandler {
     }
 
     public void writeTemperatureSetPoint(Context context) {
+        System.out.println("Route called: write-temperature-setpoint");
+
         try {
             long dateCreated = System.currentTimeMillis();
             int id = Integer.parseInt(context.pathParam("greenhouse-id"));
@@ -171,6 +108,8 @@ public class APIHandler {
     }
 
     public void writeLightSetPoint(Context context) {
+        System.out.println("Route called: write-light-setpoint");
+
         try {
             long dateCreated = System.currentTimeMillis();
             int id = Integer.parseInt(context.pathParam("greenhouse-id"));
@@ -196,6 +135,8 @@ public class APIHandler {
     }
 
     public void startRegulator(Context context) {
+        System.out.println("Route called: start-regulator");
+
         try {
             int id = Integer.parseInt(context.pathParam("greenhouse-id"));
 
@@ -211,7 +152,28 @@ public class APIHandler {
         }
     }
 
+    public void getGreenhouses(Context context) {
+        System.out.println("Route called: get-greenhouses");
+
+        List<GreenhouseDTO> greenhouses = gms.getGreenhouses();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        if (greenhouses != null) {
+            try {
+                context.json(mapper.writeValueAsString(greenhouses));
+                context.status(200);
+            } catch (JsonProcessingException e) {
+                context.status(500);
+                e.printStackTrace();
+            }
+        } else
+            context.status(500);
+    }
+
     public void getGreenhouseSetpoints(Context context) {
+        System.out.println("Route called: get-greenhouse-setpoints");
+
         try {
             int id = Integer.parseInt(context.pathParam("greenhouse-id"));
 
@@ -241,20 +203,80 @@ public class APIHandler {
         }
     }
 
-    public void getGreenhouses(Context context) {
-        List<GreenhouseDTO> greenhouses = gms.getGreenhouses();
+    public void getGreenhouseData(Context context) {
+        System.out.println("Route called: get-greenhouse-data");
 
-        ObjectMapper mapper = new ObjectMapper();
+        try {
+            int id = Integer.parseInt(context.pathParam("greenhouse-id"));
 
-        if (greenhouses != null) {
+            GreenhouseDTO data = gms.getGreenhouseData(id);
+
+            ObjectMapper mapper = new ObjectMapper();
+
             try {
-                context.json(mapper.writeValueAsString(greenhouses));
+                context.json(mapper.writeValueAsString(data));
                 context.status(200);
             } catch (JsonProcessingException e) {
                 context.status(500);
                 e.printStackTrace();
             }
-        } else
-            context.status(500);
+
+        } catch (NumberFormatException e) {
+            context.status(400);
+            e.printStackTrace();
+        }
+    }
+
+
+    public void writeCollectedData(Context context) {
+        System.out.println("Route called: write-collected-data");
+
+        try {
+            int id = Integer.parseInt(context.pathParam("greenhouse-id"));
+            long timeStamp = Long.parseLong(context.pathParam("timestamp"));
+            double temperature = Double.parseDouble(context.pathParam("temperature"));
+            double humidity = Double.parseDouble(context.pathParam("humidity"));
+            int redLight = Integer.parseInt(context.pathParam("red-light"));
+            int blueLight = Integer.parseInt(context.pathParam("blue-light"));
+
+            LightDTO lightDTO = new LightDTO(timeStamp, redLight, blueLight);
+            HumidityDTO humidityDTO = new HumidityDTO(timeStamp, humidity);
+            TemperatureDTO temperatureDTO = new TemperatureDTO(timeStamp, temperature);
+
+            boolean success = gms.writeCollectedData(id, lightDTO,humidityDTO,temperatureDTO);
+            if (success)
+                context.status(200);
+            else
+                context.status(500);
+
+
+        } catch (NumberFormatException e) {
+            context.status(400);
+            e.printStackTrace();
+        }
+    }
+
+    public void setupGreenhouse(Context context) {
+        System.out.println("Route called: setup-greenhouse");
+
+        try {
+            String ipAddress = context.pathParam("ip-address");
+            int port = Integer.parseInt(context.pathParam("port"));
+            String name = context.pathParam("name");
+            String location = context.pathParam("location");
+            Long dateCreated = System.currentTimeMillis();
+
+            GreenhouseDTO greenhouseDTO =  new GreenhouseDTO(ipAddress, port, location, name, dateCreated);
+
+            boolean success = gms.setupGreenhouse(greenhouseDTO);
+            if (success)
+                context.status(200);
+            else
+                context.status(500);
+
+        } catch (NumberFormatException e) {
+            context.status(400);
+            e.printStackTrace();
+        }
     }
 }

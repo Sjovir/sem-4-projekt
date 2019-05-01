@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { GreenhouseCommandComponent } from '../greenhouse-command/greenhouse-command.component';
 
 @Component({
   selector: 'app-greenhouse-management',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GreenhouseManagementComponent implements OnInit {
 
+  @ViewChild(GreenhouseCommandComponent)
+  private viewDataTables:GreenhouseCommandComponent;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  receiveGreenhouseID($event){
+    this.viewDataTables.onSelect($event);
   }
 
 }
