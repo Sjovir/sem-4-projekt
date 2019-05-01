@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-//const gmsEndpoint = 'http://10.123.3.53:7001/api/';
-const gmsEndpoint = 'http://127.0.0.1:7001/api/';
+const gmsEndpoint = 'http://10.123.3.53:7001/api/';
 
 const httpOptions = {
   headers: new HttpHeaders({
