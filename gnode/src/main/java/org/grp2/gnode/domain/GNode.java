@@ -13,6 +13,8 @@ public class GNode {
         greenhouseController = new GreenhouseController(5000, "192.168.0.40");
         valueSender = new ValueSender(5000, greenhouseController);
         regulator = new Regulator(greenhouseController);
+
+        setupRegulator();
     }
 
     public boolean writeValue(int id, double value) {
@@ -55,5 +57,11 @@ public class GNode {
 
     public void startRegulator() {
         regulator.start();
+    }
+
+    private void setupRegulator() {
+        Thread regulatorThread = new Thread(regulator);
+        regulatorThread.start();
+        startRegulator();
     }
 }
