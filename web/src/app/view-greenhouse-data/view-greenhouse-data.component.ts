@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { DataService } from '../services/data.service';
+import { Greenhouse } from 'src/greenhouse';
 
 @Component({
   selector: 'app-view-greenhouse-data',
@@ -8,7 +9,7 @@ import { DataService } from '../services/data.service';
 })
 export class ViewGreenhouseDataComponent implements OnInit {
 
-  public selectedGreenhouse;
+  public selectedGreenhouse:Greenhouse;
   constructor(private greenhouseService: DataService) { }
 
   ngOnInit() {

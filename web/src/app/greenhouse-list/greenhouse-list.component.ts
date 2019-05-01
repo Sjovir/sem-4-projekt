@@ -9,13 +9,15 @@ import { DataService } from '../services/data.service';
 })
 export class GreenhouseListComponent implements OnInit {
 
-  greenhouses:[];
+  greenhouses:Greenhouse[];
   @Output() selectedEvent=new EventEmitter<number>();
 
   constructor(private greenhouseService:DataService) { }
 
   ngOnInit() {    
-    this.greenhouseService.getGreenhouses().subscribe(greenhouses=>this.greenhouses=JSON.parse(greenhouses));
+    this.greenhouseService.getGreenhouses().subscribe(greenhouses=>
+      this.greenhouses=JSON.parse(greenhouses)
+    );
   }
 
   // selectGreenhouse(id:number){

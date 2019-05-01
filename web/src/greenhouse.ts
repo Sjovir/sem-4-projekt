@@ -5,7 +5,7 @@ export class Greenhouse{
     port: number;
     location: string;
     dateCreated: string;
-    lightData: {timeCollected:string,redValue:number,blueValue:number}[];
-    humidityData: {timeCollected:string,value:number}[];
-    temperatureData:{timeCollected:string,value:number}[];
+    light: {timeCollected:string,redValue:number,blueValue:number}[];
+    humidity: {timeCollected:string,value:number}[];
+    temperature:{timeCollected:string,value:number}[];
 }
