@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { Greenhouse } from '../../greenhouse';
+import { Setpoint } from 'src/setpoint';
+import { SetpointListComponent } from '../setpoint-list/setpoint-list.component';
 
 @Component({
   selector: 'app-light-setpoint',
@@ -12,7 +16,19 @@ export class LightSetpointComponent implements OnInit {
   public time: string;
   public responseMessage: string;
 
-  constructor() { }
+  public selectedGreenhouse: Greenhouse;
+
+
+  
+  @Output() selectedEvent = new EventEmitter<number>();
+
+  @ViewChild(SetpointListComponent)
+  private lightSetpointsTable: SetpointListComponent;
+
+  constructor(private dataService: DataService) { }
+
+
+
 
   onSlideListenerBlue(val) {
     this.blue = val;
@@ -24,6 +40,19 @@ export class LightSetpointComponent implements OnInit {
   ngOnInit() {
   }
 
+  async onSelect(greenhouseid: number) {
+    //this.dataService.getGreenhouseSetpoints(greenhouseid).subscribe(setpoints => {
+    //  this.setpoints = JSON.parse(setpoints)
+      
+    //});
+
+    let setpoints = await this.dataService.getGreenhouseSetpoints(greenhouseid).toPromise();
+
+    this.lightSetpointsTable.onSelect(JSON.parse(setpoints));
+    console.log(greenhouseid);
+  }
+
+  
   checkFields() {
 
    

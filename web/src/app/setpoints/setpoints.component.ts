@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LightSetpointComponent } from '../light-setpoint/light-setpoint.component';
 
 
 
@@ -10,12 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SetpointsComponent implements OnInit {
 
-
-
+  @ViewChild(LightSetpointComponent)
+  private lightSetpointsTable: LightSetpointComponent;
   constructor() { }
 
   ngOnInit() {
     
   }
+  receiveGreenhouseID($event) {
+    this.lightSetpointsTable.onSelect($event);
+   
+  } 
 
 }

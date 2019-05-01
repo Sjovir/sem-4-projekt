@@ -3,14 +3,18 @@
   <div class="row">
 
     <div class="listColumn col-4">
-      <app-greenhouse-list></app-greenhouse-list>
+      <div class="list-compatibility">
+        <app-greenhouse-list (selectedEvent)="receiveGreenhouseID($event)"></app-greenhouse-list>
+      </div>
     </div>
 
     <div class="sd col-8">
       <app-temperature-setpoint></app-temperature-setpoint>
       <app-humidity-setpoint></app-humidity-setpoint>
-      <app-light-setpoint></app-light-setpoint>
-
+      <app-light-setpoint>
+       
+      </app-light-setpoint>
+      
 
 
     </div>

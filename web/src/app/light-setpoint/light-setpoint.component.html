@@ -1,4 +1,4 @@
-<div class="setpoints jumbotron">
+<div class="setpoints lightSetpoints jumbotron">
   <h3>Light</h3>
   <div class="card">
     <div class="card-body">
@@ -14,13 +14,29 @@
       </div>
     </div>
   </div>
-  <div class="card" (change)="checkFields()">
+  <div class="card timeCard" (change)="checkFields()">
     <div class="card-body">
-      <h4 class="card-title">Time (in format hh:mm)</h4>
+      <h4 class="card-title timeCardTitle">Start time (in format hh:mm)</h4>
       <input type="text" id="time" placeholder="E.g.: 10:20" />
     </div>
+
     <div>
       <p class="responseMessageP">{{responseMessage}}</p>
     </div>
+   
+
 
   </div>
+  
+  <div class="card setPointTimeCard">
+    <div class="card-body">
+      <div class="list-group list-group-flush">
+        <div class="list-compatibility">
+          <app-setpoint-list></app-setpoint-list>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  

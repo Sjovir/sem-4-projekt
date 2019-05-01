@@ -69,7 +69,31 @@ input[type=number] {
 input[type=text] {
   width: 100%;
   text-align: center;
+  
 
 }
 
+.timeCardTitle{
+  
+  text-align:center;
+}
+
+.responseMessageP {
+  float:left;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.timeCard {
+  width:25%;
+}
+
+.setPointTimeCard {
+  width:25%;
+  float:right;
+}
+
+.lightSetpoints {
+
+}
 
