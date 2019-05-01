@@ -1,29 +1,26 @@
-<div class="jumbotron">
+<div class="setpoints jumbotron">
   <h3>Light</h3>
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">Blue light</h4>
       <div class="slidecontainer">
         <input type="range" #sliderBlue min="0" max="100" value="" [(ngModel)]="blue" class="slider" (change)="onSlideListenerBlue(sliderBlue.value)">
-        <input type="text" value={{blue}} [(ngModel)]="blue" (change)="onSlideListenerBlue(sliderBlue.value)" />
+        <input type="number" value={{blue}} [(ngModel)]="blue" (change)="onSlideListenerBlue(sliderBlue.value)" />
       </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
       <h4 class="card-title">Red light</h4>
       <div class="slidecontainer">
         <input type="range" #sliderRed min="0" max="100" value="" [(ngModel)]="red" class="slider" (change)="onSlideListenerRed(sliderRed.value)">
-        <input type="text" value={{red}} [(ngModel)]="red" (change)="onSlideListenerRed(sliderRed.value)" />
+        <input type="number" value={{red}} [(ngModel)]="red" (change)="onSlideListenerRed(sliderRed.value)" />
       </div>
     </div>
   </div>
-  <div class="card">
+  <div class="card" (change)="checkFields()">
     <div class="card-body">
-      <h4 class="card-title">Time</h4>
-      <div class="slidecontainer">
-        <input type="range" #sliderTime min="0" max="100" value="" [(ngModel)]="time" class="slider" (change)="onSlideListenerMin(sliderTime.value)">
-        <input type="text" value={{time}} [(ngModel)]="time" (change)="onSlideListenerTime(sliderTime.value)" />
-      </div>
+      <h4 class="card-title">Time (in format hh:mm)</h4>
+      <input type="text" id="time" placeholder="E.g.: 10:20" />
     </div>
+    <div>
+      <p class="responseMessageP">{{responseMessage}}</p>
+    </div>
+
   </div>

@@ -1,20 +1,20 @@
 
-<div class="container">
-  <div class="row"><app-greenhouse-list></app-greenhouse-list></div>
+<div class="setpointsDiv container">
+  <div class="row">
 
-  <div class="row" a>
-    
-  <div class="col-4 l "><app-temperature-setpoint></app-temperature-setpoint></div>
+    <div class="listColumn col-4">
+      <app-greenhouse-list></app-greenhouse-list>
+    </div>
 
-  <div class="col-4 c"><app-light-setpoint></app-light-setpoint></div>
+    <div class="sd col-8">
+      <app-temperature-setpoint></app-temperature-setpoint>
+      <app-humidity-setpoint></app-humidity-setpoint>
+      <app-light-setpoint></app-light-setpoint>
 
-  <div class="col-4 r"><app-humidity-setpoint></app-humidity-setpoint></div>
 
 
-
-
+    </div>
+    <button type="submit" class="btn btn-primary mb-2 setSetpointButton">Create new setpoint</button>
 
   </div>
-
-
-  </div>
+</div>

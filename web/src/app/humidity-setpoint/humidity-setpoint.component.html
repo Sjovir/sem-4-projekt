@@ -1,38 +1,31 @@
-<div class="jumbotron">
+<div class="setpoints jumbotron">
   <h3>Humidity</h3>
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">Min</h4>
       <div class="slidecontainer">
         <input type="range" #sliderMin min="0" max="100" value="" [(ngModel)]="humidityMin" class="slider" (change)="onSlideListenerMin(sliderMin.value)">
-        <input type="text" value={{humidityMin}} [(ngModel)]="humidityMin" (change)="onSlideListenerMin(sliderMin.value)" />
+        <input type="number" value={{humidityMin}} [(ngModel)]="humidityMin" (change)="onSlideListenerMin(sliderMin.value)" />
       </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
       <h4 class="card-title">Max</h4>
       <div class="slidecontainer">
         <input type="range" #sliderMax min="0" max="100" value="" [(ngModel)]="humidityMax" class="slider" (change)="onSlideListenerMax(sliderMax.value)">
-        <input type="text" value={{humidityMax}} [(ngModel)]="humidityMax" (change)="onSlideListenerMax(sliderMax.value)" />
+        <input type="number" value={{humidityMax}} [(ngModel)]="humidityMax" (change)="onSlideListenerMax(sliderMax.value)" />
       </div>
     </div>
   </div>
+  
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">Alarm Minimum Value</h4>
       <div class="slidecontainer">
         <input type="range" #sliderAlarmMin min="0" max="100" value="" [(ngModel)]="humidityAlarmMin" class="slider" (change)="onSlideListenerAlarmMin(sliderAlarmMin.value)">
-        <input type="text" value={{humidityAlarmMin}} [(ngModel)]="humidityAlarmMin" (change)="onSlideListenerAlarmMin(sliderAlarmMin.value)" />
+        <input type="number" value={{humidityAlarmMin}} [(ngModel)]="humidityAlarmMin" (change)="onSlideListenerAlarmMin(sliderAlarmMin.value)" />
       </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
       <h4 class="card-title">Alarm Maximum Value</h4>
       <div class="slidecontainer">
         <input type="range" #sliderAlarmMax min="0" max="100" value="" [(ngModel)]="humidityAlarmMax" class="slider" (change)="onSlideListenerAlarmMax(sliderAlarmMax.value)">
-        <input type="text" value={{humidityAlarmMax}} [(ngModel)]="humidityAlarmMax" (change)="onSlideListenerAlarmMax(sliderAlarmMax.value)" />
+        <input type="number" value={{humidityAlarmMax}} [(ngModel)]="humidityAlarmMax" (change)="onSlideListenerAlarmMax(sliderAlarmMax.value)" />
       </div>
     </div>
   </div>
