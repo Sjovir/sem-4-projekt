@@ -69,6 +69,15 @@ export class SetupGreenhouseComponent implements OnInit {
   async doRestCall(ipAddress: string, port: number, location: string, name: string) {
     const res = await this.dataService.setupGreenhouse(ipAddress, port, location, name).toPromise();
     console.log("REST CALL");
+    this.writeGmsConnection();
+    return true;
+  }
+
+  async writeGmsConnection() {
+    const res = await this.dataService.getGreenhouses().toPromise();
+    var greenhouses=JSON.parse(res);
+    var id=greenhouses[greenhouses.length-1].id;
+    var resCall = await this.dataService.writeGmsConnection(id,"10.123.3.53",7001).toPromise();
     return true;
   }
 }

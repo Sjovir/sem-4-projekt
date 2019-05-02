@@ -120,7 +120,7 @@ public class APIHandler {
             if (time.length() > 5)
                 throw new NumberFormatException("Too many characters in start time parameter: " + time);
 
-            LightSetpointDTO lightSetPointDTO = new LightSetpointDTO(dateCreated, id, blueValue, redValue, time);
+            LightSetpointDTO lightSetPointDTO = new LightSetpointDTO(dateCreated, id, redValue, blueValue, time);
 
             boolean success = gms.addLightSetPoint(id, lightSetPointDTO);
             if (success)
