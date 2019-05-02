@@ -41,7 +41,7 @@
     border-radius: 50%;
     background: #4CAF50;
     cursor: pointer;
-    
+
   }
 
 .card-title {
@@ -54,20 +54,20 @@
 
 .card-body {
   text-align: center;
-  
- 
-  
-  
+
+
+
+
 }
 
 h3 {
   text-align:center;
   margin:4px;
   margin-top:4px;
-  
+
 }
 
 input[type=number] {
-  width: 150%;
+  width: 250%;
   text-align: center;
 }
