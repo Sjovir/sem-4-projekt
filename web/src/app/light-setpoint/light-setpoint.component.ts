@@ -48,7 +48,6 @@ export class LightSetpointComponent implements OnInit {
     let setpoints = await this.dataService.getGreenhouseSetpoints(greenhouseid).toPromise();
 
     this.lightSetpointsTable.onSelect(JSON.parse(setpoints));
-    console.log(greenhouseid);
   }
 
   
@@ -63,8 +62,6 @@ export class LightSetpointComponent implements OnInit {
       this.responseMessage = "Please enter a valid time for this setpoint.";
       return false;
     }
-
-    console.log("Time set to: " + selectedTime);
     this.responseMessage = "Time set to: " + selectedTime;
     this.time=selectedTime;
     return true;
