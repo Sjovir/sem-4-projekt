@@ -18,10 +18,6 @@ export class LightSetpointComponent implements OnInit {
 
   public selectedGreenhouse: Greenhouse;
 
-
-  
-  @Output() selectedEvent = new EventEmitter<number>();
-
   @ViewChild(SetpointListComponent)
   private lightSetpointsTable: SetpointListComponent;
 
