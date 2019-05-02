@@ -48,8 +48,6 @@ export class TemperatureSetpointComponent implements OnInit {
 
   public injectSetpoints(obj){
     this.dataService.getGreenhouseSetpoints(obj).subscribe(setpoints =>{
-      console.log("Setpoint::")
-      console.log(setpoints);
       setpoints=JSON.parse(setpoints);
       if(setpoints.temperatureSetpoint!==null){
         this.temperatureAlarmMax =setpoints.temperatureSetpoint.alarmMax;

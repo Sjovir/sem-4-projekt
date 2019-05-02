@@ -30,10 +30,10 @@ export class SetpointListComponent implements OnInit {
   onSelect(setpoints: Setpoint) {
     this.setpoints = setpoints;
     this.setpoints.lightSetpoints.sort(this.compare);
-
-    console.log("hej22" + setpoints);
-    console.log("df" + setpoints.lightSetpoints);
-    console.log("temperature" + setpoints.temperatureSetpoint);
+    //
+    // console.log("hej22" + setpoints);
+    // console.log("df" + setpoints.lightSetpoints);
+    // console.log("temperature" + setpoints.temperatureSetpoint);
   }
 
   compare(a, b) {
