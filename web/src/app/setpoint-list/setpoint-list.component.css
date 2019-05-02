@@ -5,7 +5,7 @@
   height: 100px;
   width: 100%;
   padding: 0px;
-  
+
 }
 
 ::-webkit-scrollbar {
@@ -32,7 +32,11 @@
   font-size: 12px;
   height: 30px;
   margin: 4px;
-  
+
   padding: 0 ;
   vertical-align:middle;
+}
+
+.mySetpointP {
+  font-size: 11px;
 }
