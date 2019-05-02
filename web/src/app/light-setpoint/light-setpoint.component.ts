@@ -3,6 +3,7 @@ import { DataService } from '../services/data.service';
 import { Greenhouse } from '../../greenhouse';
 import { Setpoint } from 'src/setpoint';
 import { SetpointListComponent } from '../setpoint-list/setpoint-list.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-light-setpoint',
@@ -15,6 +16,7 @@ export class LightSetpointComponent implements OnInit {
   public red = 50;
   public time: string;
   public responseMessage: string;
+  private greenhouseid=-1;
 
   public selectedGreenhouse: Greenhouse;
 
@@ -41,6 +43,7 @@ export class LightSetpointComponent implements OnInit {
     //  this.setpoints = JSON.parse(setpoints)
       
     //});
+    this.greenhouseid=greenhouseid;
 
     let setpoints = await this.dataService.getGreenhouseSetpoints(greenhouseid).toPromise();
 
@@ -57,19 +60,19 @@ export class LightSetpointComponent implements OnInit {
     var validTime = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(selectedTime);
 
     if (validTime != true) {
-      console.log(selectedTime);
       this.responseMessage = "Please enter a valid time for this setpoint.";
       return false;
     }
 
     console.log("Time set to: " + selectedTime);
     this.responseMessage = "Time set to: " + selectedTime;
+    this.time=selectedTime;
     return true;
   }
 
-  public writeSetPoint(){
-    if(this.selectedGreenhouse){
-      this.dataService.writeLightSetpoint(this.selectedGreenhouse.id,this.blue,this.red,this.time);
+  public writeSetPoint():Observable<any>{
+    if(this.greenhouseid!==1){
+      return this.dataService.writeLightSetpoint(this.greenhouseid,Number(this.blue),Number(this.red),this.time);
     }
   }
 

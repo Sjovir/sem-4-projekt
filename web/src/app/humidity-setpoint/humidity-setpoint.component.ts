@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-humidity-setpoint',
@@ -47,12 +48,9 @@ export class HumiditySetpointComponent implements OnInit {
     });
 
   }
-  public writeSetpoint(){
+  public writeSetpoint():Observable<any>{
     if(!(this.greenhouseid===-1)){
-      this.dataService.writeHumiditySetpoint(this.greenhouseid, this.humidityMin, this.humidityMax, this.humidityAlarmMin, this.humidityAlarmMax)
-      .subscribe(response=>{
-        console.log(response);
-      });
+      return this.dataService.writeHumiditySetpoint(this.greenhouseid, Number(this.humidityMin), Number(this.humidityMax), Number(this.humidityAlarmMin), Number(this.humidityAlarmMax));
     }
   }
 

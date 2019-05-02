@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 /* GreenhouseManagement components, including the greenhouse list:*/
 .greenhouseManagement {
   color: black;
@@ -23,8 +22,5 @@
   margin-bottom: 8px;
   padding:4px;
   padding-bottom:5px;
- 
-
-  
 }
 

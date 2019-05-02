@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { DataService } from '../services/data.service';
+import { Observable } from 'rxjs';
 
 
 
@@ -62,9 +63,9 @@ export class TemperatureSetpointComponent implements OnInit {
 
   }
 
-  public writeSetpoint(){
+  public writeSetpoint():Observable<any>{
     if(!(this.greenhouseid===-1)){
-      this.dataService.writeHumiditySetpoint(this.greenhouseid, this.temperatureMin, this.temperatureMax, this.temperatureAlarmMin, this.temperatureAlarmMax);
+      return this.dataService.writeTemperatureSetpoint(this.greenhouseid, Number(this.temperatureMin), Number(this.temperatureMax), Number(this.temperatureAlarmMin), Number(this.temperatureAlarmMax));
     }
   }
 

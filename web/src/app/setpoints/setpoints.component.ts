@@ -21,7 +21,11 @@ export class SetpointsComponent implements OnInit {
   private tempSetpoint:TemperatureSetpointComponent;
 
   @ViewChild(HumiditySetpointComponent)
-  private humSetPoint:TemperatureSetpointComponent;
+  private humSetPoint:HumiditySetpointComponent;
+
+  public tempSpinner:boolean =false;
+  public humSpinner:boolean=false;
+  public lightSpinner:boolean=false;
 
   constructor(private dataService: DataService) { }
 
@@ -36,9 +40,26 @@ export class SetpointsComponent implements OnInit {
   } 
 
   createSetPoints(){
-    this.tempSetpoint.writeSetpoint();
-    this.humSetPoint.writeSetpoint();
-    this.lightSetpointsTable.writeSetPoint();
+    this.tempSpinner=true;
+    this.tempSetpoint.writeSetpoint().subscribe(response=>{
+      if(response===null){
+        this.tempSpinner=false;
+      }
+    });
+
+    this.humSpinner=true;
+    this.humSetPoint.writeSetpoint().subscribe(response=>{
+      if(response===null){
+        this.humSpinner=false;
+      }
+    });
+    
+    this.lightSpinner=true;
+    this.lightSetpointsTable.writeSetPoint().subscribe(response=>{
+      if(response===null){
+        this.lightSpinner=false;
+      }
+    });
   }
 
 }
