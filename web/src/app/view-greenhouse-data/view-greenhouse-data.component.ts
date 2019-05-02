@@ -20,7 +20,6 @@ export class ViewGreenhouseDataComponent implements OnInit {
   onSelect(greenhouseid:number){
     this.greenhouseService.getGreenhouseData(greenhouseid).subscribe(greenhouse=>{
       this.selectedGreenhouse=JSON.parse(greenhouse);
-      console.log(this.selectedGreenhouse);
     });
   }
 }
