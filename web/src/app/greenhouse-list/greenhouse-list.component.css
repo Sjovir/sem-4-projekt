@@ -50,3 +50,8 @@
   overflow: scroll;
   overflow-x: hidden;
 }
+
+.greenhouseButton:focus {
+  background-color: #cccccc;
+  outline: none;
+}
