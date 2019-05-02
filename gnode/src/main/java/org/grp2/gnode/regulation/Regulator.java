@@ -39,15 +39,15 @@ public class Regulator implements Runnable {
         this.greenhouseController = greenhouseController;
 
         lastHumidityValue = greenhouseController.readValue(Action.READ_HUMIDITY);
-//        lastTemperatureValue = greenhouseController.readValue(Action.READ_TEMPERATURE);
+        lastTemperatureValue = greenhouseController.readValue(Action.READ_TEMPERATURE);
 
-        feeder = new Feeder();
-        lastTemperatureValue = feeder.getValue();
-
-        Thread feederThread = new Thread(feeder);
-        feederThread.start();
-
-        addTemperatureSetPoint(25, 35, 10, 90);
+//        feeder = new Feeder();
+//        lastTemperatureValue = feeder.getValue();
+//
+//        Thread feederThread = new Thread(feeder);
+//        feederThread.start();
+//
+//        addTemperatureSetPoint(25, 35, 10, 90);
     }
 
     public void start() {
@@ -121,7 +121,7 @@ public class Regulator implements Runnable {
 //        lastHumidityValue = greenhouseController.readValue(Action.READ_HUMIDITY);
 //        lastTemperatureValue = greenhouseController.readValue(Action.READ_TEMPERATURE);
 
-        lastTemperatureValue = feeder.getValue();
+//        lastTemperatureValue = feeder.getValue();
 
         intervalTime++;
     }
@@ -167,8 +167,8 @@ public class Regulator implements Runnable {
     }
 
     private void regulateTemperature() {
-//        double temperature = greenhouseController.readValue(Action.READ_TEMPERATURE);
-        double temperature = feeder.getValue();
+        double temperature = greenhouseController.readValue(Action.READ_TEMPERATURE);
+//        double temperature = feeder.getValue();
 
         double middle = (temperatureSetpoint.maxValue - temperatureSetpoint.minValue) / 2 + temperatureSetpoint.minValue;
 
@@ -199,7 +199,7 @@ public class Regulator implements Runnable {
 
     private void setTemperature(double value) {
         greenhouseController.writeValue(Action.WRITE_TEMPERATURE, value);
-        feeder.setSetpoint(value);
+//        feeder.setSetpoint(value);
         lastTemperatureSetpoint = value;
     }
 
