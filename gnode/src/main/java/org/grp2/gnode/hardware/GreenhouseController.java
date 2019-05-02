@@ -26,7 +26,7 @@ public class GreenhouseController {
     public Double readValue (Action action) {
         switch (action) {
             case READ_TEMPERATURE:
-                return greenhouse.ReadTemp1();
+                return greenhouse.ReadTemp1() - 273;
             case READ_HUMIDITY:
                 return greenhouse.ReadMoist();
             case READ_BLUE_LIGHT:
