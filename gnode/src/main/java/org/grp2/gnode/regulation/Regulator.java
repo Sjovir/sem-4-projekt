@@ -38,9 +38,6 @@ public class Regulator implements Runnable {
     public Regulator(GreenhouseController greenhouseController) {
         this.greenhouseController = greenhouseController;
 
-        lastHumidityValue = greenhouseController.readValue(Action.READ_HUMIDITY);
-        lastTemperatureValue = greenhouseController.readValue(Action.READ_TEMPERATURE);
-
 //        feeder = new Feeder();
 //        lastTemperatureValue = feeder.getValue();
 //
@@ -52,6 +49,9 @@ public class Regulator implements Runnable {
 
     public void start() {
         automationActive = true;
+
+        lastHumidityValue = greenhouseController.readValue(Action.READ_HUMIDITY);
+        lastTemperatureValue = greenhouseController.readValue(Action.READ_TEMPERATURE);
         //postman test
         System.out.println("START REGULATOR");
     }
@@ -215,9 +215,15 @@ public class Regulator implements Runnable {
 
         setPointsBeforeTime.sort(Comparator.comparing(LightSetPoint::getTime));
 
-        if (currentLightSetpoint != setPointsBeforeTime.get(setPointsBeforeTime.size() - 1))
+        double blueValue = greenhouseController.readValue(Action.READ_BLUE_LIGHT);
+        double redValue = greenhouseController.readValue(Action.READ_RED_LIGHT);
+
+        LightSetPoint newLightSetpoint = setPointsBeforeTime.get(setPointsBeforeTime.size() - 1);
+
+        if (currentLightSetpoint != newLightSetpoint || blueValue != newLightSetpoint.getBlueValue()
+                || redValue != newLightSetpoint.getRedValue())
         {
-            currentLightSetpoint = setPointsBeforeTime.get(setPointsBeforeTime.size() - 1);
+            currentLightSetpoint = newLightSetpoint;
             greenhouseController.writeValue(Action.WRITE_BLUE_LIGHT, currentLightSetpoint.getBlueValue());
             greenhouseController.writeValue(Action.WRITE_RED_LIGHT, currentLightSetpoint.getRedValue());
         }
