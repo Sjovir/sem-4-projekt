@@ -48,11 +48,15 @@ export class TemperatureSetpointComponent implements OnInit {
 
   public injectSetpoints(obj){
     this.dataService.getGreenhouseSetpoints(obj).subscribe(setpoints =>{
+      console.log("Setpoint::")
+      console.log(setpoints);
       setpoints=JSON.parse(setpoints);
-      this.temperatureAlarmMax =setpoints.temperatureSetpoint.alarmMax;
-      this.temperatureAlarmMin =setpoints.temperatureSetpoint.alarmMin;
-      this.temperatureMax=setpoints.temperatureSetpoint.max;
-      this.temperatureMin=setpoints.temperatureSetpoint.min;
+      if(setpoints.temperatureSetpoint!==null){
+        this.temperatureAlarmMax =setpoints.temperatureSetpoint.alarmMax;
+        this.temperatureAlarmMin =setpoints.temperatureSetpoint.alarmMin;
+        this.temperatureMax=setpoints.temperatureSetpoint.max;
+        this.temperatureMin=setpoints.temperatureSetpoint.min;
+      }
 
     });
 
