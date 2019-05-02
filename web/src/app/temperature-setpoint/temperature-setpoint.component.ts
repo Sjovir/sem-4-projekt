@@ -25,12 +25,12 @@ import { DataService } from '../services/data.service';
 
 export class TemperatureSetpointComponent implements OnInit {
 
-  public temperatureMin = 50; //get realtime values from database
-  public temperatureMax = 50; //get realtime values from database
+  public temperatureMin = 15; //get realtime values from database
+  public temperatureMax = 15; //get realtime values from database
   public temperatureAlarmMin = 50; //get realtime values from database
   public temperatureAlarmMax = 50; //get realtime values from database
   private greenhouseid=-1;
-  
+
 
   constructor(private dataService: DataService) { }
 

@@ -61,20 +61,20 @@ h3 {
 }
 
 input[type=number] {
-  width: 150%;
+  width: 250%;
   text-align:center;
-  
+
 }
 
 input[type=text] {
   width: 100%;
   text-align: center;
-  
+
 
 }
 
 .timeCardTitle{
-  
+
   text-align:center;
 }
 
@@ -91,9 +91,9 @@ input[type=text] {
 .setPointTimeCard {
   width:25%;
   float:right;
+  margin-top: 3px;
 }
 
 .lightSetpoints {
 
 }
-

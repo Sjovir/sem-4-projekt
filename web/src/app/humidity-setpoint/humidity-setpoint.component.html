@@ -4,17 +4,17 @@
     <div class="card-body">
       <h4 class="card-title">Min</h4>
       <div class="slidecontainer">
-        <input type="range" #sliderMin min="0" max="100" value="" [(ngModel)]="humidityMin" class="slider" (change)="onSlideListenerMin(sliderMin.value)">
-        <input type="number" value={{humidityMin}} [(ngModel)]="humidityMin" (change)="onSlideListenerMin(sliderMin.value)" />
+        <input type="range" #sliderMin min="10" max="90" value="" [(ngModel)]="humidityMin" class="slider" (change)="onSlideListenerMin(sliderMin.value)">
+        <input type="number" class="sliderInput"  value={{humidityMin}} [(ngModel)]="humidityMin" (change)="onSlideListenerMin(sliderMin.value)" />
       </div>
       <h4 class="card-title">Max</h4>
       <div class="slidecontainer">
-        <input type="range" #sliderMax min="0" max="100" value="" [(ngModel)]="humidityMax" class="slider" (change)="onSlideListenerMax(sliderMax.value)">
+        <input type="range" #sliderMax min="10" max="90" value="" [(ngModel)]="humidityMax" class="slider" (change)="onSlideListenerMax(sliderMax.value)">
         <input type="number" value={{humidityMax}} [(ngModel)]="humidityMax" (change)="onSlideListenerMax(sliderMax.value)" />
       </div>
     </div>
   </div>
-  
+
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">Alarm Minimum Value</h4>

@@ -1,17 +1,17 @@
 
 <div class="setpoints jumbotron">
-  
+
   <h3 >Temperature</h3>
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">Min</h4>
       <div class="slidecontainer">
-        <input type="range" #sliderMin min="0" max="100" value="" [(ngModel)]="temperatureMin" class="slider" (change)="onSlideListenerMin(sliderMin.value)">
+        <input type="range" #sliderMin min="0" max="30" value="" [(ngModel)]="temperatureMin" class="slider" (change)="onSlideListenerMin(sliderMin.value)">
         <input type="number" value={{temperatureMin}} [(ngModel)]="temperatureMin" (change)="onSlideListenerMin(sliderMin.value)" />
       </div>
       <h4 class="card-title">Max</h4>
       <div class="slidecontainer">
-        <input type="range" #sliderMax min="0" max="100" value="" [(ngModel)]="temperatureMax" class="slider" (change)="onSlideListenerMax(sliderMax.value)">
+        <input type="range" #sliderMax min="0" max="30" value="" [(ngModel)]="temperatureMax" class="slider" (change)="onSlideListenerMax(sliderMax.value)">
         <input type="number" value={{temperatureMax}} [(ngModel)]="temperatureMax" (change)="onSlideListenerMax(sliderMax.value)" />
       </div>
     </div>
@@ -31,4 +31,3 @@
     </div>
   </div>
 </div>
-
