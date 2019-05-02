@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { LightSetpointComponent } from '../light-setpoint/light-setpoint.component';
 import { TemperatureSetpointComponent } from '../temperature-setpoint/temperature-setpoint.component';
 import { HumiditySetpointComponent } from '../humidity-setpoint/humidity-setpoint.component';
+import { DataService } from '../services/data.service';
 
 
 
@@ -21,7 +22,8 @@ export class SetpointsComponent implements OnInit {
 
   @ViewChild(HumiditySetpointComponent)
   private humSetPoint:TemperatureSetpointComponent;
-  constructor() { }
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
     
@@ -32,5 +34,11 @@ export class SetpointsComponent implements OnInit {
     this.humSetPoint.injectSetpoints($event);
    
   } 
+
+  createSetPoints(){
+    this.tempSetpoint.writeSetpoint();
+    this.humSetPoint.writeSetpoint();
+    this.lightSetpointsTable.writeSetPoint();
+  }
 
 }

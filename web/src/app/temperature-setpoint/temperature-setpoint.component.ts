@@ -29,6 +29,7 @@ export class TemperatureSetpointComponent implements OnInit {
   public temperatureMax = 50; //get realtime values from database
   public temperatureAlarmMin = 50; //get realtime values from database
   public temperatureAlarmMax = 50; //get realtime values from database
+  private greenhouseid=-1;
   
 
   constructor(private dataService: DataService) { }
@@ -47,9 +48,8 @@ export class TemperatureSetpointComponent implements OnInit {
   }
 
   public injectSetpoints(obj){
+    this.greenhouseid=obj;
     this.dataService.getGreenhouseSetpoints(obj).subscribe(setpoints =>{
-      console.log("Setpoint::")
-      console.log(setpoints);
       setpoints=JSON.parse(setpoints);
       if(setpoints.temperatureSetpoint!==null){
         this.temperatureAlarmMax =setpoints.temperatureSetpoint.alarmMax;
@@ -60,6 +60,12 @@ export class TemperatureSetpointComponent implements OnInit {
 
     });
 
+  }
+
+  public writeSetpoint(){
+    if(!(this.greenhouseid===-1)){
+      this.dataService.writeHumiditySetpoint(this.greenhouseid, this.temperatureMin, this.temperatureMax, this.temperatureAlarmMin, this.temperatureAlarmMax);
+    }
   }
 
 

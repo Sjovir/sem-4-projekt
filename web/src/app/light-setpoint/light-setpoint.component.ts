@@ -62,15 +62,15 @@ export class LightSetpointComponent implements OnInit {
       return false;
     }
 
-    this.doRestCall();
     console.log("Time set to: " + selectedTime);
     this.responseMessage = "Time set to: " + selectedTime;
     return true;
   }
 
-  doRestCall() {
-    console.log("REST CALL");
-    return true;
+  public writeSetPoint(){
+    if(this.selectedGreenhouse){
+      this.dataService.writeLightSetpoint(this.selectedGreenhouse.id,this.blue,this.red,this.time);
+    }
   }
 
 }

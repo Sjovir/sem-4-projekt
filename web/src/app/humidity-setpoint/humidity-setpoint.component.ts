@@ -12,6 +12,7 @@ export class HumiditySetpointComponent implements OnInit {
   public humidityMax = 50;
   public humidityAlarmMin = 50;
   public humidityAlarmMax = 50;
+  private greenhouseid=-1;
 
   constructor(private dataService:DataService) { }
 
@@ -33,6 +34,7 @@ export class HumiditySetpointComponent implements OnInit {
   }
 
   public injectSetpoints(obj){
+    this.greenhouseid=obj;
     this.dataService.getGreenhouseSetpoints(obj).subscribe(setpoints =>{
       setpoints=JSON.parse(setpoints);
       if(setpoints.humiditySetpoint!==null){
@@ -44,6 +46,14 @@ export class HumiditySetpointComponent implements OnInit {
 
     });
 
+  }
+  public writeSetpoint(){
+    if(!(this.greenhouseid===-1)){
+      this.dataService.writeHumiditySetpoint(this.greenhouseid, this.humidityMin, this.humidityMax, this.humidityAlarmMin, this.humidityAlarmMax)
+      .subscribe(response=>{
+        console.log(response);
+      });
+    }
   }
 
 }
