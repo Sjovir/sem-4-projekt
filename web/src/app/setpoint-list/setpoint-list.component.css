@@ -1,0 +1,42 @@
+.setpointListView {
+  float:right;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 100px;
+  width: 100%;
+  padding: 0px;
+
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+.list-group-item-action{
+  font-size: 12px;
+  height: 70%;
+  margin: 0px;
+
+  padding: 0 ;
+  vertical-align:middle;
+}
+
+.mySetpointP {
+  font-size: 10px;
+}

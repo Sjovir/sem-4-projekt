@@ -1,3 +1,42 @@
-<p>
-  light-setpoint works!
-</p>
+<div class="setpoints lightSetpoints jumbotron">
+  <h3>Light</h3>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Blue light</h4>
+      <div class="slidecontainer">
+        <input type="range" #sliderBlue min="0" max="100" value="" [(ngModel)]="blue" class="slider" (change)="onSlideListenerBlue(sliderBlue.value)">
+        <input type="number" value={{blue}} [(ngModel)]="blue" (change)="onSlideListenerBlue(sliderBlue.value)" />
+      </div>
+      <h4 class="card-title">Red light</h4>
+      <div class="slidecontainer">
+        <input type="range" #sliderRed min="0" max="100" value="" [(ngModel)]="red" class="slider" (change)="onSlideListenerRed(sliderRed.value)">
+        <input type="number" value={{red}} [(ngModel)]="red" (change)="onSlideListenerRed(sliderRed.value)" />
+      </div>
+    </div>
+  </div>
+  <div class="card timeCard" (change)="checkFields()">
+    <div class="card-body">
+      <h4 class="card-title timeCardTitle">Start time (in format hh:mm)</h4>
+      <input type="text" id="time" placeholder="E.g.: 10:20" />
+    </div>
+
+    <div>
+      <p class="responseMessageP">{{responseMessage}}</p>
+    </div>
+   
+
+
+  </div>
+  
+  <div class="card setPointTimeCard">
+    <div class="card-body">
+      <div class="list-group list-group-flush">
+        <div class="list-compatibility">
+          <app-setpoint-list></app-setpoint-list>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  

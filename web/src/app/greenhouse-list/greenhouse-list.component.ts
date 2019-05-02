@@ -14,7 +14,7 @@ export class GreenhouseListComponent implements OnInit {
 
   constructor(private greenhouseService:DataService) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.greenhouseService.getGreenhouses().subscribe(greenhouses=>
       this.greenhouses=JSON.parse(greenhouses)
     );

@@ -1,0 +1,36 @@
+.setpointsDiv {
+  margin: 0 auto;
+  
+}
+
+.listColumn {
+  margin: 0 auto;
+  
+}
+
+.sd {
+  margin:0 auto;
+
+}
+
+.spinner{
+  width:60px;
+  height:60px;
+  float: left;
+}
+.spin-div{
+  margin-left: 1%;
+  height: 60px;
+  float: left;
+  width: 60%;
+}
+
+.setSetpointButton {
+  background-color: green;
+  color: white;
+  font-size: 25px;
+  margin-left: 1%;
+  height: 60px;
+  float: left;
+  width: 60%;
+}

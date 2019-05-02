@@ -1,3 +1,29 @@
-<p>
-  setpoints works!
-</p>
+
+<div class="setpointsDiv container">
+  <div class="row">
+
+    <div class="listColumn col-4">
+      <div class="list-compatibility">
+        <app-greenhouse-list (selectedEvent)="receiveGreenhouseID($event)"></app-greenhouse-list>
+      </div>
+    </div>
+
+    <div class="sd col-8">
+      <app-temperature-setpoint></app-temperature-setpoint>
+      <app-humidity-setpoint></app-humidity-setpoint>
+      <app-light-setpoint>
+       
+      </app-light-setpoint>
+      
+
+
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2 setSetpointButton" (click)="createSetPoints()">Create new setpoint</button>
+    <div class="spin-div">
+      <img class="spinner" src="../../assets/greenspinner.gif" *ngIf="tempSpinner"/>   
+      <img class="spinner" src="../../assets/greenspinner.gif" *ngIf="humSpinner"/> 
+      <img class="spinner" src="../../assets/greenspinner.gif" *ngIf="lightSpinner"/> 
+    </div>
+  </div>
+</div>

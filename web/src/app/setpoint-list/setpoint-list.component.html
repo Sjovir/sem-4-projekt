@@ -1,0 +1,17 @@
+<div *ngIf="setpoints !== undefined">
+  <p class="mySetpointP">
+    Blue | Red | StartTime
+  </p>
+</div>
+<div class="jumbotron setpointListView">
+  <div class="card">
+    <div class="list-group list-group-flush">
+      <div *ngIf="setpoints !== undefined">
+        <!-- <p class="mySetpointP">blue red starttime</p> -->
+        <p *ngFor="let setpoint of setpoints.lightSetpoints" class="list-group-item list-group-item-action">
+          {{setpoint.red}} | {{setpoint.blue}} | {{setpoint.startTime}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
