@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { DataService } from '../services/data.service';
+import { DateFormatterService } from '../services/date-formatter.service';
 import { Greenhouse } from 'src/greenhouse';
 
 @Component({
@@ -10,7 +11,8 @@ import { Greenhouse } from 'src/greenhouse';
 export class ViewGreenhouseDataComponent implements OnInit {
 
   public selectedGreenhouse:Greenhouse;
-  constructor(private greenhouseService: DataService) { }
+  constructor(private greenhouseService: DataService,
+              private dateFormatter:DateFormatterService) { }
 
   ngOnInit() {
   }
