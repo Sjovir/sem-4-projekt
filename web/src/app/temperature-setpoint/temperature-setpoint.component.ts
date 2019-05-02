@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { DataService } from '../services/data.service';
 
 
 
@@ -30,7 +31,7 @@ export class TemperatureSetpointComponent implements OnInit {
   public temperatureAlarmMax = 50; //get realtime values from database
   
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   onSlideListenerMin(val) {
       this.temperatureMin = val;
@@ -45,6 +46,17 @@ export class TemperatureSetpointComponent implements OnInit {
     this.temperatureAlarmMax = val;
   }
 
+  public injectSetpoints(obj){
+    this.dataService.getGreenhouseSetpoints(obj).subscribe(setpoints =>{
+      setpoints=JSON.parse(setpoints);
+      this.temperatureAlarmMax =setpoints.temperatureSetpoint.alarmMax;
+      this.temperatureAlarmMin =setpoints.temperatureSetpoint.alarmMin;
+      this.temperatureMax=setpoints.temperatureSetpoint.max;
+      this.temperatureMin=setpoints.temperatureSetpoint.min;
+
+    });
+
+  }
 
 
   ngOnInit() {

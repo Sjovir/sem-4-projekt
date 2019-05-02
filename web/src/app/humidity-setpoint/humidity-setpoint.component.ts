@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-humidity-setpoint',
@@ -12,7 +13,7 @@ export class HumiditySetpointComponent implements OnInit {
   public humidityAlarmMin = 50;
   public humidityAlarmMax = 50;
 
-  constructor() { }
+  constructor(private dataService:DataService) { }
 
   onSlideListenerMin(val) {
     this.humidityMin = val;
@@ -29,6 +30,18 @@ export class HumiditySetpointComponent implements OnInit {
 
 
   ngOnInit() {
+  }
+
+  public injectSetpoints(obj){
+    this.dataService.getGreenhouseSetpoints(obj).subscribe(setpoints =>{
+      setpoints=JSON.parse(setpoints);
+      this.humidityAlarmMax =setpoints.humiditySetpoint.alarmMax;
+      this.humidityAlarmMin =setpoints.humiditySetpoint.alarmMin;
+      this.humidityMax=setpoints.humiditySetpoint.max;
+      this.humidityMin=setpoints.humiditySetpoint.min;
+
+    });
+
   }
 
 }
