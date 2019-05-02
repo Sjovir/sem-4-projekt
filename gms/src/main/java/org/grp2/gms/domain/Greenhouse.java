@@ -125,7 +125,6 @@ public class Greenhouse {
         }
         
         lightSetpointList.add(newLightSetpoint);
-        System.out.println(lightSetpointList.size());
         
         String routeUrl = "write-light-setpoint/" + lightSetPointDTO.getBlue() + "/" + lightSetPointDTO.getRed() + "/"
                 + lightSetPointDTO.getStartTime();
