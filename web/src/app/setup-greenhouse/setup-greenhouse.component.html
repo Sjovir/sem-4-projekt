@@ -18,7 +18,7 @@
         <label for="formGroupName">Name</label>
         <input type="text" class="form-control" formControlName="name" id="formGroupName" placeholder="E.g.: Ballerup5000" ng-keyup="checkFields()">
       </div>
-      <button type="submit" class="btn btn-primary mb-2 formButton">Create Greenhouse</button>
+      <button type="submit" onClick="window.location.reload();" class="btn btn-primary mb-2 formButton">Create Greenhouse</button>
       <div>
         <p class="responseMessageP">{{responseMessage}}</p>
       </div>
