@@ -35,10 +35,12 @@ export class HumiditySetpointComponent implements OnInit {
   public injectSetpoints(obj){
     this.dataService.getGreenhouseSetpoints(obj).subscribe(setpoints =>{
       setpoints=JSON.parse(setpoints);
-      this.humidityAlarmMax =setpoints.humiditySetpoint.alarmMax;
-      this.humidityAlarmMin =setpoints.humiditySetpoint.alarmMin;
-      this.humidityMax=setpoints.humiditySetpoint.max;
-      this.humidityMin=setpoints.humiditySetpoint.min;
+      if(setpoints.humiditySetpoint!==null){
+        this.humidityAlarmMax =setpoints.humiditySetpoint.alarmMax;
+        this.humidityAlarmMin =setpoints.humiditySetpoint.alarmMin;
+        this.humidityMax=setpoints.humiditySetpoint.max;
+        this.humidityMin=setpoints.humiditySetpoint.min;
+      }
 
     });
 
